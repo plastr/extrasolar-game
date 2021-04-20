@@ -7,9 +7,7 @@ From the [postmortem website](http://www.extrasolar.com):
 
 Despite a cult following, the game was never self-sustaining. ... One of the challenges with this type of unusal game is that once it's gone, it's hard for other developers to study it. It's also a shame when a great story disappears from the world."
 
-[Full game credits](https://www.exoresearch.com/credits/)
-
-For more information about the game, visit [What Is Extrasolar?](https://www.whatisextrasolar.com)
+For more information about the game, visit [What Is Extrasolar?](https://www.whatisextrasolar.com) or view the [full game credits](https://www.exoresearch.com/credits/)
 
 ### Additional Details
 
