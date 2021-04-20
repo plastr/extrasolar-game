@@ -1,0 +1,2 @@
+{"base":
+ "SELECT msg_type, COUNT(msg_type) AS count, AVG(sent_at) AS avg FROM messages, users WHERE users.user_id=messages.user_id AND users.created >= :start AND users.last_accessed < :inactive_start GROUP BY msg_type ORDER BY avg"}

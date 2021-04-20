@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users_notification SET lure_alert_last_checked=:lure_alert_last_checked WHERE user_id=:user_id"}

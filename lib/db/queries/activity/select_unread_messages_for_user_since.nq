@@ -1,0 +1,2 @@
+{"base":
+ "SELECT message_id FROM messages WHERE user_id=:user_id AND sent_at >= :since AND sent_at <= :until AND read_at IS NULL ORDER BY sent_at DESC"}

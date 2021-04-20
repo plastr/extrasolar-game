@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users_shop SET user_id=:user_id, stripe_customer_id=:stripe_customer_id, stripe_customer_data=:stripe_customer_data"}

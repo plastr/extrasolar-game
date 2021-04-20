@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users_notification SET activity_alert_window_start=:activity_alert_window_start WHERE user_id=:user_id"}

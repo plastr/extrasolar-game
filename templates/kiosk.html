@@ -1,0 +1,411 @@
+<%inherit file="kiosk_base.html"/>
+<%def name="title()">
+    Join Extrasolar
+</%def>
+
+<%def name="head()">
+<link href="/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/leaflet.css')}" rel="stylesheet" />
+<link href="${static_url_version('/css/ce4.style.css')}" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/shared/xri.style.css')}" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/jquery.bocks.css')}" rel="Stylesheet" type="text/css" />
+<link href="/css/kiosk.style.css" rel="Stylesheet" type="text/css" />
+
+<script src="/js/shared/xri.validation.js" type="text/javascript"></script>
+% if use_compiled_javascript:
+<script src="${static_url_version('/js/compiled-libs.js')}" type="text/javascript"></script>
+<script src="${static_url_version('/js/compiled.js')}" type="text/javascript"></script>
+% else:
+<script src="/js/lib/html5.js" type="text/javascript"></script>
+<script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/js/lib/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+<script src="/js/lib/json2.js" type="text/javascript"></script>
+<script src="/js/lib/date.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.tmpl.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.bocks.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.ce4.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.draw.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.draw-mod.js" type="text/javascript"></script>
+<script src="/js/lib/jQueryRotateCompressed.2.2.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.pajinate.min.js" type="text/javascript"></script>
+<script src="/js/lib/dhtmlxcommon.js" type="text/javascript"></script>
+<script src="/js/lib/dhtmlxslider.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.Marker.Rotate.js" type="text/javascript"></script>
+<script src="/js/lib/jparalax-drag.js" type="text/javascript"></script>
+
+<script src="/js/lib/closure/goog/base.js"></script>
+<script src="/js/deps.js" type="text/javascript"></script>
+% endif
+
+<script type="text/javascript">
+    goog.provide('ce4.ui');
+    goog.provide('ce4.kiosk');
+
+    goog.require('ce4.leaflet.ExtraSolarMap');
+    goog.require('ce4.tutorial.Tutorial');
+    goog.require('ce4.game');
+    goog.require('ce4.assets');
+    goog.require('xri.ui');
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function() {
+            // Insert the assets.json data into the ce4.assets namespace, as provided by the templating system
+            var assets_json = ${assets_json_s |n};
+            $.extend(ce4.assets, assets_json);
+
+            var kiosk_urls =  {map_tile:'${map_tile_kiosk_url}'};
+            var kiosk_user = {
+              rovers: new ce4.rover.RoverCollection(),
+              regions: new ce4.region.RegionCollection(),
+              capabilities: new ce4.capability.CapabilityCollection({
+                  "CAP_S1_CAMERA_FLASH": {
+                      "capability_key": "CAP_S1_CAMERA_FLASH",
+                      "free_uses": 0,
+                      "uses": 0,
+                      "unlimited": 1,
+                      "available": 1,
+                      "rover_features": []
+                  },
+                  "CAP_S1_CAMERA_PANORAMA": {
+                      "capability_key": "CAP_S1_CAMERA_PANORAMA",
+                      "free_uses": 0,
+                      "uses": 0,
+                      "unlimited": 0,
+                      "available": 0,
+                      "rover_features": []
+                  },
+                  "CAP_S1_CAMERA_INFRARED": {
+                      "capability_key": "CAP_S1_CAMERA_INFRARED",
+                      "free_uses": 5,
+                      "uses": 0,
+                      "unlimited": 0,
+                      "available": 1,
+                      "rover_features": []
+                  },
+                  "CAP_S1_ROVER_FAST_MOVE": {
+                      "capability_key": "CAP_S1_ROVER_FAST_MOVE",
+                      "free_uses": 3,
+                      "uses": 0,
+                      "unlimited": 0,
+                      "available": 1,
+                      "rover_features": []
+                  }
+              }),
+              progress: new ce4.progress.ProgressCollection(),
+              notdone_missions: function(){return [];},
+              get_recent_map_point: function(){return [6.24118243945904, -109.416362580496];}
+        };
+        tutorial_callbacks = {};
+        tutorial_callbacks[ce4.tutorial.ids.TUT01] = {'tutorial01-step09': function(){ ce4.kiosk.advance("kiosk-step04"); }};
+        tutorial_callbacks[ce4.tutorial.ids.TUT04] = {'tutorial04-step10': function(){ ce4.kiosk.advance("kiosk-step07"); }};
+
+        kiosk_user.tutorial = new ce4.tutorial.Tutorial({user: kiosk_user, offsetDiv: '.kiosk-tutorial-wrapper', advanceCallbacks: tutorial_callbacks});
+
+        ce4.gamestate.user = kiosk_user; // TODO: remove once ce4.tutorial.js is updated
+        ce4.chips = {listen: function(){}, remove_listener: function(){}, insert_last_seen_chip_time: function(){}, process_chips: function(){}}; // TODO: remove this once ce4.leaflet.controls.js is updated
+
+        // Preload the direction wizard images
+        $(['/img/dw/direction_groundIndicator_handle.png','/img/dw/direction_groundIndicator_handle_over.png','/img/dw/direction_groundIndicator_minimal.png']).preload();
+        $(['/img/kiosk/background01.jpg','/img/kiosk/background03.jpg','/img/kiosk/background04.jpg','/img/kiosk/background05.jpg','/img/kiosk/background06.jpg','/img/kiosk/background07.jpg']).preload();
+
+        ce4.kiosk.advance = function(step)
+        {
+            // Abort any active tutorial
+            if(ce4.gamestate.user.tutorial.is_active(ce4.tutorial.ids.TUT01)) ce4.gamestate.user.tutorial.abort(ce4.tutorial.ids.TUT01);
+            if(ce4.gamestate.user.tutorial.is_active(ce4.tutorial.ids.TUT04)) ce4.gamestate.user.tutorial.abort(ce4.tutorial.ids.TUT04);
+
+            // Set a timeout
+            //clearTimeout(ce4.kiosk.timeout);
+            //ce4.kiosk.timeout = setTimeout(function(){ location.href = '/kiosk'; },180000); // 180000 = 3 minutes
+
+            // Pre Toggle
+            if(!ce4.kiosk.intro_done) {
+                ce4.kiosk.intro_done = true;
+                ce4.util.toggleView('notab', 'kiosk-intro', 0);
+                ce4.util.toggleView('notab', 'kiosk-step-wrapper', 1, "block");
+            }
+
+            // Update background image
+            if(step == "kiosk-step01" || step == "kiosk-step03" || step == "kiosk-step04" || step == "kiosk-step05" || step == "kiosk-step06" || step == "kiosk-step07") $("body").css("background-image", "url('/img/kiosk/background" + step.match(/\d+/g) + ".jpg')");
+
+            // Update progress image
+            $("#kiosk-step-progress img").attr('src', "img/kiosk/kiosk-progress-step" + step.match(/\d+/g) + ".png");
+
+            // Toggle
+            ce4.util.toggleView('kiosk', step, 2, "inline-block");
+
+            // Post Toggle
+            if(step == "kiosk-step03") {
+                ce4.ui.leaflet = new ce4.leaflet.ExtraSolarMap({ urls: kiosk_urls, user: kiosk_user });
+                kiosk_user.tutorial.begin(ce4.tutorial.ids.TUT01, {map: ce4.ui.leaflet});
+            }
+            if(step == "kiosk-step06") {
+                        var bocks;
+                        var totalTags = 0;
+                        bocks = $.bocks('#picture-detailed', {}, 800, 600);
+                        bocks.on('cancelSelection', function () { $("#id-species-identified #species-tags li:last").remove(); totalTags -= 1;});
+
+                        ce4.ui.DISCOVERY_NONE         = { name: "None Identified", species_id: false, get_icon_url: function(){return ce4.assets.species.PENDING}, hasBeenViewed: function(){return true;}};
+                        ce4.ui.DISCOVERY_INSUFFICIENT = { name: "Insufficient data for species ID ", species_id: false, get_icon_url: function(){return ce4.assets.species.PENDING}, hasBeenViewed: function(){return true;}, wrap: true};
+                        ce4.ui.DISCOVERY_NEWTAG       = { name: "Press Submit to begin analysis", species_id: false, get_icon_url: function(){return ce4.assets.species.UNKNOWN}, hasBeenViewed: function(){return true;}, wrap: true};
+
+                        ce4.ui.create_catalog_item = function(discovery, options) {
+                                var item = $('  <li class="species-item clickable">\
+                                                    <img src="'+discovery.get_icon_url(150, 150)+'" width="150" height="150" />\
+                                                    <span class="title dwindle">'+discovery.name+'</span>\
+                                                    <span class="notch-outer"></span>\
+                                                    <span class="notch-inner"></span>\
+                                                </li>')
+                                            .toggleClass('active', options !== undefined && options.active !== undefined && options.active);
+
+                                if(discovery.wrap)                          item.find('.title').addClass('title-wrap');
+                                if(options !== undefined && options.tabid)  item.append('<span class="bocks-selIndex tabid">'+options.tabid+'</span>');
+                                if(!discovery.hasBeenViewed())              item.append('<span class="new-overlay"></span>');
+                                if(options !== undefined && options.url)    item.wrapInner('<a href="'+options.url+'"></a>');
+
+                                return item;
+                        };
+
+                        ce4.gamestate.user.tutorial.begin(ce4.tutorial.ids.TUT04, {bocks: bocks});
+
+                        $('#id-add-tag').click(function()
+                        {
+                            // Maximum of 3 tags
+                            if(totalTags < 3)
+                            {
+                                // Increment tags
+                                totalTags += 1;
+
+                                // Add the region tag and create button handler
+                                $("#id-species-identified #species-tags").append(ce4.ui.create_catalog_item(ce4.ui.DISCOVERY_NEWTAG, {tabid: bocks.addSelection()}));
+
+                                // Enable submit button
+                                $("#id-species-submit").attr('disabled', false);
+                            }
+                        });
+
+                        // The submit button is disabled until at least 1 selection region is added.
+                        $('#id-species-submit').attr('disabled', true);
+            }
+        };
+
+        ce4.kiosk.advanceButton = function(step, text) { return $("<button class=\"gradient-button gradient-button-kiosk\">"+(text || "Continue")+"</button>").click(function(){ ce4.kiosk.advance(step);});};
+        ce4.kiosk.skipButton    = function(step, text) { return $("<button class=\"gradient-button gradient-button-kiosk\">"+(text || "Skip to Signup")+"</button>").click(function(){ ce4.kiosk.advance(step); });};
+        ce4.kiosk.resetButton   = function(text)       { return $("<button class=\"gradient-button gradient-button-kiosk\">"+(text || "Done")+"</button>").click(function(){
+        % if kiosk_mode == 'KIOSK':
+            location.href = '/kiosk';
+        % else:
+            location.href = '/demo';
+        % endif
+        });};
+
+        $("#kiosk-intro #button") .append(ce4.kiosk.advanceButton("kiosk-step00", "Begin the Demo").addClass("gradient-button-big"));
+        $("#kiosk-step00 #button").append(ce4.kiosk.advanceButton("kiosk-step01").addClass("gradient-button-medium"));
+        $("#kiosk-step01 #button").append(ce4.kiosk.advanceButton("kiosk-step02").addClass("gradient-button-medium"));
+        $("#kiosk-step02 #button").append(ce4.kiosk.advanceButton("kiosk-step03").addClass("gradient-button-medium"));
+        $("#kiosk-step04 #button").append(ce4.kiosk.advanceButton("kiosk-step05").addClass("gradient-button-medium"));
+        $("#kiosk-step05 #button").append(ce4.kiosk.advanceButton("kiosk-step06").addClass("gradient-button-medium"));
+        $("#kiosk-step07 #button").append(ce4.kiosk.advanceButton("kiosk-step08").addClass("gradient-button-medium"));
+        $("#kiosk-step08 #button").append(ce4.kiosk.advanceButton("kiosk-step09").addClass("gradient-button-medium"));
+        $("#kiosk-step09 #button").append(ce4.kiosk.advanceButton("kiosk-step10").addClass("gradient-button-medium"));
+        $("#kiosk-step10 #button").append(ce4.kiosk.advanceButton("kiosk-step11").addClass("gradient-button-medium"));
+        $("#kiosk-step11 #button").append(ce4.kiosk.resetButton().addClass("gradient-button-medium"));
+        $("#kiosk-step-wrapper #global-skip").append(ce4.kiosk.skipButton("kiosk-step09"));
+        $("#kiosk-step-wrapper #global-reset").append(ce4.kiosk.resetButton("Restart Demo"));
+
+      % if signup_error is not UNDEFINED:
+        ce4.kiosk.advance("kiosk-step09");
+      % endif
+    });
+//]]>
+</script>
+
+</%def>
+
+<%include file="signup_form_dialogs.html"/>
+
+<div id="kiosk-intro" class="kiosk-intro">
+        <div class="vertical-middle-outer">
+        <div class="vertical-middle-inner">
+            <div class="center">
+                <div><img src="/img/kiosk/kiosk_header.png"></div>
+                <br><br>
+                <br><br>
+                <div id="button"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="kiosk-step-wrapper" class="kiosk-step-wrapper" style="display:none;">
+    <div id="global-reset" class="global-reset"></div>
+    <div id="global-skip" class="global-skip"></div>
+    <div id="kiosk-tutorial-wrapper" class="kiosk-tutorial-wrapper"></div>
+    <div id="kiosk-step-progress" class="kiosk-step-progress"><img src="/img/kiosk/kiosk-progress-step01.png"></div>
+
+
+    <div id="kiosk-step00" style="display:none;">
+        <div class="vertical-middle-outer">
+        <div class="vertical-middle-inner">
+            <div class="center">
+            <iframe src="https://www.youtube.com/embed/lBxIQyvLiq8?rel=0&amp;iv_load_policy=3&amp;showinfo=0&amp;vq=hd720&amp;autoplay=0" allowfullscreen="" frameborder="0" height="576" width="1024"></iframe>
+            </div>
+            <br><br>
+            <div id="button" class="step-button-center"></div>
+        </div>
+        </div>
+    </div>
+
+
+    <div id="kiosk-step01" class="kiosk-step" style="display:none;">
+    <br><br>
+        <img src="/img/kiosk/kiosk-image-step01.png">
+        <div class="kiosk-step-text kiosk-step-text-bigger">
+            <p>Extrasolar puts you at the heart of an interactive sci-fi thriller that plays<br> out over the Internet via email, websites, videos, pdf files, and more.</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step02" class="kiosk-step" style="display:none;">
+        <br><br>
+        <img src="/img/kiosk/kiosk-image-step02.png">
+        <div class="kiosk-step-text kiosk-step-text-bigger">
+            <p>As a volunteer for the eXoplanetary Research Institute (XRI), you’ll<br> be directing your rover to explore the planet Epsilon Prime.</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step03" class="kiosk-step" style="display:none;">
+        <div id="leaflet-container" class="kiosk-map"></div>
+    </div>
+
+
+    <div id="kiosk-step04" class="kiosk-step" style="display:none;">
+        <br><br>
+        <img src="/img/kiosk/kiosk-image-step04.png">
+        <div class="kiosk-step-text kiosk-step-text-bigger">
+            <p>The time delay you set is <b>real</b>.  Sending a signal to another<br> planet and back again isn’t an instantaneous process...</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step05" class="kiosk-step" style="display:none;">
+        <br><br>
+        <img src="/img/kiosk/kiosk-image-step05.jpg">
+        <div class="kiosk-step-text kiosk-step-text-bigger">
+            <p>...but for today we’ll speed things up.  It’s now several hours<br> later and the rover has sent back your new photo for analysis.</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step06" class="kiosk-step" style="display:none;">
+        <div class="photo-gallery">
+            <div class="gallery-container clearfix">
+                <div class="leftcol">
+                    <div id="id-species-identified">
+                        <ul id="species-ids"></ul>
+                        <ul id="species-tags"></ul>
+                    </div>
+                    <div id="id-species-controls">
+                        <button class="gradient-button gradient-button-standard" id="id-add-tag"><img src="/img/arrow_narrow_up.png"><br>Add Tag</button><br><br>
+                        <button class="gradient-button gradient-button-standard" id="id-species-submit">Submit</button>
+                        <span id="id-image-rects-loading" class="loading hidden"><img src="/img/loading_small.gif"></span>
+                    </div>
+                </div>
+                <div class="rightcol">
+                    <div id="image-container">
+                        <img src="/img/kiosk/simulator_photo.jpg" id="picture-detailed" height="600" width="800"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="kiosk-step07" class="kiosk-step" style="display:none;">
+        <br><br>
+        <img src="/img/kiosk/kiosk-image-step07.jpg">
+        <div class="kiosk-step-text kiosk-step-text-bigger">
+            <p>The science team will analyze your photo and send back their findings, likely<br> following up with new tasks and things for you to discover!</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step08" class="kiosk-step" style="display:none;">
+        <h1>Join our team!</h1>
+        <img src="/img/kiosk/kiosk-image-step08.png">
+        <div class="kiosk-step-text">
+            <p>Do you think you have what it takes to join our exploration team? Please select a response to the following statements.</p>
+          <table class="kiosk-survey">
+              <tr><th>&nbsp;</th><th>Strongly<br>Agree</th><th><br>Agree</th><th><br>Neutral</th><th><br>Disagree</th><th>Strongly<br>Disagree</th></tr>
+              <tr><td>I have a strong passion for exploration.</td><td><input type="radio" name="q1"><td><input type="radio" name="q1"><td><input type="radio" name="q1"><td><input type="radio" name="q1"></td><td><input type="radio" name="q1"></td></tr>
+              <tr><td>I am interested in learning more about our universe.</td><td><input type="radio" name="q2"></td><td><input type="radio" name="q2"></td><td><input type="radio" name="q2"></td><td><input type="radio" name="q2"></td><td><input type="radio" name="q2"></td></tr>
+              <tr><td>I am intrigued by the thought of alien life.</td><td><input type="radio" name="q3"></td><td><input type="radio" name="q3"></td><td><input type="radio" name="q3"></td><td><input type="radio" name="q3"></td><td><input type="radio" name="q3"></td></tr>
+              <tr><td>I would love to be the first to make a scientific discovery.</td><td><input type="radio" name="q4"><td><input type="radio" name="q4"><td><input type="radio" name="q4"><td><input type="radio" name="q4"></td><td><input type="radio" name="q4"></td></tr>
+          </table>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step09" class="kiosk-step" style="display:none;">
+        <h1>Join our team!</h1>
+        <img src="/img/kiosk/kiosk-image-step09.jpg">
+        <br><br>
+        <div class="kiosk-step-text">
+
+  <tr>
+        <div id="error_signup" class="form-error" align="center">
+          % if signup_error is not UNDEFINED:
+          <span id="signup_error_server">${signup_error}</span>
+          % endif
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0" align="center" width="70%">
+        <tr>
+          <td width="60%" style="vertical-align: bottom; text-align:center">
+            <%include file="signup_form.html"/>
+          </td>
+          % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True and kiosk_mode != 'KIOSK':
+            <td width="10%" style="text-align: center; padding-top:120px">
+              - or -<br><br><br>
+            </td>
+            <td width="30%" style="text-align:center; padding-top: 120px">
+              <%include file="facebook_login_snippet.html"/>
+            </td>
+          % endif
+        </tr>
+      </table>
+
+        </div>
+    </div>
+
+
+    <div id="kiosk-step10" class="kiosk-step" style="display:none;">
+        <h1>Application Submitted!</h1>
+        <img src="/img/kiosk/kiosk-image-step10.jpg">
+        <div class="kiosk-step-text">
+            <p>Thank you for your interest in the Extrasolar rover driver pilot program. Based on your responses, you appear to be an exceptional candidate.</p>
+            <p>XRI is currently receiving an overwhelming number of applications, and rover driver positions are very limited.  You will be notified by email if you are selected.</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+
+
+    <div id="kiosk-step11" class="kiosk-step" style="display:none;">
+        <h1>Ineligible for Participation</h1>
+        <div class="kiosk-step-text">
+            <p>Thank you for your interest in Extrasolar.  Unfortunately, due to legal reasons, we must restrict access for volunteers younger than 13.  However, you are still welcome to visit the webpage of the eXoplanetary Research Institute (XRI) at [ http://www.exoresearch.com/ ] to learn more about the project.</p>
+        </div>
+        <div id="button" class="step-button"></div>
+    </div>
+</div>

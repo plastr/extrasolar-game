@@ -1,0 +1,67 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Welcome to Extrasolar!
+</%def>
+
+<%def name="head()">
+<!--meta tags-->
+<meta name="description" content="Extrasolar: Join our team of rover drivers!" />
+<meta name="keywords" content="extrasolar, space, exploration, xri, game, interactive, story" />
+<meta name="author" content="The eXoplanetary Research Institute (XRI)" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@exoresearch">
+<meta name="twitter:creator" content="@exoresearch">
+<meta property="og:title" content="Extrasolar" />
+<meta property="og:description" content="Join our team of rover drivers!" />
+<meta name="twitter:image:src" content="${urls.fully_qualified_asset_url('/static/img/metadata/extrasolar_logo800.jpg')}" />
+<meta property="og:image" content="${urls.fully_qualified_asset_url('/static/img/metadata/extrasolar_logo800.jpg')}" />
+
+<link href="/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+<script src="/js/shared/xri.validation.js" type="text/javascript"></script>
+<script src="/js/shared/xri.ui.js" type="text/javascript"></script>
+<script src="/js/lib/placeholders.jquery.min.js" type="text/javascript"></script>
+</%def>
+
+<%include file="signup_form_dialogs.html"/>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+  <tr>
+    <td>
+      <div style="text-align:center">
+        <iframe width="514" height="320" src="https://www.youtube.com/embed/lBxIQyvLiq8?rel=0&iv_load_policy=3&showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p>
+        The  <a href="http://www.exoresearch.com">eXoplanetary Research Institute (XRI)</a> is crowdsourcing exploration of the planet Epsilon Prime using the power of the Internet. Sign up now to help unlock the secrets of this alien world, one photo at a time.<br>
+
+        <center><button type="button" class="gradient-button gradient-button-store" value="Try Our Online Rover Simulator" onclick="location.href='${demo_url}'">Try the online rover simulator</button></center>
+      </p>
+<hr>
+      <div id="error_signup" class="form-error" align="center">
+          % if signup_error is not UNDEFINED:
+          <span id="signup_error_server">${signup_error}</span>
+          % endif
+        </div>
+      <table border="0" cellspacing="0" cellpadding="0" align="center" width="70%">
+        <tr>
+          % if signups_enabled is not UNDEFINED and signups_enabled == True:
+          <td width="60%" style="vertical-align: bottom;">
+            <%include file="signup_form.html"/>
+          </td>
+            % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True:
+              <td width="10%" style="text-align: center; padding-top:120px">
+                - or -<br><br><br>
+              </td>
+              <td width="30%" style="text-align:center; padding-top: 120px">
+                <%include file="facebook_login_snippet.html"/>
+              </td>
+            % endif
+          % endif
+        </tr>
+      </table></td>
+  </tr>
+</table>
+
+<div style="visibility: hidden"><a href="https://plus.google.com/102061677287135006616" rel="publisher">Google+</a></div>
+
+
+

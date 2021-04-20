@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE messages SET locked=:locked WHERE message_id=:message_id"}

@@ -1,0 +1,401 @@
+---
+SENDERS:
+    TEAM: '"Extrasolar Team" <noreply@extrasolar.com>'
+    KRYPTEX: '"kryptex81" <no-reply@kryptex81.com>'
+    TESTING: '"Test Sender" <test@example.com>'
+---
+id: EMAIL_TEST
+sender: TESTING
+subject: "Test message for ${user.first_name}"
+body: |-
+ Hello ${user.first_name}, this is a test message.
+---
+id: EMAIL_TEST_ALARM
+sender: TESTING
+subject: "Test message for an alarm"
+body: |-
+ This is an alarm. There is no user object available by default.
+---
+id: EMAIL_ADMIN_EXCEPTION
+sender: TEAM
+subject: "Extrasolar Exception Report ${gametime.strftime('%m/%d/%Y %H:%M')}"
+body: |-
+ Exception encounted:<br/>
+ Hostname: ${hostname | h}<br/>
+ Version: ${version | h}<br/>
+ Deployed By: ${version.username | h}<br/>
+ Gametime: ${gametime | h}<br/>
+ % if has_request is not UNDEFINED:
+ URL: ${request_url | h}<br/>
+ % endif
+ % if has_logged_in_user is not UNDEFINED:
+ USER_ID: <a href="${url_admin_user | h}">${user_id | h}</a><br/>
+ % endif
+ <br/>
+ Type: ${exception_type | h}<br/>
+ Message: ${value | h}<br/>
+ Trackback:<br/>
+ <pre>
+ ${"".join(traceback_list) | h}
+ </pre>
+
+---
+id: EMAIL_ALERT_UNPROCESSED_TARGETS
+sender: TEAM
+subject: "Extrasolar Alert: Unprocessed Targets. Renderer Down? ${gametime.strftime('%m/%d/%Y %H:%M')}"
+body: |-
+ There are ${target_count} picture target(s) which are unprocessed and were created more than ${unprocessed_minutes} minutes ago.<br/>
+ This might mean the renderer is down or severely backed up.<br/>
+ Hostname: ${hostname | h}<br/>
+ Version: ${version | h}<br/>
+ Gametime: ${gametime | h}<br/>
+
+---
+id: EMAIL_ACTIVITY_ALERT
+sender: TEAM
+subject: "Recent Extrasolar Activity"
+body: |-
+ <%include file="extrasolar_header.html"/>
+ <p>Hello, ${user.first_name.capitalize()}.</p>
+
+ <p>Thank you for your contributions to Extrasolar.  The following items have come in since your last login.</p>
+
+ % if len(user_activity.unviewed_targets) > 0:
+    <div style="width: 100%; height: 20px; background: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_HEADER_TILE'))}')
+      repeat-x scroll left 14px rgba(230, 230, 230, 0); background-color:#f3f4f6; padding: 4px; margin: 15px 0px 15px 0px">
+      <span style="background: none repeat scroll 0 0 #f3f4f6; margin-left: 20px; padding: 0 8px;">
+        <a href="${urls.ops_gallery()}" style="color:#505050; text-decoration:none; font-weight: bold;">New Photos</a>
+      </span>
+    </div>
+    <center>
+    % for target in user_activity.unviewed_targets:
+        <a href="${urls.ops_picture(target.target_id)}"><img src="${urls.fully_qualified_asset_url(target.url_image_thumbnail)}" width=200 height=150></a>
+    % endfor
+    </center>
+ % endif
+ 
+ % if len(user_activity.unread_messages) > 0:
+    <div style="width: 100%; height: 20px; background: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_HEADER_TILE'))}')
+      repeat-x scroll left 14px rgba(230, 230, 230, 0); background-color:#f3f4f6; padding: 4px; margin: 15px 0px 15px 0px">
+      <span style="background: none repeat scroll 0 0 #f3f4f6; margin-left: 20px; padding: 0 8px;">
+        <a href="${urls.ops_mail()}" style="color:#505050; text-decoration:none; font-weight: bold;">Unread Messages</a>
+      </span>
+    </div>
+    <table style="border-collapse: collapse; border-style: solid; border-width: 1px; border-color: #a0a0a0;" border="1" cellpadding="4" cellspacing="4" width="550" align="center">
+    % for message in user_activity.unread_messages:
+        <tr><td width=30px style="border-right-width: 0px; border-style: solid; border-color: #a0a0a0;"><a href="${urls.ops_message(message.message_id)}"><img src="${urls.fully_qualified_asset_url(message.url_sender_icon_small)}" width=27 height=27></a></td>
+        <td width=150px style="border-right-width: 0px; border-left-width: 0px; border-style: solid; border-color: #a0a0a0;"><a href="${urls.ops_message(message.message_id)}" style="text-decoration:none;"><span style="color:#505050">${message.sender}</span></a></td>
+        <td style="border-left-width: 0px; border-style: solid; border-color: #a0a0a0;"><a href="${urls.ops_message(message.message_id)}" style="text-decoration:none;"><span style="color:#505050">
+        % if message.url_icon:
+          <img src="${urls.fully_qualified_asset_url(message.url_icon['url'])}" width=${message.url_icon['width']}px height=${message.url_icon['height']}px>
+        % endif
+        ${message.subject}</span></a></td></tr>
+    % endfor
+    </table>
+ % endif
+
+ % if len(user_activity.unviewed_missions) > 0:
+    <div style="width: 100%; height: 20px; background: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_HEADER_TILE'))}')
+      repeat-x scroll left 14px rgba(230, 230, 230, 0); background-color:#f3f4f6; padding: 4px; margin: 15px 0px 15px 0px">
+      <span style="background: none repeat scroll 0 0 #f3f4f6; margin-left: 20px; padding: 0 8px;">
+        <a href="${urls.ops_tasks()}" style="color:#505050; text-decoration:none; font-weight: bold;">New Tasks</a>
+      </span>
+    </div>
+    <table style="border-collapse: collapse; border-style: solid; border-width: 1px; border-color: #a0a0a0;" border="1" cellpadding="4" cellspacing="4" width="450" align="center">
+    % for mission in user_activity.unviewed_missions:
+    % if mission.is_root_mission():
+        <tr><td width=30 style="border-right-width: 0px; border-style: solid; border-color: #a0a0a0;"><a href="${urls.ops_task(mission.mission_id)}"><img src="${urls.fully_qualified_asset_url(mission.url_title_icon)}"></a></td>
+        <td style="border-left-width: 0px; border-style: solid; border-color: #a0a0a0;"><a href="${urls.ops_task(mission.mission_id)}" style="text-decoration:none;"><span style="color:#505050">${mission.title}</span></a></td></tr>
+    % endif
+    % endfor
+    </table>
+ % endif
+
+ % if len(user_activity.unviewed_species) > 0:
+    <div style="width: 100%; height: 20px; background: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_HEADER_TILE'))}')
+      repeat-x scroll left 14px rgba(230, 230, 230, 0); background-color:#f3f4f6; padding: 4px; margin: 15px 0px 15px 0px">
+      <span style="background: none repeat scroll 0 0 #f3f4f6; margin-left: 20px; padding: 0 8px;">
+        <a href="${urls.ops_catalog()}" style="color:#505050; text-decoration:none; font-weight: bold;">New Discoveries</a>
+      </span>
+    </div>
+    <center>
+    % for species in user_activity.unviewed_species:
+      <a href="${urls.ops_species(species.species_id)}" style="text-decoration:none;">
+      <div style="display: inline-block; width: 150px; height: 175px; background-image: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_SPECIES_BACKGROUND'))}');
+        background-size: 100% 100%; border: 2px solid #AAB0B6; margin: 6px 8px 6px 0;">
+        <img width="150" height="150" src="${urls.fully_qualified_asset_url(species.url_icon_medium)}">
+        <span style="background-color: rgba(255, 255, 255, 0.4); color: #565656; display: block;
+          font-size: 12px; font-weight: bold; margin: 4px 4px 0; padding: 0 3px; overflow: hidden;
+          text-overflow: ellipsis; white-space: nowrap; text-align:left">
+          ${species.name}
+        </span>
+      </div></a>
+    % endfor
+    </center>
+ % endif
+
+ % if len(user_activity.unviewed_achievements) > 0:
+    <div style="width: 100%; height: 20px; background: url('${urls.fully_qualified_asset_url(assets.ui_asset_url('UI_HEADER_TILE'))}')
+      repeat-x scroll left 14px rgba(230, 230, 230, 0); background-color:#f3f4f6; padding: 4px; margin: 15px 0px 15px 0px">
+      <span style="background: none repeat scroll 0 0 #f3f4f6; margin-left: 20px; padding: 0 8px;">
+        <a href="${urls.ops_profile()}" style="color:#505050; text-decoration:none; font-weight: bold;">New Badges</a>
+      </span>
+    </div>
+    <table style="border-collapse: collapse; border-width: 0px;" border="0" cellpadding="4" cellspacing="4" align="center">
+    % for achievement in user_activity.unviewed_achievements:
+        <tr><td width=160><a href="${urls.ops_profile()}"><img src="${urls.fully_qualified_asset_url(achievement.url_icon)}"></a></td>
+        <td><a href="${urls.ops_profile()}" style="text-decoration:none;"><span style="color:#505050; overflow: hidden;
+          text-overflow: ellipsis; white-space: nowrap;">${achievement.title}</span></a></td></tr>
+    % endfor
+    </table>
+ % endif
+
+ <p><a href="${urls.ops_home()}" style="text-decoration:none;">Click here</a> to access your account now.</p>
+ <%include file="account_footer.html"/>
+---
+id: EMAIL_LURE_ALERT
+sender: TEAM
+subject: "[Extrasolar] Pending Tasks"
+body: |-
+ <%include file="extrasolar_header.html" args="header_link=urls.ops_home()"/>
+ <p>Hello, ${user.first_name.capitalize()}.</p>
+ ${custom_body}
+ <p><a href="${urls.ops_home()}" style="text-decoration:none;">Click here</a> to access your account now.</p>
+ % if len(user_activity.recent_targets) > 0:
+    <ul style="list-style: none; margin: 10px 0 10px 0; padding: 0;">
+    % for target in user_activity.recent_targets:
+      <li style="display:block; float:left; position:relative; margin:0">
+        <a href="${urls.ops_picture(target.target_id)}"><img src="${urls.fully_qualified_asset_url(target.url_image_thumbnail)}" width=180 height=135 style="margin:3px; padding:0">
+        </a>
+      </li>
+    % endfor
+    </ul>
+ % endif
+ % if len(user_activity.not_done_missions) + len(user_activity.unread_messages) + len(user_activity.unviewed_species) + len(user_activity.unviewed_achievements) > 0:
+   <p style="clear:both">Here are some items in your account that could use some attention:</p>
+ % endif
+ <ul>
+ % if len(user_activity.not_done_missions) > 0:
+   <li><a href="${urls.ops_tasks()}" style="text-decoration:none;">Active tasks: ${len(user_activity.not_done_missions)}</a></li>
+ % endif
+ % if len(user_activity.unread_messages) > 0:
+   <li><a href="${urls.ops_mail()}" style="text-decoration:none;">Unviewed messages: ${len(user_activity.unread_messages)}</a></li>
+ % endif
+ % if len(user_activity.unviewed_species) > 0:
+   <li><a href="${urls.ops_catalog()}" style="text-decoration:none;">Unviewed species: ${len(user_activity.unviewed_species)}</a></li>
+ % endif
+ % if len(user_activity.unviewed_achievements) > 0:
+   <li><a href="${urls.ops_profile()}" style="text-decoration:none;">Unviewed badges: ${len(user_activity.unviewed_achievements)}</a></li>
+ % endif
+ </ul>
+ <p style="clear:both">Thanks for your contributions!</p>
+ <p>Sincerely,<br>
+
+ <table width="100%" border=0px cellspacing=0 cellpadding=0px style="margin:0px;"><tr>
+    <td align="left" style="width:80px; vertical-align:middle">
+      <img src="${urls.fully_qualified_asset_url(assets.sender_icon_url_for_dimension('JANE', 72, 72))}" width=72 height=72 style="margin:0px; padding:0; align:left">
+    </td>
+    <td style="color:#505050;font-family:Arial;font-size:14px;line-height:150%;text-align:left">
+     Jane Eastwood<br>
+     Lead Exobiologist, XRI
+   </td>
+  </tr></table>
+ <%include file="account_footer.html"/>
+---
+id: EMAIL_CAPACITY
+sender: TEAM
+subject: "Extrasolar: Application Received"
+body: |-
+ <%include file="extrasolar_header.html"/>
+ <p>Dear ${user.first_name.capitalize()},</p>
+ <p>Thank you for your interest in the Extrasolar program. Unfortunately, due to the large volume of applications we have received, all entry-tier rovers that have been deployed on the planet's surface have been assigned to drivers.  As a result, for the time being, we are limiting our selections to accredited scientists with active government clearances.</p>
+ <p>Over the coming weeks, we will be selecting additional sites for landing capsules.  We will notify you by email if additional rovers become available.</p>
+ <p>Thanks for your understanding,</p>
+ <p>The Extrasolar Team</p>
+ <%include file="extrasolar_footer.html"/>
+---
+id: EMAIL_VERIFY
+sender: KRYPTEX
+subject: "extrasolar... i can get you in, ${user.first_name.lower()}"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p style="font-size:14px; line-height:14px; font-family:Courier New,Courier,monospace;">
+ ${user.first_name.lower()}...<br>
+ <br>
+ i don't trust the extrasolar program.<br>
+ lots of history there.<br>
+ let's just say i have good reason to look a little deeper.<br>
+ <br>
+ i'm monitoring their database, so i know you were rejected...<br>
+ <div style="border-left:2px solid #808080;padding-left:13px">
+   <%include file="extrasolar_header.html"/>
+   <p>Dear ${user.first_name.capitalize()},</p>
+   <p>Thank you for your interest in the Extrasolar program. Unfortunately, due to the large volume of applications we have received, all entry-tier rovers that have been deployed on the planet's surface have been assigned to drivers.  As a result, for the time being, we are limiting our selections to accredited scientists with active government clearances.</p>
+   <p style="font-size:14px; line-height:14px; font-family:Courier New,Courier,monospace;">...</p>
+ <%include file="extrasolar_empty_footer.html"/>
+ </div>
+ <p style="font-size:14px; line-height:14px; font-family:Courier New,Courier,monospace;">i have access to their voicemails and messaging, but their intrusion detection system firewalled me out of the rover control application.<br>
+ plus, there's no way i could apply with my own identity.<br>
+ i need a clean account and ip address.<br>
+ access that looks legitimate.<br>
+ <br>
+ here's the deal.<br>
+ i give you a backdoor account, get you a rover.<br>
+ you become my eyes and ears on the inside.<br>
+ <br>
+ i set up a backdoor link to get you rolling.<br>
+ a dummy account with an aced entrance test and signed nda.<br>
+ <a href="${user.url_validate()}">${user.url_validate()}</a><br>
+ <br>
+ or don't.<br>
+ there are piles of rejected applicants to choose from.<br>
+ you have 24 hours.<br>
+ <br>
+ sorry you can't reply to this.<br>
+ gotta protect my anonymity.
+ </p>
+ <%include file="kryptex_footer.html"/>
+---
+id: EMAIL_VERIFY02
+sender: TEAM
+subject: "Extrasolar: You're Ready to Go!"
+body: |-
+ <%include file="extrasolar_header.html"/>
+   <p>Hello, ${user.first_name.capitalize()}.</p>
+   <p>Congratulations on achieving an unprecedented 98% score on your entrance exam! Our records indicate that you've signed the nondisclosure agreement and all your paperwork is in order.</p>
+   <p>We're looking forward to having you on board!</p>
+   <p>The Extrasolar Team</p>
+ <p><a href="${user.url_validate()}" style="text-decoration:none;">
+   <span style="background: #85ABE2; background: -webkit-gradient(linear, left top, left bottom, from(#85ABE2), to(#317BEA)); background: -moz-linear-gradient(top, #85ABE2, #317BEA); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#85ABE2', endColorstr='#317BEA');
+    border: 1px outset rgba(0, 0, 0, 0.35);
+    cursor: pointer;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px; padding:7px 10px 7px 10px; color:#ffffff;font-family:Arial; font-size:14px;">Activate Your Account</span>
+ </a></p>
+ <hr clear="both" style="border:0; width:100%; color:#dddddd; background-color:#dddddd; height:2px; margin:20px 0px 20px 0px">
+ <p style="font-size:14px; line-height:14px; font-family:Courier New,Courier,monospace;">
+ ${user.first_name.lower()}, i just wanted to make sure you got my previous email.<br>
+ i'm sorry if i came off too strongly, but... i have a long history with xri and i really need your help.<br>
+ as you can see from the message, i managed to get you into extrasolar through a back door.<br>
+ <br>
+ everything is ready.<br>
+ all i need is your cooperation.<br>
+ here's the link to get you in:<br>
+ <a href="${user.url_validate()}">${user.url_validate()}</a><br>
+ <br>
+ please help me.<br>
+ i know it's a lot to ask, but i'm running out of options.<br>
+ </p>
+ <%include file="kryptex_sig.html"/>
+ <%include file="extrasolar_footer.html"/>
+---
+id: EMAIL_WELCOME
+sender: TEAM
+subject: "Welcome to the Extrasolar Program!"
+body: |-
+ <%include file="extrasolar_header.html"/>
+ <p>Dear ${user.first_name.capitalize()},</p>
+ <p>Congratulations! You have been accepted into the Extrasolar program as a rover driver!</p>
+ <p>Due to the large number of applicants, our screening process was extremely tight. However, your impressive 98% score on the screening exam marks you as one of the few lucky enough to be a part of the project.</p>
+ <p>Furthermore, we've checked your submitted government credentials, and now that you've signed our Non-Disclosure Agreement (NDA), we're ready to make you a part of this amazing team. Please head now to <a href="${urls.ops_home()}">the rover operations website</a> to start your training and receive your very own rover on Epsilon Prime!</p>
+ <p>Thanks.</p>
+ <p>The Extrasolar Team</p>
+ <%include file="extrasolar_footer.html"/>
+---
+id: EMAIL_INVITE
+sender: TEAM
+subject: "Invitation to the Extrasolar Rover Program"
+body: |-
+ <%include file="extrasolar_header.html"/>
+ % if invite.has_recipient_name():
+ <p>Dear ${invite.recipient_first_name.capitalize()},</p>
+ % endif
+ <p>You are invited to take part in the <a href="http://exoresearch.com">eXoplanetary Research Institute</a>'s revolutionary Extrasolar Program!</p>
+ <p>Based on the recommendation of one of our rover operators, ${sender.first_name.capitalize()} ${sender.last_name.capitalize()}, we are giving you the opportunity to control a rover on the exoplanet Epsilon Prime.</p>
+ <p><center><img width="500" height="250" src="${urls.email_asset_base()}/welcome_screenshot.jpg" style="margin:0;padding:0;border:0;min-height:auto;line-height:100%;outline:none;text-decoration:none"/></center></p>
+ % if len(recipient_message.strip()) > 0:
+ <p>${sender.first_name.capitalize()} wrote:</p>
+ <p>${recipient_message}</p>
+ <p></p>
+ % endif
+ <p>Our program is very full, and it's a privilege just to receive an invitation.</p>
+ % if gift is not UNDEFINED:
+ <p>This exclusive invitation includes paid access to Extrasolar at the following level: <strong>${gift.name}</strong>: ${gift.description}.  If you are already participating in the Extrasolar Project, this gift can be attached to your existing account.</p>
+ % endif
+ <p></p>
+ <p>Please click the link below to accept your invitation. Congratulations, good luck, and dream to worlds beyond!</p>
+ <p></p>
+ <center><h2><a href="${invite.url_invite_accept()}">${invite.url_invite_accept()}</a></h2></center>
+ <p></p>
+ <p>- Dr. Robert Turing and the Extrasolar Team</p>
+ <%include file="extrasolar_footer.html"/>
+---
+id: EMAIL_PURCHASE_RECEIPT
+sender: TEAM
+subject: "Extrasolar Purchase Receipt"
+body: |-
+ <%include file="extrasolar_header.html"/>
+ <p>Hello from Extrasolar (Lazy 8 Studios, LLC),</p>
+ <p>Thank you for supporting XRI and the Extrasolar project!</p>
+ <p></p>
+ <p>Below is the receipt for your purchase.</p>
+ <p></p>
+ <strong>Invoice Number:</strong> ${invoice.invoice_id}<br/>
+ <strong>Time:</strong> ${invoice.created_display} (UTC)<br/>
+ <strong>Total:</strong> ${invoice.total_amount_display} (USD)<br/>
+ <strong>Items:</strong> ${invoice.products_display}<br/>
+ <p></p>
+ <p>If you have any questions about this purchase, please send an email to<br/>
+    <a href="mailto:${urls.email_address_store_support()}">${urls.email_address_store_support()}</a> and include your invoice number.</p>
+ <p></p>
+ <p>Thank you again and dream to worlds beyond,<br/>
+     - The Entire Extrasolar Team (Lazy 8 Studios, LLC)</p>
+ <%include file="extrasolar_footer.html"/>
+---
+id: EMAIL_PASSWORD_RESET
+sender: TEAM
+subject: "Extrasolar Password Reset"
+body: |-
+ <p>Hello, ${user.first_name}.</p>
+
+ <p>A password reset request has been made for an Extrasolar account with this email address.</p>
+ <p>If you did not make this request, you may ignore this message.</p>
+
+ <p>If you would like to change your password, <a href="${user.url_password_reset()}">follow this link</a>.</p>
+
+---
+id: EMAIL_PENDING_RESET
+sender: TEAM
+subject: "[Extrasolar] We're about to go live!"
+body: |-
+ <%include file="announce_header.html"/>
+ <p>Hello, ${user.first_name}.</p>
+
+ <p>I hope you've been enjoying your Extrasolar experience! We've made a number of HUGE changes to the game in the last few months, thanks largely to your feedback.</p>
+
+ <p>For those who are still actively playing the game, I feel terrible for wiping the accounts, but this is unfortunately a necessary step for opening up our payment system and making the transition to a closed beta.  We want to be all ready to bring on new players next week at IndieCade, where we're honored to have been selected as a finalist!</p>
+
+ <p>You may be understandably attached to the photos you've taken so far.  Don't worry -- we won't be throwing those away just yet.
+ If you want to access your old photos, we've provided links to all of them below.</p>
+
+ <p>Expect an announcement about creating a new account soon.  And thank you for your support in helping to turn our dream into a reality!</p>
+
+ <p>
+ % if len(user.all_picture_targets()) <= 4:
+   (It appears you never took any photos.)
+ % else:
+   % for target in user.all_picture_targets():
+     % if target.was_user_created():
+       % if 'WALLPAPER' in target.images:
+         <a href="${target.images['WALLPAPER']}"><img width=135 height=101 src="${target.images['THUMB']}"></a>
+       % elif 'PHOTO' in target.images:
+         <a href="${target.images['PHOTO']}"><img width=135 height=101 src="${target.images['THUMB']}"></a>
+       % endif
+     % endif
+   % endfor
+ % endif
+ </p>
+
+ <%include file="announce_footer.html"/>

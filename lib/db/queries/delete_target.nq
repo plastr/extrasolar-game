@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM targets WHERE target_id=:target_id"}

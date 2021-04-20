@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO purchased_products SET product_id=:product_id, invoice_id=:invoice_id, user_id=:user_id, product_key=:product_key, price=:price, currency=:currency, purchased_at=:purchased_at, created=:created"}

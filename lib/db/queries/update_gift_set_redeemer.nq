@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE gifts SET redeemer_id=:redeemer_id, redeemed_at=:redeemed_at WHERE gift_id=:gift_id"}

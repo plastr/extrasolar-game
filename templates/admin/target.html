@@ -1,0 +1,99 @@
+<%inherit file="base.html"/>
+<%namespace name="tools" file="tools.html"/>
+<%def name="title()">
+    Admin Target
+</%def>
+
+<%def name="head()">
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#reveal_struct').click(function() {
+        $('#pre_struct').show();
+        return false;
+    });
+});
+</script>
+</%def>
+
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Target</h1>
+<div class="div_admin_center">
+
+<h2>Target (${target.target_id})</h2>
+<table>
+    <tr>
+        <th>Creator</th>
+        <th>Arrival</th>
+        <th>Travel Time</th>
+        <th>Viewed After</th>
+        <th>Classified</th>
+        <th>Highlight</th>
+        <th>Locked</th>
+        <th><acronym title="User created">UC</acronym></th>
+        <th>Picture</th>
+        <th>Neuter</th>
+        <th>Tools</th>
+    </tr>
+    % if not target.is_processed():
+    <tr class="target_unprocessed">
+    % else:
+    <tr>
+    % endif
+        <td><a href="${user.url_admin()}" title="${user.email}">${format_email(user.email)}</a></td>
+        <td>${target.approx_time_since('arrival_time')}</td>
+        <td>${target.approx_time_between('start_time', 'arrival_time')}
+        % if target.was_viewed():
+        <td>${target.approx_time_between('arrival_time', 'viewed_at')}
+        % else:
+        <td>Not Viewed</td>
+        % endif
+        <td>${target.is_classified()}</td>
+        <td>${target.is_highlighted()}</td>
+        <td>${target.is_locked()}</td>
+        <td>${target.was_user_created()}</td>
+        <td>${target.is_picture()}</td>
+        <td>${target.is_neutered()}</td>
+        <td>
+        ${tools.target_tools(target, single_line=True)}
+        </td>
+    </tr>
+</table>
+
+% if target.is_picture() and target.is_processed():
+<h2>Photo (<a href="${target.url_image_wallpaper}">Hi-res</a>)</h2>
+<a href="${target.url_image_photo}">
+    % if target.is_panorama():
+    <img width="1000px" height="250px" src="${target.url_image_photo}"/>
+    % else:
+    <img width="800px" height="600px" src="${target.url_image_photo}"/>
+    % endif
+</a>
+<h2>ID</h2>
+<a href="${urls.admin_species_id_img(target.url_image_species)}">
+    % if target.is_panorama():
+    <img width="1000px" height="250px" src="${target.url_image_species}"/>
+    % else:
+    <img width="800px" height="600px" src="${target.url_image_species}"/>
+    % endif
+</a>
+% if target.is_infrared():
+<h2>Infrared</h2>
+<a href="${target.url_image_infrared}">
+    <img width="800px" height="600px" src="${target.url_image_infrared}"/>
+</a>
+% endif
+% endif
+
+% if target.is_picture():
+<h2>Renderer Struct</h2>
+<button id="reveal_struct" type="button">Show Struct</button>
+<pre id="pre_struct" style="text-align:left; display:none;">
+<%
+from front.lib import xjson
+renderer_s = xjson.dumps(renderer_target_struct, indent=2)
+%>
+${renderer_s |n};
+</pre>
+% endif
+
+<div id="div_footer"></div>

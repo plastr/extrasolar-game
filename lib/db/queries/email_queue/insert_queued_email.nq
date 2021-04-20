@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO email_queue SET queue_id=:queue_id, email_from=:email_from, email_to=:email_to, email_subject=:email_subject, body_html=:body_html, created=:created"}

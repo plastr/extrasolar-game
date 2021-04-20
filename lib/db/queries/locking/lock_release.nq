@@ -1,0 +1,2 @@
+{"base":
+ "SELECT RELEASE_LOCK(:lock_name) AS result"}

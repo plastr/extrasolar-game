@@ -1,0 +1,38 @@
+{
+    "CAP_S1_CAMERA_FLASH": {
+        "free_uses": 0,
+        "available_on_rovers": ["RVR_CHASSIS_JRS", "RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_FLASH"],
+        "always_unlimited": 1
+    },
+    "CAP_S1_CAMERA_PANORAMA": {
+        "free_uses": 10,
+        "available_on_rovers": ["RVR_CHASSIS_JRS", "RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_PANORAMA"],
+        "always_unlimited": 0
+    },
+    "CAP_S1_CAMERA_INFRARED": {
+        "free_uses": 5,
+        "available_on_rovers": ["RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_INFRARED"],
+        "always_unlimited": 0
+    },
+    "CAP_S1_ROVER_FAST_MOVE": {
+        "free_uses": 0,
+        "available_on_rovers": ["RVR_CHASSIS_JRS", "RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_FAST_MOVE"],
+        "always_unlimited": 0
+    },
+    "CAP_S1_ROVER_3_MOVES": {
+        "free_uses": 0,
+        "available_on_rovers": ["RVR_CHASSIS_JRS", "RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_3_MOVES"],
+        "always_unlimited": 0
+    },
+    "CAP_S1_ROVER_4_MOVES": {
+        "free_uses": 0,
+        "available_on_rovers": ["RVR_CHASSIS_JRS", "RVR_CHASSIS_SRK"],
+        "rover_features": ["TGT_FEATURE_4_MOVES"],
+        "always_unlimited": 0
+    }
+}

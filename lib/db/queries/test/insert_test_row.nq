@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO test_table SET test_field=:test_field"}

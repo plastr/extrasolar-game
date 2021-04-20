@@ -1,0 +1,2 @@
+{"base":
+ "SELECT EXISTS(SELECT user_id FROM users WHERE user_id=:user_id) AS exist"}

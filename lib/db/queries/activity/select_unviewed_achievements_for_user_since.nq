@@ -1,0 +1,2 @@
+{"base":
+ "SELECT achievement_key FROM achievements WHERE user_id=:user_id AND achieved_at >= :since AND achieved_at <= :until AND viewed_at IS NULL ORDER BY achieved_at DESC"}

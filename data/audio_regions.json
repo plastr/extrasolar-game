@@ -1,0 +1,74 @@
+{
+    "RGN_AUDIO_TUTORIAL01_TRIGGER": {
+        "comment": "First animal",
+        "mission_definition": "MIS_AUDIO_TUTORIAL01",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.242753456168016, -109.41697776317596],
+        "radius":111.7
+    },
+
+    "RGN_AUDIO_MYSTERY01_TRIGGER": {
+        "comment": "Obelisk 1 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY01",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.244486550758674, -109.41632866859436],
+        "radius":112.4
+    },
+
+    "RGN_AUDIO_MYSTERY02_TRIGGER": {
+        "comment": "Obelisk 2 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY02",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.246536927566775, -109.41632598638535],
+        "radius":101.3
+    },
+
+    "RGN_AUDIO_MYSTERY03_TRIGGER": {
+        "comment": "Obelisk 3 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY03",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.247254157610224, -109.41843152046204],
+        "radius":93.0
+    },
+
+    "RGN_AUDIO_MYSTERY04_TRIGGER": {
+        "comment": "Obelisk 4 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY04",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.246328957333209, -109.42082405090332],
+        "radius":136.1
+    },
+
+    "RGN_AUDIO_MYSTERY05_TRIGGER": {
+        "comment": "Obelisk 5 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY05",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.244123934518806, -109.42048609256744],
+        "radius":105.7
+    },
+
+    "RGN_AUDIO_MYSTERY06_TRIGGER": {
+        "comment": "Obelisk 6 of 6",
+        "mission_definition": "MIS_AUDIO_MYSTERY06",
+        "shape": "POLYGON",
+        "verts": [[6.242460162669903, -109.41942393779755],[6.242230860366078, -109.41881239414215],[6.2422148625271765, -109.41795408725739],[6.242524153992584, -109.41726744174957],[6.242801449633896, -109.41694021224976],[6.242801449633896, -109.41638231277466],[6.243398701285776, -109.41639304161072],[6.244278579710632, -109.41742837429047],[6.244273247118558, -109.41940784454346]],
+        "center":[],
+        "radius":null
+    },
+
+    "RGN_AUDIO_MYSTERY07_TRIGGER": {
+        "comment": "Breathing photobionts",
+        "mission_definition": "MIS_AUDIO_MYSTERY07",
+        "shape": "CIRCLE",
+        "verts": [],
+        "center":[6.242614808353009, -109.4224065542221],
+        "radius":121.6
+    }
+}
+

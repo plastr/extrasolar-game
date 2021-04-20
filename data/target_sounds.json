@@ -1,0 +1,57 @@
+{
+    "SND_TEST_AUDIO": {
+        "title": "Used for unit testing",
+        "video_id": 51875934
+    },
+
+    "SND_ANIMAL001_ZONE": {
+        "title": "First animal",
+        "video_id": 51875934
+    },
+
+    "SND_AUDIO_MYSTERY01": {
+        "comment": "obelisk 1",
+        "title": "Unknown origin",
+        "video_id": 51875936
+    },
+    "SND_AUDIO_MYSTERY02": {
+        "comment": "obelisk 2",
+        "title": "Unknown origin",
+        "video_id": 51875935
+    },
+    "SND_AUDIO_MYSTERY03": {
+        "comment": "obelisk 3",
+        "title": "Unknown origin",
+        "video_id": 51955426
+    },
+    "SND_AUDIO_MYSTERY04": {
+        "comment": "obelisk 4",
+        "title": "Unknown origin",
+        "video_id": 51955423
+    },
+    "SND_AUDIO_MYSTERY05": {
+        "comment": "obelisk 5",
+        "title": "Unknown origin",
+        "video_id": 51955425
+    },
+    "SND_AUDIO_MYSTERY06": {
+        "comment": "obelisk 6",
+        "title": "Unknown origin",
+        "video_id": 51955424
+    },
+    "SND_AUDIO_MYSTERY07": {
+        "comment": "breathing plant",
+        "title": "Unknown origin",
+        "video_id": 74988106
+    },
+    "SND_MONUMENT_PLAYBACK": {
+        "comment": "tone playback and the resulting foghorn and earthquake",
+        "title": "Playback sequence",
+        "video_id": 86367753
+    },
+    "SND_DISTRESS01": {
+        "comment": "Rockslide, plunge into water, and the voice of the aquatics.",
+        "title": "Unknown origin",
+        "video_id": 74988107
+    }
+}

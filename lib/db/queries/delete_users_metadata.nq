@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM users_metadata WHERE user_id=:user_id AND `key`=:key"}

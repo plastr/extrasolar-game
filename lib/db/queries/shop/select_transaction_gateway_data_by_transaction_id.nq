@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM transaction_gateway_data WHERE transaction_id=:transaction_id"}

@@ -1,0 +1,74 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Query
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Custom Query</h1>
+<div class="div_admin_center">
+
+<h2>Custom Query</h2>
+
+<p>Search for users who meet the following criteria.</p>
+
+<form id="form_new_invite" action="${request_url.path_qs}" method="POST">
+  <table border="0" cellspacing="0" cellpadding="5">
+    
+    <tr>
+        <td>Message ID
+          <input type="text" width=20 name="msg0_id">
+          <select name="msg0_sent">
+            <option value="TRUE">has been received</option>
+            <option value="FALSE">has not been received</option>
+          </select>
+          and locked flag is
+          <select name="msg0_locked">
+            <option value="IGNORE"></option>
+            <option value="TRUE">locked</option>
+            <option value="FALSE">unlocked</option>
+          </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Message ID
+          <input type="text" width=20 name="msg1_id">
+          <select name="msg1_sent">
+            <option value="TRUE">has been received</option>
+            <option value="FALSE">has not been received</option>
+          </select>
+          and locked flag is
+          <select name="msg1_locked">
+            <option value="IGNORE"></option>
+            <option value="TRUE">locked</option>
+            <option value="FALSE">unlocked</option>
+          </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Mission ID
+          <input type="text" width=20 name="mis0_id">
+          <select name="mis0_status">
+            <option value="NOT_STARTED">has not been started</option>
+            <option value="STARTED">has been started</option>
+            <option value="DONE">is done</option>
+          </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Mission ID
+          <input type="text" width=20 name="mis1_id">
+          <select name="mis1_status">
+            <option value="NOT_STARTED">has not been started</option>
+            <option value="STARTED">has been started</option>
+            <option value="DONE">is done</option>
+          </select>
+        </td>
+    </tr>
+
+    <tr>
+      <td><input type="submit" value="Run Query" /></td>
+    </tr>
+  </table>
+
+</form>
+
+<div id="div_footer"></div>

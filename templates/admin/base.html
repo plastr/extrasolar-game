@@ -1,0 +1,122 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>${self.title()}</title>
+    <meta name="description" content="">
+    <meta name="author" content="Lazy 8 Studios">
+
+    <meta name="viewport" content="width=device-width">
+
+    <link href="/css/admin.css" rel="Stylesheet" type="text/css" />
+
+    <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script>window.html5 || document.write('<script src="/js/libs/html5.js"><\/script>')</script>
+    <![endif]-->
+
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/favicon_touch.png" />
+
+    <script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var url_reprocess_target = "${urls.admin_api_reprocess_target()}";
+        var url_highlight_add = "${urls.admin_api_highlight_add()}";
+        var url_highlight_remove = "${urls.admin_api_highlight_remove()}";
+
+        var highlight_and_reprocess_actions = function() {
+            $('.highlight_checkbox').change(function() {
+                var checkbox = $(this);
+                var label = checkbox.siblings('label');
+                var checked = checkbox.is(":checked");
+                var checkbox_id = this.id;
+                var target_id = checkbox_id.split("_")[1];
+
+                label.removeClass('request_success').removeClass('request_fail');
+                var url = checked ? url_highlight_add : url_highlight_remove;
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify({"target_id": target_id}),
+                    contentType: 'application/json',
+                    dataType: "json",
+                    success: function (data) {
+                        // The DOM holding this checkbox might have been refreshed by load_recent_targets
+                        // so look up the checkbox by its id rather than assuming that $(this) is still in
+                        // the DOM. This includes making sure 'checked' has the correct value as the
+                        // server provided HTML might be out of date.
+                        var checkbox = $('#'+checkbox_id);
+                        checkbox.attr('checked', checked);
+                        var label = checkbox.siblings('label');
+                        label.addClass('request_success');
+                    },
+                    error: function(data) {
+                        var label = $('#'+checkbox_id).siblings('label');
+                        label.addClass('request_fail');
+                        console.error("Failed process highlight request: " + data['responseText']);
+                    }
+                });
+            });
+
+            $('.reprocess_button').click(function() {
+                var button_id = this.id;
+                var target_id = button_id.split("_")[1];
+
+                $.ajax({
+                    type: 'POST',
+                    url: url_reprocess_target,
+                    data: JSON.stringify({"target_id": target_id}),
+                    contentType: 'application/json',
+                    dataType: "json",
+                    success: function (data) {
+                        var button = $('#'+button_id);
+                        var cell = button.parent();
+                        var row = cell.parent();
+                        cell.children().remove();
+                        cell.append("<span>Processing</span>");
+                        row.addClass('target_unprocessed');
+                    },
+                    error: function(data) {
+                        var button = $('#'+button_id);
+                        var cell = button.parent();
+                        cell.append("<div class='request_fail'>Failed</div>");
+                        console.error("Failed reprocess target request: " + data['responseText']);
+                    }
+                });
+            });
+        };
+
+        // Wire up any highlight and reprocessing buttons on the page.
+        $(document).ready(function() {
+            highlight_and_reprocess_actions();
+        });
+    </script>
+
+    ${self.head()}
+
+</head>
+
+<body>
+<div id="div_admin_content">
+    % if error is not UNDEFINED:
+    <h2 class="error">${error}</h2>
+    <% return %>
+    % endif
+
+    ${self.body()}
+</div>
+</body>
+</html>
+
+<%def name="head()">
+</%def>
+
+<%def name="title()">
+Admin
+</%def>

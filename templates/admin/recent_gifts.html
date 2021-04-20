@@ -1,0 +1,58 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin ${page_title}
+</%def>
+
+<%def name="head()">
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#reveal_text_links').click(function() {
+        $('.link_redeem').each(function(index, element) {
+            $(element).parent().text($(element).attr('href'));
+        });
+        return false;
+    });
+});
+</script>
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> ${page_title}</h1>
+<div class="div_admin_center">
+
+<h2>${page_title} (limit: ${limit})</h2>
+
+<button id="reveal_text_links" type="button">Show Unredeemed Gift Links As Text</button>
+
+<table>
+<tr>
+    <th>Created</th>
+    <th>Creator</th>
+    <th>Gift Type</th>
+    <th>Annotation</th>
+    <th>Campaign</th>
+    <th>Redeemer</th>
+    <th>Redeemed</th>
+</tr>
+% for g in recent_gifts:
+<tr>
+    <td>${format_utc(g.created)}</td>
+    <td><a href="${urls.admin_user(g.creator_id)}" title="${g.creator_user_email}">${format_email(g.creator_user_email)}</a></td>
+    <td>${g.gift_type}</td>
+    <td>${g.annotation}</td>
+    % if g.has_campaign_name():
+    <td>${g.campaign_name}</td>
+    % else:
+    <td></td>
+    % endif
+    % if g.was_redeemed():
+    <td><a href="${urls.admin_user(g.redeemer_id)}" title="${g.redeemer_user_email}">${format_email(g.redeemer_user_email)}</a></td>
+    <td>${format_utc(g.redeemed_at)}</td>
+    % else:
+    <td><a href="${g.url_gift_redeem()}" class="link_redeem">Redeem Link</a></td>
+    <td>None</td>
+    % endif
+</tr>
+% endfor
+</table>
+
+<div id="div_footer"></div>

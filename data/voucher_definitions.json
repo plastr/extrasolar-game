@@ -1,0 +1,14 @@
+{
+    "VCH_S1_PASS": {
+        "name": "XRI Associate for Artocos Island Missions",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for missions on Artocos Island",
+        "unlimited_capabilities": ["CAP_S1_CAMERA_FLASH", "CAP_S1_CAMERA_PANORAMA", "CAP_S1_CAMERA_INFRARED", "CAP_S1_ROVER_FAST_MOVE", "CAP_S1_ROVER_3_MOVES"],
+        "not_available_after": ["VCH_ALL_PASS"]
+    },
+    "VCH_ALL_PASS": {
+        "name": "XRI Pioneer",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for all missions, including early access to missions at future locations",
+        "unlimited_capabilities": ["CAP_S1_CAMERA_FLASH", "CAP_S1_CAMERA_PANORAMA", "CAP_S1_CAMERA_INFRARED", "CAP_S1_ROVER_FAST_MOVE", "CAP_S1_ROVER_3_MOVES", "CAP_S1_ROVER_4_MOVES"],
+        "not_available_after": []
+    }
+}

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT GET_LOCK(:lock_name, :timeout) AS result"}

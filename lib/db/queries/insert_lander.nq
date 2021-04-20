@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO landers SET lander_id=:lander_id, lat=:lat, lng=:lng"}

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT transaction_id, invoice_id, transactions.user_id, email as _email, transaction_type, amount, currency, gateway_type, transactions.created FROM transactions, users WHERE transactions.user_id = users.user_id ORDER BY created DESC LIMIT :limit"}

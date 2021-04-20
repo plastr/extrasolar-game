@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO species SET species_id=:species_id, user_id=:user_id, detected_at=:detected_at"}

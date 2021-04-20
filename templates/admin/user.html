@@ -1,0 +1,385 @@
+<%inherit file="base.html"/>
+<%namespace name="tools" file="tools.html"/>
+<%def name="title()">
+    Admin User
+</%def>
+
+<%def name="head()">
+<link href="/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+<script src="/js/lib/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var url_increment_invites_left = "${urls.admin_api_user_increment_invites_left()}";
+    var user_id = "${u.user_id}";
+    $('#button_add_invites').click(function() {
+        $('#span_invites_left').removeClass('request_success').removeClass('request_fail');
+        $.ajax({
+            type: 'POST',
+            url: url_increment_invites_left,
+            data: JSON.stringify({"user_id": user_id}),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (data) {
+                $('#span_invites_left').text(data['invites_left']).addClass('request_success');
+            },
+            error: function(data) {
+                $('#span_invites_left').text("Failed").addClass('request_fail');
+                console.error("Failed increment invites request: " + data['responseText']);
+            }
+        });
+    });
+
+    var url_edit_campaign_name = "${urls.admin_api_user_edit_campaign_name()}";
+    var user_id = "${u.user_id}";
+    $('#form_campaign_name').submit(function() {
+        $('#input_campaign_name').removeClass('request_success').removeClass('request_fail');
+        $.ajax({
+            type: 'POST',
+            url: url_edit_campaign_name,
+            data: JSON.stringify({"user_id": user_id, "campaign_name": $('#input_campaign_name').val()}),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (data) {
+                $('#input_campaign_name').val(data['campaign_name']).addClass('request_success');
+            },
+            error: function(data) {
+                $('#input_campaign_name').addClass('request_fail');
+                console.error("Failed edit campaign name request: " + data['responseText']);
+            }
+        });
+        return false;
+    });
+
+    $('.display_metadata_link').click(function() {
+        var display_metadata = $(this).parents('tr').children('.display_metadata')
+        // Render any attached HTML text which might be delayed as it could contain video embeds etc.
+        // which we don't want to block the whole admin page rendering waiting for.
+        if (display_metadata.children('.metadata_dialog').length > 0) {
+            display_metadata.dialog().open();
+        } else {
+            var needs_render = display_metadata.children('.needs_render');
+            needs_render.removeClass('needs_render').replaceWith($(needs_render.text()));
+            // Create a div to hold the dialog and inject the display_metadata html into it.
+            var dialog_div = $('<div class="metadata_dialog"></div>');
+            dialog_div.html(display_metadata.html());
+            display_metadata.append(dialog_div);
+            dialog_div.dialog({width: 850});
+        }
+        return false
+    });
+});
+</script>
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> User</h1>
+<div class="div_admin_center">
+
+<h2>User Overview &nbsp;&nbsp;<a href="${u.url_public_profile()}">Profile</a> | <a href="${u.url_admin_map()}">Map</a>
+    % if u.valid == 0:
+    | <a href="${u.url_validate()}">Validate Link</a>
+    % endif
+</h2>
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Started</th>
+        <th>Last Access</th>
+        <th>Campaign</th>
+        <th>Invites</th>
+        <th>Inviter</th>
+        <th>Notifications</th>
+    </tr>
+    % if u.valid == 0:
+    <tr class="user_invalid">
+    % elif len(u.vouchers) > 0:
+    <tr class="user_has_vouchers">
+    % else:
+    <tr>
+    % endif
+        <td>${u.email}</td>
+        <td>${u.first_name} ${u.last_name}</td>
+        <td>${u.profile_approx_time_since_activated()}</td>
+        <td>${u.profile_approx_time_since_last_accessed()}</td>
+        <td><form id="form_campaign_name"><input id="input_campaign_name" maxlength="45" size="15" value="${u.campaign_name}"></input></form></td>
+        <td><span id="span_invites_left">${u.invites_left}</span>&nbsp;&nbsp;<button id="button_add_invites" style="float:right;margin:0">Add</button></td>
+        % if u.inviter_user is not None:
+        <td><a href="${urls.admin_user(u.inviter_user.user_id)}" title="${u.inviter_user.email}">${format_email(u.inviter_user.email, 20)}</a></td>
+        % else:
+        <td>None</td>
+        % endif
+        <td>${u.activity_alert_frequency}</td>
+    </tr>
+</table>
+
+<table style="border: 0; margin-top: 5px;" align='top'>
+    <tr valign="top">
+    % if len(u.vouchers) > 0:
+    <td style="border: 0">
+    <div class="user_header_table_scroll">
+    <table style="border: 0">
+        <caption>Vouchers</caption>
+        <tr>
+            <th>voucher_key</th>
+            <th>Delivered At</th>
+        </tr>
+        % for v in u.vouchers.by_delivered_at():
+        <tr>
+            <td>${v.voucher_key}</a></td>
+            <td>${v.approx_time_since('delivered_at')}</td>
+        </tr>
+        % endfor
+    </table>
+    </div>
+    </td>
+    % endif
+
+    % if len(u.gifts_redeemed) > 0:
+    <td style="border: 0">
+    <div class="user_header_table_scroll">
+    <table style="border: 0">
+        <caption>Gifts Redeemed</caption>
+        <tr>
+            <th>Gift Type</th>
+            <th>Creator</th>
+            <th>Created</th>
+        </tr>
+        % for g in u.gifts_redeemed.by_created():
+        <tr>
+            <td>${g.gift_type}</a></td>
+            <td><a href="${g.creator.url_admin()}" title="${g.creator.email}">${format_email(g.creator.email)}</a></td>
+            <td>${format_utc_approx(g.created)}</td>
+        </tr>
+        % endfor
+    </table>
+    </div>
+    </td>
+    % endif
+
+    % if len(u.gifts_created) > 0:
+    <td style="border: 0">
+    <div class="user_header_table_scroll">
+    <table style="border: 0">
+        <caption>Gifts Created</caption>
+        <tr>
+            <th>Gift Type</th>
+            <th>Redeemer</th>
+            <th>Redeemed At</th>
+        </tr>
+        % for g in u.gifts_created.by_created():
+        <tr>
+            <td>${g.gift_type}</a></td>
+            % if g.was_redeemed():
+            <td><a href="${g.redeemer.url_admin()}" title="${g.redeemer.email}">${format_email(g.redeemer.email)}</a></td>
+            <td>${format_utc_approx(g.redeemed_at)}</td>
+            % else:
+            <td><a href="${g.url_gift_redeem()}">Redeem Link</a></td>
+            <td>None</td>
+            % endif
+        </tr>
+        % endfor
+    </table>
+    </div>
+    </td>
+    % endif
+    </tr>
+
+    % if len(user_invitations) > 0:
+    <tr>
+    <td style="border: 0" colspan="3">
+    <div class="user_header_table_scroll">
+    <table style="border: 0">
+        <caption>Invitations Sent (limit ${invite_limit})</caption>
+        <tr>
+            <th>Sent At</th>
+            <th>Recipient Email</th>
+            <th>Recipient Name</th>
+            <th>Gift</th>
+            <th>Recipient</th>
+            <th>Accepted At</th>
+        </tr>
+        % for invite in user_invitations:
+        <tr>
+            <td>${format_utc(invite.sent_at)}</td>
+            <td>${invite.recipient_email}</td>
+            <td>${invite.recipient_first_name} ${invite.recipient_last_name}</td>
+            % if invite.has_gift():
+            <td>${invite.gift_type}</td>
+            % else:
+            <td>None</td>
+            % endif
+            % if invite.was_accepted():
+            <td><a href="${urls.admin_user(invite.recipient_id)}" title="${invite.recipient_user_email}">${format_email(invite.recipient_user_email)}</a></td>
+            <td>${format_utc(invite.accepted_at)}</td>
+            % else:
+            <td><a href="${invite.url_invite_accept()}">Accept Link</a></td>
+            <td>None</td>
+            % endif
+        </tr>
+        % endfor
+    </table>
+    </div>
+    </td>
+    </tr>
+    % endif
+
+    % if len(u.shop.invoices) > 0:
+    <tr>
+    <td style="border: 0" colspan="3">
+    <table style="border: 0">
+        <caption>Invoices</caption>
+        <tr>
+            <th>invoice_id</th>
+            <th>Created</th>
+            <th>Total</th>
+            <th>Products</th>
+            <th>Transactions</th>
+        </tr>
+        % for i in u.shop.invoices:
+        <tr>
+            <td><a href="${i.url_admin()}">${i.invoice_id}</a></td>
+            <td>${format_utc_approx(i.created)}</td>
+            <td>${i.total_amount_display}</td>
+            <td>${",".join((p.product_key for p in i.products))}</td>
+            <td>${",".join((t.gateway_data_as_html() for t in i.transactions)) | n}</td>
+        </tr>
+        % endfor
+    </table>
+    </td>
+    </tr>
+    % endif
+</table>
+
+<hr/>
+<br/>
+
+<div class="div_column_left">
+<h2>All Targets (${len(u.all_picture_targets())})</h2>
+<table>
+    <tr>
+        <th>Thumb</th>
+        <th>Arrival</th>
+        <th>Travel Time</th>
+        <th>Viewed After</th>
+        <th>Tools</th>
+    </tr>
+    % for t in reversed(u.all_picture_targets()):
+    % if not t.is_processed():
+    <tr class="target_unprocessed">
+    % else:
+    <tr>
+    % endif
+        <td>
+            <a href="${t.url_admin}">
+                <img width="80px" height="60px" src="${t.url_image_thumbnail}"/>
+            </a>
+            <div class="image_links">
+                <a href="${urls.admin_species_id_img(t.url_image_species)}">ID</a> | <a href="${t.url_image_wallpaper}">Hi-res</a>
+                % if t.is_infrared():
+                    | <a href="${t.url_image_infrared}">IR</a>
+                % endif
+            </div>
+        </td>
+        <td>${t.approx_time_since('arrival_time')}</td>
+        <td>${t.approx_time_between('start_time', 'arrival_time')}
+        % if t.was_viewed():
+        <td>${t.approx_time_between('arrival_time', 'viewed_at')}
+        % else:
+        <td><strong>Not Viewed</strong></td>
+        % endif
+        <td>
+        ${tools.target_tools(t)}
+        </td>
+    </tr>
+    % endfor
+</table>
+</div>
+
+<div class="div_column_right">
+<h2>Missions (${len(u.missions.all_by_started_at())})</h2>
+<table>
+    <tr>
+        <th>definition</th>
+        <th>Started</th>
+        <th>Done After  </th>
+    </tr>
+    % for m in reversed(u.missions.all_by_started_at()):
+    <tr>
+        <td><a class="display_metadata_link" href="#">${m.mission_definition}</a></td>
+        <td>${m.approx_time_since('started_at')}</td>
+        % if m.is_done():
+        <td>${m.approx_time_between('started_at', 'done_at')}
+        % else:
+        <td><strong>Not Done</strong></td>
+        % endif
+        <td class="display_metadata" style="display:none">
+            <div>Title: ${m.title}</div><br/>
+            <div>Summary:</div>
+            <div>${m.summary}</div><br/>
+            <div>Description:</div>
+            <div>${m.description}</div>
+        </td>
+    </tr>
+    % endfor
+</table>
+</div>
+
+<div class="div_column_right">
+<h2>Messages (${len(u.messages.all_by_sent_at())})</h2>
+<table>
+    <tr>
+        <th>msg_type</th>
+        <th>Sent</th>
+        <th>Read After</th>
+    </tr>
+    % for m in reversed(u.messages.all_by_sent_at()):
+    <tr>
+        <td><a class="display_metadata_link" href="#">${m.msg_type}</a>
+            % if m.url_icon:
+            <img src="${m.url_icon['url']}" width=${m.url_icon['width']}px height=${m.url_icon['height']}px>
+            % endif
+        </td>
+        <td>${m.approx_time_since('sent_at')}</td>
+        % if m.was_read():
+        <td>${m.approx_time_between('sent_at', 'read_at')}</td>
+        % else:
+        <td><strong>Not Read</strong></td>
+        % endif
+        <td class="display_metadata" style="display:none">
+            <div>From: ${m.sender}</div>
+            <div>Subject: ${m.subject}</div>
+            <div>Body:</div>
+            <div class="needs_render">${m.body_rendered().decode('utf-8')}</div>
+        </td>
+    </tr>
+    % endfor
+</table>
+</div>
+
+<div class="div_column_right">
+<h2>Species (${len(u.species.all_by_detected_at())})</h2>
+<table>
+    <tr>
+        <th>key</th>
+        <th>name</th>
+        <th>Detected</th>
+        <th>Viewed After</th>
+    </tr>
+    % for s in reversed(u.species.all_by_detected_at()):
+    <tr>
+        <td>${s.key}</td>
+        <td>${format_field(s.name, 15)}</td>
+        <td>${s.approx_time_since('detected_at')}</td>
+        % if s.was_viewed():
+        <td>${s.approx_time_between('detected_at', 'viewed_at')}
+        % else:
+        <td><strong>Not Viewed</strong></td>
+        % endif
+    </tr>
+    % endfor
+</table>
+</div>
+
+
+<div id="div_footer"></div>

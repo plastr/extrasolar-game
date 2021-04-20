@@ -1,0 +1,2 @@
+{"base":
+ "SELECT target_images.* FROM target_images, targets WHERE target_images.target_id = targets.target_id AND targets.render_at >= :oldest_target_render_at AND targets.render_at <= :newest_target_render_at"}

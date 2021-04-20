@@ -1,0 +1,36 @@
+<div style="background-color:rgba(128, 128, 128, 0.5)">
+  <table border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+      <td>
+        <form id="form_login" action="${login_form_action_url}" method="POST" onsubmit="if (xri.validation.validateLogin()) {$('#login_submit').prop('disabled',true); return true;} else {return false;}">
+          <input type="hidden" name="form_type" value="login" />
+          <table border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr><td style="padding:2px 5px 5px 5px; margin:0px">
+            <span style="font-size:12px; color:#a0a0a0">Email<br></span>
+            <input name="login_email" id="login_email" type="email" value="${login_email}" style="font-size:14px; padding: 3px; width: 180px; border-radius: 0px; color: #a0a0a0; background: #202020; border: 1px solid #a0a0a0" autocorrect="off"/>
+          </td>
+          <td style="padding:2px 5px 0px 5px; margin:0px">
+            <span style="font-size:12px; color:#a0a0a0">Password<br></span>
+            <input name="login_password" type="password" id="login_password" value="${login_password}" style="font-size:14px; padding: 3px; width: 100px; border-radius: 0px; color: #a0a0a0; background: #202020; border: 1px solid #a0a0a0" />
+          </td>
+          <td align=center style="padding:23px 5px 0px 5px; margin:0px">
+            <input type="submit" id="login_submit" class="gradient-button gradient-button-standard gradient-button-grey" style="padding:3px; min-width:80px" value="Login" />
+          </td></tr>
+          </table>
+        </form>
+      </td>
+      <td style="padding:23px 5px 0px 5px; margin:0px">
+        % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True:
+          <%include file="facebook_login_snippet.html"/>
+        % endif
+      </td>
+      <td style="padding:15px 10px 0px 10px; margin:0px; font-size:12px;" align="center"><a href="${urls.request_password_reset()}" style="color:#808080">Forgot<br>Password?</a>
+      </td>
+    </tr>
+  </table>
+<div id="error_login" class="form-error" align="center">
+  % if login_error is not UNDEFINED:
+  ${login_error}
+  % endif
+</div>
+</div>

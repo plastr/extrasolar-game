@@ -1,0 +1,2 @@
+{"base":
+ "CREATE TABLE IF NOT EXISTS test_table (test_field int(32) NOT NULL DEFAULT '0', PRIMARY KEY (test_field)) ENGINE=InnoDB DEFAULT CHARSET=utf8"}

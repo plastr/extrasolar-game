@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO targets SET user_id=:user_id, rover_id=:rover_id, start_time=:start_time, arrival_time=:arrival_time, target_id=:target_id, lat=:lat, lng=:lng, yaw=:yaw, pitch=:pitch, picture=:picture, processed=:processed, classified=:classified, highlighted=:highlighted, user_created=:user_created, neutered=:neutered, render_at=:render_at, created=:created"}

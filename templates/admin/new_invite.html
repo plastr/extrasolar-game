@@ -1,0 +1,53 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin New Gift
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> New Invite</h1>
+<div class="div_admin_center">
+
+<h2>Send Invitations</h2>
+
+<p>If you don’t know what email address to use, you probably want to use the <a href="${urls.admin_gifts_new()}">new gift page </a> instead.</p>
+
+<form id="form_new_invite" action="${request_url.path_qs}" method="POST">
+  <table border="0" cellspacing="0" cellpadding="5">
+    <tr>
+        <td>Inviting Account</td>
+        <td>${inviter_first_name} ${inviter_last_name} &lt;${inviter_email}&gt;</td>
+        <input type="hidden" id="inviter_email" name="inviter_email" value="${inviter_email}" />
+    </tr>
+    <tr>
+        <td>Personal Message</td>
+        <td><textarea id="invitation_message" name="invitation_message" cols=74 rows=4>I'd like to invite you to try out for the Extrasolar Program, an amazing experience in space exploration, and the chance of a lifetime!</textarea></td>
+    </tr>
+    <tr>
+      <td><label for="invitation_campaign_name">Optional Campaign Name (e.g. Media_NYTimes)</label></td>
+      <td><input name="invitation_campaign_name" type="text" id="invitation_campaign_name"/></td>
+    </tr>
+    <tr>
+      <td><label for="gift_type">Attach Gift Type</label></td>
+      <td>
+          <select name="gift_type" id="gift_type">
+            % for t in all_gift_types:
+            <option value="${t}">${t}</option>
+            % endfor
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="gift_annotation">Gift Annotation (e.g. Humble Bundle or IGF 2014)</label></td>
+      <td><input name="gift_annotation" type="text" id="gift_annotation"/></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Send Invitations" /></td>
+    </tr>
+  </table>
+
+  <p>List one email address per line, optionally followed by a first and last name if known, separated by commas. e.g.,:</p>
+  <p>test@example.com, First Name, Last Name</p>
+  <textarea id="recipient_emails_and_names" name="recipient_emails_and_names" cols=130 rows=20></textarea>
+</form>
+
+<div id="div_footer"></div>

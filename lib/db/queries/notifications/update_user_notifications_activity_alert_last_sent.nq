@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users_notification SET activity_alert_last_sent=:activity_alert_last_sent WHERE user_id=:user_id"}

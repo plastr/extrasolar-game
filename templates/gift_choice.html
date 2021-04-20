@@ -1,0 +1,51 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Welcome to Extrasolar!
+</%def>
+
+<%def name="head()">
+<script src="/js/shared/xri.validation.js" type="text/javascript"></script>
+</%def>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+  <tr>
+    <td>
+      <div style="text-align:center">
+        <iframe width="514" height="320" src="https://www.youtube.com/embed/lBxIQyvLiq8?rel=0&iv_load_policy=3&showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <p>
+        With the reach of the Internet, the <a href="http://www.exoresearch.com">eXoplanetary Research Institute (XRI)</a> is crowdsourcing exploration of Epsilon Prime.  With your assistance, we can unlock the secrets of this alien world, one photo at a time.
+      </p>
+
+      <div id="error_gift" class="form-error" align="center">
+          % if gift_error is not UNDEFINED:
+          ${gift_error}
+          % endif
+      </div>
+
+      <p>
+      % if invite is not UNDEFINED:
+      <strong>${invite.sender.first_name} ${invite.sender.last_name}</strong> has invited you to participate.
+      % endif
+      % if gift is not UNDEFINED:
+      This exclusive invitation includes paid access to Extrasolar at the following level: <strong>${gift.name}</strong>: ${gift.description}.
+      %endif
+      </p>
+
+      % if gift_error is UNDEFINED:
+      <div style="text-align: center">
+          <table width="100%"><tr>
+          <td align=center><a href="${gift.url_gift_redeem_new_user()}"><div class="gradient-button-store button-div">Create a new account</div></a></td>
+          <td align=center><a href="${gift.url_gift_redeem_existing_user()}"><div class="gradient-button-store button-div">Activate gift on existing account</div></a></td>
+          </tr></table>
+      </div>
+      % endif
+    </td>
+  </tr>
+</table>
+
+<div class="patch-logo">
+  <!-- <img src="http://www.extrasolar.com/images/mission-patch.png" alt="mission-patch" class="patch"> -->
+  <!-- <img src="img/new/XRI_logo_300x300.png" alt="" class="xri-logo"> -->
+</div><!-- / -->

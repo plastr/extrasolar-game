@@ -1,0 +1,52 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Welcome to Extrasolar!
+</%def>
+
+<%def name="head()">
+<style>
+.edmodo-survey {width:100%; margin: auto;}
+.edmodo-survey td { text-align: center; min-width: 60px; vertical-align:middle;}
+.edmodo-survey th { text-align: center; font-weight: normal; font-size: 12px;}
+.edmodo-survey tr:nth-child(odd) {background: rgba(240, 240, 240, 1.0);}
+.edmodo-survey td:nth-child(1) {text-align: left;}
+</style>
+
+<script>
+function edmodo_validate() {
+    var checkedRadioButtons = $('#survey input:checked');
+    if (checkedRadioButtons.length < 4) {
+        $('#survey-error').html("<p style='color:#a00000;'>Please answer all of the questions.</p>");
+        return false;
+    }
+    return true;
+}
+</script>
+</%def>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+  <tr>
+    <td>
+      <div style="text-align:center">
+        <iframe width="514" height="320" src="https://www.youtube.com/embed/lBxIQyvLiq8?rel=0&iv_load_policy=3&showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p>Welcome, ${first_name}! The <a href="http://www.exoresearch.com" target="_blank">eXoplanetary Research Institute (XRI)</a> is crowdsourcing exploration of the planet Epsilon Prime using the power of the Internet. Do you think you have what it takes to join our exploration team? Please select a response to the following statements.</p>
+
+        <span id='survey-error'></span>
+
+          <form id='survey' action='/edmodo/unauthorized' method="POST" onsubmit="return edmodo_validate();">
+          <table class="edmodo-survey">
+              <tr><th>&nbsp;</th><th>Strongly<br>Agree</th><th><br>Agree</th><th><br>Neutral</th><th><br>Disagree</th><th>Strongly<br>Disagree</th></tr>
+              <tr><td>I have a strong passion for exploration.</td><td><input type="radio" name="q1" value="a1"><td><input type="radio" name="q1" value="a2"><td><input type="radio" name="q1" value="a3"><td><input type="radio" name="q1" value="a4"></td><td><input type="radio" name="q1" value="a5"></td></tr>
+              <tr><td>I am interested in learning more about our universe.</td><td><input type="radio" name="q2" value="a1"></td><td><input type="radio" name="q2" value="a2"></td><td><input type="radio" name="q2" value="a3"></td><td><input type="radio" name="q2" value="a4"></td><td><input type="radio" name="q2" value="a5"></td></tr>
+              <tr><td>I am intrigued by the thought of alien life.</td><td><input type="radio" name="q3" value="a1"></td><td><input type="radio" name="q3" value="a2"></td><td><input type="radio" name="q3" value="a3"></td><td><input type="radio" name="q3" value="a4"></td><td><input type="radio" name="q3" value="a5"></td></tr>
+              <tr><td>I would love to be the first to make a scientific discovery.</td><td><input type="radio" name="q4" value="a1"><td><input type="radio" name="q4" value="a2"><td><input type="radio" name="q4" value="a3"><td><input type="radio" name="q4" value="a4"></td><td><input type="radio" name="q4" value="a5"></td></tr>
+              <tr><td colspan=6 style="text-align:center"><br><input type="submit" id="login_submit" class="gradient-button gradient-button-standard gradient-button-store" value="Submit my application" /></td></tr>
+          </table>
+          </form>
+
+        </div>
+      </p>
+    </td>
+  </tr>
+</table>

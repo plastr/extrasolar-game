@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO invitations SET invite_id=:invite_id, sender_id=:sender_id, recipient_id=:recipient_id, recipient_email=:recipient_email, recipient_first_name=:recipient_first_name, recipient_last_name=:recipient_last_name, campaign_name=:campaign_name, sent_at=:sent_at, accepted_at=:accepted_at"}

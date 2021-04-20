@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO rovers SET rover_id=:rover_id, lander_id=:lander_id, user_id=:user_id, rover_key=:rover_key, activated_at=:activated_at, active=:active, created=:created"}

@@ -1,0 +1,23 @@
+<table>
+    <tr>
+        <th>invoice_id</th>
+        <th>Purchaser</th>
+        <th>Created (PST)</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Gateway</th>
+        <th>Gateway Data</th>
+    </tr>
+    % for t in recent_transactions:
+    <tr>
+        <td><a href="${urls.admin_invoice(t.invoice_id)}">${t.invoice_id}</a></td>
+        <td>${t.user_admin_as_html() | n}</td>
+        <td>${format_utc(t.created)}</td>
+        <td>${t.transaction_type}</td>
+        <td>${t.amount_display}</td>
+        <td>${t.gateway_type}</td>
+        <td>${t.gateway_data_as_html() | n}</td>
+    </tr>
+    % endfor
+</table>
+<span id='all_transactions_money_data' data-sum="${all_transactions_money_display}"></span>

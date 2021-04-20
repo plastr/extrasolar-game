@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users_notification SET activity_alert_frequency=:activity_alert_frequency, wants_activity_alert=:wants_activity_alert WHERE user_id=:user_id"}

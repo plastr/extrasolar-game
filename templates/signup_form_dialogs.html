@@ -1,0 +1,32 @@
+<div id="terms-of-service-overlay" class="ui-widget-overlay ui-front hidden"></div>
+<div id="terms-of-service-container" class="hidden">
+  <div id="terms-of-service-dialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front default-dialog-theme">
+    <div id="terms-of-service-content" class="ui-dialog-content ui-widget-content">
+      <%include file="terms_of_service_snippet.html"/>
+    </div>
+    <center>
+      <button class="gradient-button gradient-button-store" onclick="xri.ui.close_terms_of_service()">OK</button>
+    </center>
+  </div>
+</div>
+
+<div id="age-window-overlay" class="ui-widget-overlay ui-front hidden"></div>
+<div id="age-window-container" class="hidden">
+  <div id="age-window-dialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front default-dialog-theme">
+    <div id="age-window-content" class="ui-dialog-content ui-widget-content">
+      <h2>Why the age restriction?</h2>
+      <h3>Immersion</h3>
+      <p><em>Extrasolar is a game</em>. However, it's quite different from other games and there may be times when you're not sure where the game ends and reality begins. Extrasolar is not self-contained and you may, at times, find yourself linking from domains within the game to websites that we don't control.</p>
+      <h3>Themes</h3>
+      <p>There is no violence in Extrasolar, but some of the themes have a mature nature. For instance, the story may refer to violent events and may simulate engaging in illegal behavior.</p>
+      <h3>Language</h3>
+      <p>I believe we use the word "dammit" in a couple of places, but that's as bad as it gets.</p>
+      <h3>Legal</h3>
+      <p>Due to COPPA (The Children's Online Privacy Protection Act) in the United States, it's our understanding that any website that collects email addresses for users must limit access to children under the age of 13. It should be noted that Extrasolar also creates a public profile page that lists the participant's first name and last initial. We hope to eventually meet COPPA requirements, but for now, we're being extra cautious.</p>
+      <p>This legal constraint is unfortunate as we believe that Extrasolar will be an exciting and educational experience for participants of all ages. We encourage parents to create an account with their own name and email address and play with their kids.</p>
+    </div>
+    <center>
+      <button class="gradient-button gradient-button-store" onclick="xri.ui.close_age_window()">OK</button>
+    </center>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT DATE_FORMAT(created, :date_format) AS day, COUNT(*) AS target_count, COUNT(DISTINCT(user_id)) AS user_count FROM targets WHERE created >= :start AND created < :end AND user_created=1 GROUP BY day"}

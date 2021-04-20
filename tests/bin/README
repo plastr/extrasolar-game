@@ -1,0 +1,19 @@
+This directory contains the phantomjs and casperjs projects used for headless Javascript testing in a Webkit environment.
+
+http://phantomjs.org
+http://casperjs.org
+
+For the phantomjs project, the binaries for each platform are distributed by the project.
+The Mac and Linux 32 binaries were downloaded and extracted into the phantomjs directory.
+
+casperjs is not currently shipping as part of Macports or similar projects so was installed into our repository using the following commands:
+
+$ git clone git://github.com/n1k0/casperjs.git
+$ cd casperjs
+$ git checkout tags/1.0.0-RC2
+
+And then remove some cruft:
+cd ../
+rm -rf casperjs/.git
+rm -rf casperjs/samples
+rm -rf casperjs/tests/site casperjs/tests/suites casperjs/tests/testdir

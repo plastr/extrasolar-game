@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO transaction_gateway_data SET transaction_id=:transaction_id, `key`=:key, `value`=:value"}

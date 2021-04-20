@@ -1,0 +1,2 @@
+{"base":
+ "SELECT EXISTS (SELECT deferred_id FROM deferred WHERE deferred_type=:deferred_type AND subtype=:subtype AND user_id=:user_id LIMIT 1) as exist"}

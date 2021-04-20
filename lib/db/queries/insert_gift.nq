@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO gifts SET gift_id=:gift_id, creator_id=:creator_id, redeemer_id=:redeemer_id, gift_type=:gift_type, annotation=:annotation, campaign_name=:campaign_name, created=:created, redeemed_at=:redeemed_at"}

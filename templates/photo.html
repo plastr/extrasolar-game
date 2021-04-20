@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, maximum-scale = 1.0">
+
+    <title>
+    % if error is not UNDEFINED:
+        Error occurred.
+    % else:
+        Photo Page for ${user.first_name}
+    % endif
+    </title>
+
+    <!--meta tags-->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    % if target is not UNDEFINED:
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@exoresearch">
+        <meta name="twitter:creator" content="@exoresearch">
+        <meta property="og:title" content="Extrasolar: Photo from the planet Epsilon Prime." />
+        <meta property="og:description" content="A picture from the planet Epsilon Prime taken by my rover. Made possible by the Extrasolar project at XRI, the eXoplanetary Research Institute." />
+        % if "layer" in query_strings and query_strings['layer'][0] == "ir" and target.is_infrared():
+            <% infrared_view = "true" %>
+            <% initial_button = "Show Visible Spectrum" %>
+            <meta name="twitter:image:src" content="${target.url_image_infrared}" />
+            <meta property="og:image" content="${target.url_image_infrared}" />
+        % else:
+            <% infrared_view = "false" %>
+            <% initial_button = "Show Infrared" %>
+            <meta name="twitter:image:src" content="${target.url_image_photo}" />
+            <meta property="og:image" content="${target.url_image_photo}" />
+        % endif
+    % endif
+
+    <link rel="icon" type="../image/png" href="../images/XRI_favicon16.png" />
+
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/js/lib/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+    <script src="/js/shared/xri.ui.js" type="text/javascript"></script>
+    <script src="/js/lib/jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+    <script src="/js/lib/jparalax-drag.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="/css/shared/xri.style.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/pub.style.css" />
+
+    % if target is not UNDEFINED:
+    <script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(
+        function() {
+            // Data provided by the server templating system to the Javascript.
+            // current_target_id holds the string UUID for the currently displayed target on this page.
+            var current_target_id = "${target.target_id}";
+            // target_structs is a list of target 'like' objects, containing the following attributes:
+            // target_id, url_photo, url_thumbnail, url_public_photo
+            var target_structs = ${target_structs |n};
+            var infrared_view = ${infrared_view};
+
+            var get_image_url = function() {
+                if(infrared_view) {
+                    return '${target.url_image_infrared}';
+                }
+                else if($('#photo-container').height() > 800) {
+                    return '${target.url_image_wallpaper}';
+                }
+                else{
+                    return '${target.url_image_photo}';
+                }
+            }
+
+            % if target.is_panorama():
+                var populate_panorama = function() {
+                    $(".photo-container-interior").html('<ul id="image-drag" class="public-img-panorama">\
+                            <li>\
+                                <img id="picture-detailed" src="'+get_image_url()+'" height="100%" width="100%">\
+                            </li>\
+                        </ul>\
+                        <div class="pan-left-control hoverbox" id="image-drag-pan-left"><div title="Pan image left" class="pan-button-border"><div class="pan-left-button-interior"></div></div></div>\
+                        <div class="pan-right-control hoverbox" id="image-drag-pan-right"><div title="Pan image right" class="pan-button-border"><div class="pan-right-button-interior"></div></div></div>\
+                    ');
+                    var image_height = Math.min($("#photo-container").height(),1280);
+                    var image_width = image_height * 4;
+                    var frame_height = image_height;
+                    var frame_width =  Math.min($("#photo-container").width(), image_width);
+                    var frame_position = image_width - frame_width / 2;
+                    $('#picture-detailed').width(image_width).height(image_height);
+                    $('#image-drag').jParadrag({width: frame_width, height: frame_height, startPosition: frame_position, loop: true, factor: 1,
+                        momentum: false, onDragStop:function(){}, onLoad: xri.ui.panorama_pan_buttons}).css({ cursor : 'move' });
+                }
+                populate_panorama();
+                $( window ).resize(populate_panorama);
+            % else:
+                $(".photo-container-interior").html('<img id="picture-detailed" src="'+get_image_url()+'" style="max-width: 100%; max-height: 100%;" height="1280">');
+            % endif
+
+            % if target.is_infrared():
+            // Toggle between infrared and visible light images.
+            $('#id-button-infrared').click(function()
+            {
+                if (infrared_view) {
+                    $('#id-button-infrared').html("Show Infrared");
+                }
+                else {
+                    $('#id-button-infrared').html("Show Visible Spectrum");
+                }
+                infrared_view = !infrared_view;
+                $('#picture-detailed').attr('src', get_image_url()).height(1280);
+            });
+            % endif
+
+            // Toggle between fullscreen
+            $('#id-button-fullscreen').click(function()
+            {
+                $('#photo-container').toggleClass('fullscreen-view');
+                $('#picture-detailed').attr('src', get_image_url()).height(1280);
+                $('#id-button-fullscreen').html($('#photo-container').hasClass('fullscreen-view') ? "Exit Fullscreen" : "Fullscreen");
+
+                % if target.is_panorama():
+                    populate_panorama()
+                % endif
+            });
+
+            // Populate the thumbnail strip
+            xri.ui.displayThumbStrip($("#thumbnails"), target_structs, current_target_id, function(struct) {
+                return {
+                    target_id:      struct.target_id,
+                    thumb_url:      struct.url_thumbnail,
+                    thumb_link_url: struct.url_public_photo
+                };
+            });
+        });
+    //]]>
+    </script>
+    % endif
+</head>
+
+<body class="profile-body">
+<%include file="tracking_tags.html"/>
+
+<div class="wrapper">
+% if error is not UNDEFINED:
+    <div align="center" style="top: 100px; position: relative; color: red;">
+        <div class="error">${error}</div>
+    </div>
+% else:
+    <div class="header">
+        <div style="right: 10px; top: 100px; position: absolute; color: white; vertical-align: middle;"><div class="rover-head" style="display: none;"></div><div style="float: right; white-space: nowrap;">Photo by ${user.first_name} ${user.last_name[0:1]}</div></div>
+        <img src="../img/profile/extrasolar_logo.png" alt="Extrasolar Logo" title="Extrasolar Logo" style="max-width: 50%;">
+        <div style="left: 25px; top: 25px; position: absolute; color: white;"><a href="http://extrasolar.com/" style="text-decoration: none; color: #ccc;">
+            <div style="background-image: url('../img/profile/signup_button.png'); width: 175px;height: 28px;padding: 20px;font-size: 26px;font-weight: bold;">Sign Up Now!</div>
+        </a></div>
+    </div>
+% endif
+
+
+% if target is not UNDEFINED:
+    <div id="photo-container" class="photo-container">
+        <button class="gradient-button" id="id-button-fullscreen">Fullscreen</button>
+        % if target.is_infrared():
+            <button class="gradient-button" id="id-button-infrared">${initial_button}</button>
+        % endif
+        <div class="loading-underlay"></div>
+        <div class="photo-container-interior"></div>
+    </div>
+% endif
+
+    <div class="push"></div>
+</div>
+
+<div class="footer">
+    <div id="thumbnails"></div>
+</div>
+
+</body>
+</html>

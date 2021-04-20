@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE missions SET viewed_at=:viewed_at WHERE user_id=:user_id AND mission_definition=:mission_definition AND specifics_hash=:specifics_hash"}

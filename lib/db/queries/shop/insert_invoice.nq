@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO invoices SET invoice_id=:invoice_id, user_id=:user_id, user_current_email=:user_current_email, currency=:currency, created=:created"}

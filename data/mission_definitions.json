@@ -1,0 +1,557 @@
+{
+    "MIS_SIMULATOR": {
+        "type": "HIGH_PRIORITY",
+        "sort": 100,
+        "title": "Complete the rover simulation",
+        "title_icon": "TASK_ICON_ROVER",
+        "summary": "Learn how to operate the rover by walking through a simulation to acquaint you with its subsystems.",
+        "done_notice": "Simulation complete. Establishing connection with rover."
+    },
+    "MIS_SIMULATORa": {
+        "type": "MOVE",
+        "title": "Learn the map interface",
+        "description_icon": "TASK_ICON_DESTINATION",
+        "description": "Go to the <a href='#map'>Map</a> interface and walk through a simulation of the steps for controlling your rover.",
+        "parent_definition": "MIS_SIMULATOR",
+        "sort": 2
+    },
+    "MIS_SIMULATORb": {
+        "type": "TAKE_PHOTO",
+        "title": "Learn the photo interface",
+        "description_icon": "TASK_ICON_TAG_MISC",
+        "description": "On the <a href='#picture,simulator'>photo page</a>, walk through a simulation of how to tag objects of interest in your photos.",
+        "parent_definition": "MIS_SIMULATOR",
+        "sort": 1
+    },
+    "MIS_TUT01": {
+        "type": "SURVEY",
+        "sort": 100,
+        "title": "Photograph and tag the lander",
+        "title_icon": "TASK_ICON_LANDER",
+        "summary": "Calibrate your newly assigned rover's GPS system with the nearest landing capsule.",
+        "done_notice": "Landing capsule successfully tagged. GPS system calibrated."
+    },
+    "MIS_TUT01a": {
+        "type": "MOVE",
+        "title": "Instruct your rover to move to the lander and send back a photo",
+        "description_icon": "TASK_ICON_LANDER",
+        "description": "Go to the <a href='#map'>Map</a> interface and set a destination near the lander with the lander in the camera's field-of-view.",
+        "done_notice": "You have successfully scheduled a picture of the landing capsule. It may take up to a few hours for the rover to reach its destination and transmit the picture back to XRI for processing. You may view the countdown timer in the Home tab to see the estimated time until the data transmission is complete.",
+        "parent_definition": "MIS_TUT01",
+        "sort": 2
+    },
+    "MIS_TUT01b": {
+        "type": "SURVEY",
+        "title": "Tag the lander in your photo",
+        "description_icon": "TASK_ICON_TAG_MISC",
+        "description": "Once you have recieved the photo, select it in the <a href='#gallery'>Gallery</a> to review. Add a tag, place it over the lander and press 'Submit'. The system will then automatically calibrate the GPS.",
+        "parent_definition": "MIS_TUT01",
+        "sort": 1
+    },
+    "MIS_SPECIES_FIND_5": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Identify 5 new species",
+        "summary": "Submit ID tags for at least 5 unique species for the XRI science team to review.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Use the <a href='#gallery'>Gallery</a> to review photos sent back by your rover. Tag and submit IDs for at least 5 unique species.",
+        "done_notice":"Great! You have identified 5 new species. View your identified species in the <a href='#catalog'>Catalog</a>.",
+        "sort": 10
+    },
+    "MIS_SPECIES_FIND_10": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Identify 10 new species",
+        "summary": "Review photos sent back by your rover and identify at least 10 total unique species.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Use the <a href='#gallery'>Gallery</a> to review photos sent back by your rover. Tag and submit IDs for a total of at least 10 unique species.",
+        "done_notice":"Great! You have identified 10 new species. View your identified species in the <a href='#catalog'>Catalog</a>.",
+        "sort": 10
+    },
+    "MIS_SPECIES_FIND_15": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Identify 15 new species",
+        "summary": "Review photos sent back by your rover and identify at least 15 total unique species.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Use the <a href='#gallery'>Gallery</a> to review photos sent back by your rover. Tag and submit IDs for a total of at least 15 unique species.",
+        "done_notice":"Great! You have identified 15 new species. View your identified species in the <a href='#catalog'>Catalog</a>.",
+        "sort": 10
+    },
+    "MIS_ARTIFACT01": {
+        "type": "SURVEY",
+        "title_icon": "TASK_ICON_DESTINATION_QUES_BLUE",
+        "title": "Identify a reflective object",
+        "summary": "EDL cameras on your rover's landing capsule picked up a reflective object near the landing zone shortly before touchdown. Please investigate.",
+        "description_icon": "TASK_ICON_QUES_BLUE",
+        "description": "Drive your rover to the marker that we've placed on your map, about ${user.crosslink_region('200 meters southwest', 'RGN_ARTIFACT01_ICON', 'RGN_ARTIFACT01_WAYPOINT')} of the lander. You may need to zoom out on the map to see the marker. Photograph what you find there and then tag it in your gallery.",
+        "done_notice": "Object successfully tagged. We are analyzing your photo and will send you a message when we have more information.",
+        "sort": 100
+    },
+    "MIS_ARTIFACT01_CLOSEUP": {
+        "type": "SURVEY",
+        "title": "[k] tag that object in another pic",
+        "summary": "it looks like there's some sort of writing on the side of that object. try to get a closer photo and tag it in your gallery. -k",
+        "sort": 100
+    },
+    "MIS_EXPLORE_ISLAND": {
+        "type": "MOVE",
+        "title": "[k] explore the island beyond the red line",
+        "summary": "i've disabled the safeties on your rover. it should allow you to leave the confined area that you're stuck in right now. i tagged a ${user.crosslink_region('couple places', 'RGN_SANDBOX_SAFE01')} where i think it's safest to leave without getting stuck in the dunes... -k",
+        "sort": 100
+    },
+    "MIS_FIND_STUCK_ROVER": {
+        "type": "TAKE_PHOTO",
+        "title_icon": "TASK_ICON_ROVER",
+        "title": "Photograph and tag your previous rover",
+        "summary": "Please visit the last known destination of your previously assigned rover, photograph it, and tag it in the photo.",
+        "description_icon": "TASK_ICON_ROVER",
+        "description": "The rover has ${user.crosslink_region('become stuck', 'RGN_FIND_STUCK_ROVER_WAYPOINT')} and isn't responding to new commands. We're hoping that a photo will help us resolve the problem.",
+        "sort": 100
+    },
+    "MIS_VISIT_CENTRAL_PLATEAU": {
+        "type": "MOVE",
+        "title_icon": "TASK_ICON_DESTINATION",
+        "title": "Visit the central plateau",
+        "summary": "Explore northwards up the sandy embankment toward the island's ${user.crosslink_region('central plateau', 'RGN_AUDIO_TUTORIAL01_CARROT')}.",
+        "description_icon": "TASK_ICON_ANIMAL",
+        "description": "Keep a close eye out for any signs of animal life that could have damaged your previous rover.",
+        "sort": 100
+    },
+    "MIS_AUDIO_TUTORIAL01": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_EXC_PURPLE",
+        "title": "Biological audio source, SE embankment",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_TUTORIAL01a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_TUTORIAL01_ICON', 'RGN_AUDIO_TUTORIAL01_PINPOINT', 'RGN_AUDIO_TUTORIAL01_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_TUTORIAL01",
+        "sort": 2
+    },
+    "MIS_AUDIO_TUTORIAL01b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_PURPLE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_TUTORIAL01_ICON', 'RGN_AUDIO_TUTORIAL01_PINPOINT')}, try to get a clear photograph of what is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_TUTORIAL01",
+        "sort": 1
+    },
+
+    "MIS_AUDIO_MYSTERY01": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_BLUE",
+        "title": "Audio source, central plateau",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY01a": {
+        "type": "MOVE",
+        "title": "Approach audio source",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY01_ICON', 'RGN_AUDIO_MYSTERY01_PINPOINT', 'RGN_AUDIO_MYSTERY01_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY01",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY01b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_BLUE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY01_ICON', 'RGN_AUDIO_MYSTERY01_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY01",
+        "sort": 1
+    },
+
+    "MIS_AUDIO_MYSTERY02": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_GOLD",
+        "title": "Audio source, NE coast",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY02a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY02_ICON', 'RGN_AUDIO_MYSTERY02_PINPOINT', 'RGN_AUDIO_MYSTERY02_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY02",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY02b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_GOLD",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY02_ICON', 'RGN_AUDIO_MYSTERY02_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY02",
+        "sort": 1
+    },
+
+     "MIS_AUDIO_MYSTERY03": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_PURPLE",
+        "title": "Audio source, northern coast",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY03a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY03_ICON', 'RGN_AUDIO_MYSTERY03_PINPOINT', 'RGN_AUDIO_MYSTERY03_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY03",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY03b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_PURPLE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY03_ICON', 'RGN_AUDIO_MYSTERY03_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY03",
+        "sort": 1
+    },
+
+     "MIS_AUDIO_MYSTERY04": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_BLUE",
+        "title": "Audio source, northwest ridge",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY04a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY04_ICON', 'RGN_AUDIO_MYSTERY04_PINPOINT', 'RGN_AUDIO_MYSTERY04_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY04",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY04b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_BLUE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY04_ICON', 'RGN_AUDIO_MYSTERY04_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY04",
+        "sort": 1
+    },
+
+     "MIS_AUDIO_MYSTERY05": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_GOLD",
+        "title": "Audio source, western embankment",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY05a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY05_ICON', 'RGN_AUDIO_MYSTERY05_PINPOINT', 'RGN_AUDIO_MYSTERY05_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY05",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY05b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_GOLD",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY05_ICON', 'RGN_AUDIO_MYSTERY05_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY05",
+        "sort": 1
+    },
+
+    "MIS_AUDIO_MYSTERY06": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_PURPLE",
+        "title": "Audio source, south of central plateau",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY06a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY06_ICON', 'RGN_AUDIO_MYSTERY06_PINPOINT', 'RGN_AUDIO_MYSTERY06_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY06",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY06b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_PURPLE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY06_ICON', 'RGN_AUDIO_MYSTERY06_PINPOINT')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY06",
+        "sort": 1
+    },
+
+    "MIS_FIND_EM_SOURCE": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_TRANSMISSION",
+        "title": "Identify source of electromagnetic transmission",
+        "summary": "Photograph and tag the source of detected electromagnetic transmissions.",
+        "description_icon": "TASK_ICON_EXC_YELLOW",
+        "description": "We've triangulated the source to be almost due west of one of our GPS units. We've marked both the ${user.crosslink_region('GPS unit', 'RGN_GPS_ICON')} and the approximate ${user.crosslink_region('origin of the source', 'RGN_EM_SOURCE_ICON', 'RGN_EM_SOURCE_PINPOINT')} on your map.",
+        "sort": 100
+    },
+    "MIS_FIND_GPS_UNIT": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] get password from gps unit",
+        "summary": "based on an exchange that i intercepted, i believe that the id code of the gps unit is being used as the password for files that i sent to you. you should be able to get the code by tagging the gps unit in a photo and viewing its description in the species catalog. -k",
+        "sort": 100
+    },
+    "MIS_FIND_GPS_UNITa": {
+        "type": "TAKE_PHOTO",
+        "title": "photograph gps unit",
+        "description": "photograph and tag ${user.crosslink_region('the gps unit', 'RGN_GPS_ICON')} to get its id code from the species catalog.",
+        "parent_definition": "MIS_FIND_GPS_UNIT",
+        "sort": 2
+    },
+    "MIS_FIND_GPS_UNITb": {
+        "type": "TAKE_PHOTO",
+        "title": "unlock encrypted docs",
+        "description": "try to use the gps unit's id code as the password in the message that i sent to you with the subject line ${user.crosslink_message('\"encrypted files\"', 'MSG_ENCRYPTION01')}.",
+        "parent_definition": "MIS_FIND_GPS_UNIT",
+        "sort": 1
+    },
+
+    "MIS_VISIT_RUINS": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_DESTINATION_EXC_RED",
+        "title": "Explore the northeast corner of the island",
+        "summary": "Satellite imagery appears to show several large structures in the northeast corner of the island. Please investigate.",
+        "description_icon": "TASK_ICON_EXC_RED",
+        "description": "The structures are located in this ${user.crosslink_region('low, coastal area', 'RGN_RUINS_PINPOINT', 'RGN_RUINS_ICON')}. Photograph and tag any anomalous findings you come across in that region.",
+        "sort": 100
+    },
+    "MIS_PHOTOGRAPH_RUINS": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_TAG_MISC",
+        "title": "Tag 2 more photographs of the ruins",
+        "summary": "Please continue to tag more photos of the ruins.",
+        "description_icon": "TASK_ICON_TAG_MISC",
+        "description": "Tag any structures or other anomalies that you find.",
+        "sort": 100
+    },
+    "MIS_PHOTOGRAPH_RUINS02": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_TAG_MISC",
+        "title": "Tag 1 more photograph of the ruins",
+        "summary": "Please continue to tag more photos of the ruins.",
+        "description_icon": "TASK_ICON_TAG_MISC",
+        "description": "Tag any structures or other anomalies that you find.",
+        "sort": 100
+    },
+    "MIS_RUINS_SIGNAL_SOURCE": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_TRANSMISSION",
+        "title": "Photograph transmission source",
+        "summary": "Photograph and tag the source of an electromagnetic transmission that appears to have its origin near the ruins.",
+        "description_icon": "TASK_ICON_EXC_YELLOW",
+        "description": "We've marked the approximate location of the source on a ${user.crosslink_region('nearby hillside', 'RGN_RUINS_SIGNAL_PINPOINT', 'RGN_RUINS_SIGNAL_ICON')}.",
+        "sort": 100
+    },
+
+    "MIS_EXPLORE_ISLAND02": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_DESTINATION",
+        "title": "Explore other parts of the island",
+        "summary": "We're anxious to learn what other secrets this island may be hiding. Please visit regions that you have not yet explored.",
+        "description_icon": "TASK_ICON_TAG_MISC",
+        "description": "Keep your eyes peeled for anything that may teach us more about what we've seen so far.",
+        "sort": 90
+    },
+    "MIS_2_MORE_OBELISKS": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_DESTINATION_EXC_YELLOW",
+        "title": "Photograph 2 more obelisks",
+        "summary": "Photograph and tag the 2 additional obelisks that we believe are located at the locations we've marked on your map.",
+        "description_icon": "TASK_ICON_EXC_YELLOW",
+        "description": "Based on what we've observed so far, we believe there are a total of 6 obelisks, arranged in a hexagon around the larger monument at the center of the island.",
+        "sort": 90
+    },
+    "MIS_1_MORE_OBELISK": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_DESTINATION_EXC_YELLOW",
+        "title": "Photograph 1 more obelisk",
+        "summary": "Photograph and tag the last obelisk that we believe is located at the location we've marked on your map.",
+        "description_icon": "TASK_ICON_EXC_YELLOW",
+        "description": "Based on what we've observed so far, we believe there are a total of 6 obelisks, arranged in a hexagon around the larger monument at the center of the island.",
+        "sort": 90
+    },
+    "MIS_CODED_LOC": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] find out what's at the coded location",
+        "summary": "i need to know what's at the ${user.crosslink_region('location', 'RGN_CODED_LOC_PINPOINT', 'RGN_CODED_LOC_ICON')} that we found encoded in those 2 documents. go photograph and tag anything you find there. -k",
+        "sort": 80
+    },
+    "MIS_CODED_LOC_PASSWORD": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] unlock another encrypted doc",
+        "summary": "i think that the id code of the gps unit that you just tagged might be the password for the message in your inbox with the subject line ${user.crosslink_message('\"more encrypted documents\"', 'MSG_ENCRYPTION02')}. try using it there. -k",
+        "sort": 100
+    },
+    "MIS_SEND_TO_ENKI": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] get encrypted docs to enki",
+        "summary": "find the message in your inbox with the subject line ${user.crosslink_message('\"more encrypted documents\"', 'MSG_ENCRYPTION02')} and use the terminal to forward the attachments to enki. this is the proof we've been looking for. -k",
+        "sort": 100
+    },
+    "MIS_FIND_TURING_ROVER": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] find turing's rover",
+        "summary": "the id code of robert turing's own rover should be the password i need to get back into the system. this is the only clue i have about where it might be: <a href=\"http://www.exoresearch.com/turing_geology\" target=\"_blank\">www.exoresearch.com/turing_geology</a>. if you find it, launch the terminal i attached to the message with the subject line ${user.crosslink_message('\"exoleaks and turing\\'s rover\"', 'MSG_ENKI02d')} and enter the password there. -k",
+        "sort": 100
+    },
+
+    "MIS_MONUMENT_PLAYBACK": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_TRANSMISSION",
+        "title": "Collect and playback all 6 audio clips",
+        "summary": "I have a theory that the 6 main runes on the ${user.crosslink_region('central monument', 'RGN_EM_SOURCE_PLAYBACK_ZONE')} indicate a playback sequence for the audio tones emitted by the obelisks.",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "sort": 100
+    },
+    "MIS_MONUMENT_PLAYBACKa": {
+        "type": "HIGH_PRIORITY",
+        "title": "Record the audio from all 6 sources and tag the obelisks in your photos so we know which runes correspond to which tones.",
+        "description": " ",
+        "description_icon": "TASK_ICON_TRANSMISSION",
+        "parent_definition": "MIS_MONUMENT_PLAYBACK",
+        "sort": 2
+    },
+    "MIS_MONUMENT_PLAYBACKb": {
+        "type": "HIGH_PRIORITY",
+        "title": "Play audio at central monument",
+        "description": "Once you've found all 6 clips, I'll upload a script to your rover to automatically trigger the playback when you get within range of the ${user.crosslink_region('central monument', 'RGN_EM_SOURCE_PLAYBACK_ZONE')}.",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "parent_definition": "MIS_MONUMENT_PLAYBACK",
+        "sort": 1
+    },
+
+    "MIS_FIND_LOST_ROVER": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_DESTINATION_QUES_BLUE",
+        "title": "Find a rover that's gone missing",
+        "summary": "One of the rovers on the north side of the island has gone missing. Please investigate.",
+        "description_icon": "TASK_ICON_ROVER",
+        "description": "Please take a photo of its ${user.crosslink_region('last known location', 'RGN_MISSING_ROVER_ICON')} to see if we can get any information about what may have happened.",
+        "sort": 100
+    },
+    "MIS_UNLOCK_LAST_DOC": {
+        "type": "HIGH_PRIORITY",
+        "title": "[k] unlock one more document",
+        "summary": "there's one more document that looks like it belonged to dad. the password is _painted_ on the side of a rover on the north side of the island. find the rover and put the password into the message with the subject line ${user.crosslink_message('\"last document\"', 'MSG_LASTTHINGa')}",
+        "sort": 100
+    },
+
+    "MIS_SCI_FIND_COMMON": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Find serpentweed, spindlepus, and aircomber",
+        "summary": "Before we select species for potentially lethal experiments, we want to make sure they aren't indigenous only to the area that we've surveyed near the lander.",
+        "sort": 10
+    },
+    "MIS_SCI_FIND_COMMONa": {
+        "type": "SPECIES_FIND",
+        "title": "Tag serpentweed in 2 new photos",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Attempt to photograph and tag at least 2 instances of the serpentweed species elsewhere on the island beyond the dunes.",
+        "parent_definition": "MIS_SCI_FIND_COMMON",
+        "sort": 3
+    },
+    "MIS_SCI_FIND_COMMONb": {
+        "type": "SPECIES_FIND",
+        "title": "Tag spindlepus in 2 new photos",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Attempt to photograph and tag at least 2 instances of the spindlepus species elsewhere on the island beyond the dunes.",
+        "parent_definition": "MIS_SCI_FIND_COMMON",
+        "sort": 2
+    },
+    "MIS_SCI_FIND_COMMONc": {
+        "type": "SPECIES_FIND",
+        "title": "Tag aircomber in 2 new photos",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Attempt to photograph and tag at least 2 instances of the aircomber species elsewhere on the island beyond the dunes.",
+        "parent_definition": "MIS_SCI_FIND_COMMON",
+        "sort": 1
+    },
+    "MIS_SCI_CELLULARa": {
+        "type": "SPECIES_FIND",
+        "title": "Tag gordy tree in 3 photos",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "summary": "Try to tag the gordy tree in at least 3 photos. We suspect it will be a good candidate for testing our theories on cellular structure.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "The gordy tree is a large, pink photobiont with purple, spiked spherical growths.",
+        "sort": 10
+    },
+    "MIS_SCI_LIFECYCLE": {
+        "type": "SPECIES_FIND",
+        "title": "Tag gordy tree in various life stages",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "summary": "Because of its size and distinct appearance, we've selected the gordy tree as a good candidate for testing hypotheses about growth and aging.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Try to photograph and tag juvenile, adult, and deceased instances of the gordy tree.",
+        "sort": 10
+    },
+    "MIS_SCI_VARIATION": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_ANIMAL",
+        "title": "Photograph and tag bristletongue variation",
+        "summary": "Try to track down, photograph, and tag what appears to be a relative of the bristletongue species that we've observed in the distance in some of our photos.",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "We've marked the approximate location of the sighting on ${user.crosslink_region('your map', 'RGN_SCI_VARIATION_PINPOINT')}.",
+        "sort": 10
+    },
+    "MIS_SCI_FLOWERS": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Tag starspore in open and closed state",
+        "summary": "We are trying to discern the function of the starspore's flower-like structure.",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "We've seen the starspore's 'petals' in both an open and closed configuration.  Photograph and tag 2 instances of the starspore in each state.",
+        "sort": 10
+    },
+    "MIS_SCI_BIOLUMINESCENCE": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_TAG_PLANT",
+        "title": "Tag 3 different colors of bioluminescent species",
+        "summary": "Based on nighttime satellite photos of the central plateau, there appear to be species there that bioluminesce in 3 different colors - magenta, aqua, and red-orange.  (See message: ${user.crosslink_message('\"Bioluminescence\"', 'MSG_SCI_BIOLUMINESCENCEa')})",
+        "description_icon": "TASK_ICON_TAG_PLANT",
+        "description": "Try to photograph and tag 2 instances of each of the 3 different colors at night. Make sure you turn your camera flash off to get a clear view.",
+        "sort": 10
+    },
+    "MIS_SCI_FLIGHT": {
+        "type": "SPECIES_FIND",
+        "title_icon": "TASK_ICON_ANIMAL",
+        "title": "Photograph and tag flying creatures",
+        "summary": "Try to photograph and tag flying creatures in at least 3 photos.",
+        "description_icon": "TASK_ICON_EXC_YELLOW",
+        "description": "We suspect these creatures may hang out where steep cliffs cause strong updrafts. We highlighted a few of these regions on your map [${user.crosslink_region('1', 'RGN_SCI_FLIGHT01')}, ${user.crosslink_region('2', 'RGN_SCI_FLIGHT02')}, ${user.crosslink_region('3', 'RGN_SCI_FLIGHT03')}].",
+        "sort": 10
+    },
+    "MIS_AUDIO_MYSTERY07": {
+        "type": "HIGH_PRIORITY",
+        "title_icon": "TASK_ICON_AUDIO_QUES_PURPLE",
+        "title": "Audio source, Cavendish Peninsula",
+        "summary": "Your rover's passive audio subsystem has detected a nearby audio source. Track down and, if possible, photograph the source of the audio.",
+        "sort": 100
+    },
+    "MIS_AUDIO_MYSTERY07a": {
+        "type": "MOVE",
+        "title": "Pinpoint origin of audio signal",
+        "description_icon": "TASK_ICON_ZONE_PURPLE",
+        "description": "The source of the audio is located in ${user.crosslink_region('this highlighted region', 'RGN_AUDIO_MYSTERY07_PINPOINT01', 'RGN_AUDIO_MYSTERY07_ZONE')}. Take at least one photo within the region to help pinpoint the source of the audio signal.",
+        "parent_definition": "MIS_AUDIO_MYSTERY07",
+        "sort": 2
+    },
+    "MIS_AUDIO_MYSTERY07b": {
+        "type": "TAKE_PHOTO",
+        "title": "Photograph audio source",
+        "description_icon": "TASK_ICON_AUDIO_PURPLE",
+        "description": "Once your rover has successfully triangulated ${user.crosslink_region('the precise location of the audio source', 'RGN_AUDIO_MYSTERY07_PINPOINT01')}, try to get a clear photograph of whatever is emitting the audio and tag it in your gallery.",
+        "parent_definition": "MIS_AUDIO_MYSTERY07",
+        "sort": 1
+    }
+}

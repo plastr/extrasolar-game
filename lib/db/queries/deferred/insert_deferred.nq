@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO deferred SET deferred_id=:deferred_id, deferred_type=:deferred_type, subtype=:subtype, user_id=:user_id, run_at=:run_at, payload=:payload"}

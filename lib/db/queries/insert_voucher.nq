@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO vouchers SET voucher_key=:voucher_key, delivered_at=:delivered_at, user_id=:user_id"}

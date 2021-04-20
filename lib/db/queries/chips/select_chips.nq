@@ -1,0 +1,4 @@
+{"base":
+ "SELECT time, transient, content FROM chips WHERE user_id=:user_id AND time > :since and time <= :before",
+ "dynamic_where":{"no_transient":"AND transient = 0"},
+ "query_suffix":"ORDER BY time, seq ASC"}

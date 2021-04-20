@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE invitations SET recipient_id=:recipient_id, accepted_at=:accepted_at WHERE invite_id=:invite_id"}

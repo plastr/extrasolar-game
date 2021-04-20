@@ -1,0 +1,2 @@
+{"base":
+ "SELECT targets.*, users.email, users.epoch FROM targets, users WHERE users.user_id = targets.user_id AND picture=1 AND targets.user_created=1 AND targets.render_at >= :render_after_start AND targets.render_at <= :render_after_end ORDER BY targets.render_at DESC LIMIT :limit"}

@@ -1,0 +1,12 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Transactions
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Transactions</h1>
+<div class="div_admin_center">
+
+<h2>Recent Transactions (limit: ${limit}) -- Total Amount Shown: ${total_money_display} -- All: ${all_transactions_money_display}</h2>
+<%include file="recent_transactions.html"/>
+
+<div id="div_footer"></div>

@@ -1,0 +1,125 @@
+{
+    "ACH_GAME_CREATE_USER": {
+        "title": "With Honors",
+        "description": "Score 95% or higher on your entrance exam",
+        "type": "GAME",
+        "secret": 0,
+        "classified": 0,
+        "icon": "ACH_ICON_GAME_CREATE_USER"
+    },
+    "ACH_TRAVEL_300M": {
+        "title": "Rover Milestone",
+        "description": "Travel as far as light does in one microsecond (300m)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_TRAVEL_300M"
+    },
+    "ACH_TRAVEL_SPIRIT": {
+        "title": "Rover Milestone",
+        "description": "Travel as far as the Mars Spirit rover (7.73 km)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_TRAVEL_SPIRIT"
+    },
+    "ACH_TRAVEL_VOYAGER1": {
+        "title": "Rover Milestone",
+        "description": "Travel as far as the Voyager 1 space probe does every second (17.043 km)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_TRAVEL_VOYAGER1"
+    },
+    
+    "ACH_DATE_0215": {
+        "title": "Happy Birthday Galileo!",
+        "description": "Scheduled a photo to be taken on Galileo Galilei’s birthday (Feb. 15)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_DATE_0215"
+    },
+    "ACH_DATE_0623": {
+        "title": "Happy Birthday Alan!",
+        "description": "Scheduled a photo to be taken on Alan Turing’s birthday (June 23)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_DATE_0623"
+    },
+    "ACH_DATE_1017": {
+        "title": "Happy Birthday Mae!",
+        "description": "Scheduled a photo to be taken on Mae Jemison’s birthday (Oct. 17)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_DATE_1017"
+    },
+    "ACH_DATE_1109": {
+        "title": "Happy Birthday Carl!",
+        "description": "Scheduled a photo to be taken on Carl Sagan’s birthday (Nov. 9)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_DATE_1109"
+    },
+    "ACH_DATE_1225": {
+        "title": "Happy Birthday Isaac!",
+        "description": "Scheduled a photo to be taken on Isaac Newton’s birthday (Dec. 25)",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_DATE_1225"
+    },
+
+    "ACH_PHOTO_PANO": {
+        "title": "Fully Operational",
+        "description": "Take your first panorama photo",
+        "type": "GAME",
+        "secret": 0,
+        "classified": 0,
+        "icon": "ACH_ICON_PHOTO_PANO"
+    },
+    "ACH_PHOTO_IR": {
+        "title": "Vision Mode",
+        "description": "Take your first infrared photo",
+        "type": "GAME",
+        "secret": 0,
+        "classified": 0,
+        "icon": "ACH_ICON_PHOTO_IR"
+    },
+
+    "ACH_SPECIES_TAG_3": {
+        "title": "Scientific Diligence",
+        "description": "Tagged 3 different species in the same image",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_SPECIES_TAG_3"
+    },
+    "ACH_SPECIES_ANIMAL_5": {
+        "title": "Animal life",
+        "description": "Tagged 5 distinct motile creatures",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 1,
+        "icon": "ACH_ICON_SPECIES_ANIMAL_5"
+    },
+    "ACH_SOCIAL_INVITE": {
+        "title": "Spread the Word",
+        "description": "Invited a colleague to participate",
+        "type": "GAME",
+        "secret": 0,
+        "classified": 0,
+        "icon": "ACH_ICON_SOCIAL_INVITE"
+    },
+    "ACH_PHOTO_HIGHLIGHT": {
+        "title": "Exceptional Photograph",
+        "description": "One of your photos was selected as a highlight by the science team",
+        "type": "GAME",
+        "secret": 1,
+        "classified": 0,
+        "icon": "ACH_ICON_PHOTO_HIGHLIGHT"
+    }
+}

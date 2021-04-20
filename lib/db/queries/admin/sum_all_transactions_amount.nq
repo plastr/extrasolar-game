@@ -1,0 +1,2 @@
+{"base":
+ "SELECT SUM(amount) AS all_transactions_amount_sum from transactions"}

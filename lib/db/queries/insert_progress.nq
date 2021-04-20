@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users_progress SET user_id=:user_id, `key`=:key, `value`=:value, achieved_at=:achieved_at"}

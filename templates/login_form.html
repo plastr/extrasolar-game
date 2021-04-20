@@ -1,0 +1,24 @@
+<form id="form_login" action="${login_form_action_url}" method="POST" onsubmit="if (xri.validation.validateLogin()) {$('#login_submit').prop('disabled',true); return true;} else {return false;}">
+  <table border="0" cellspacing="0" cellpadding="5" align="center">
+    <tr>
+      <td><br><br></td>
+    </tr>
+    <tr>
+      <td>
+        <span style="font-size:12px;">Email</span><br>
+        <input name="login_email" id="login_email" type="email" value="${login_email}" style="padding: 4px; width: 224px; border-radius: 5px;" autocorrect="off"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span style="font-size:12px;">Password</span><br>
+        <input name="login_password" type="password" id="login_password" value="${login_password}" style="padding: 4px; width: 224px; border-radius: 5px;" /><br>
+        <div style="margin-top: 12px;"><a href="${urls.request_password_reset()}" style="font-size: 80%; padding-top:12px;">Forgot Password?</a></div>
+      </td>
+    </tr>
+    <tr>
+      <td align=center><br><input type="submit" id="login_submit" class="gradient-button gradient-button-standard gradient-button-store" value="Login" /></td>
+    </tr>
+  </table>
+  <input type="hidden" name="form_type" value="login" />
+</form>

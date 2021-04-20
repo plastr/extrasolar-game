@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+<!--
+  * Please see the included README.md file for license terms and conditions.
+  -->
+<head>
+    <title>Extrasolar</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+
+<!--
+  * The "meta viewport" tag (below) helps your app size appropriately to a device's screen.
+  * Note that the meta viewport approach is being phased out in favor of the @viewport CSS rule.
+  * For a quick overview of both, see this article:
+  *   http://webdesign.tutsplus.com/tutorials/htmlcss-tutorials/quick-tip-dont-forget-the-viewport-meta-tag
+  * To see what happens, try the app on a real device with and without a "meta viewport" tag.
+-->
+
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1, maximum-scale=2"> -->
+
+    <style>
+    /* following three (cascaded) are equivalent to above three meta viewport statements */
+    /* see http://www.quirksmode.org/blog/archives/2014/05/html5_dev_conf.html */
+    /* see http://dev.w3.org/csswg/css-device-adapt/ */
+        @-ms-viewport { width: 100vw ; zoom: 100% ; }                           @viewport { width: 100vw ; zoom: 100% ; }
+        @-ms-viewport { user-zoom: fixed ; }                                    @viewport { user-zoom: fixed ; }
+        /*@-ms-viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }   @viewport { user-zoom: zoom ; min-zoom: 100% ; max-zoom: 200% ; }*/
+
+        .cursor-white { background-color:#a0a0a0; }
+        table.center { margin-left:auto; margin-right:auto }
+        div.center { margin-left:auto; margin-right:auto }
+
+        #terms-of-service-container { top: 0px; left: 0px; position: absolute;}
+        #terms-of-service-dialog { height: 100%; width: 100%; top: 0px; margin-left: 0px; display: block; font-size:14px;}
+        #terms-of-service-content { display: block; width: auto; height: auto; margin: 15px; padding:10px; border: 1px solid #808080; background-color:#e0e0e0; font-size:14px;}
+        #age-window-container { top: 0px; left: 50%; position: absolute;}
+        #age-window-dialog { height: 600px; width: 800px; top: 130px; margin-left: -400px; display: block; font-size:14px;}
+        #age-window-content { display: block; width: auto; height: 505px; margin: 15px; padding:10px; border: 1px solid #808080; background-color:#e0e0e0; font-size:14px;}
+
+    </style>
+
+<!-- See long explanation at the bottom of this file for info regarding placement of JS libraries. -->
+<!-- These library references (below) are just examples to give you the general idea... -->
+    <!-- <script src="lib/ft/fastclick.js"></script> -->
+    <!-- <script src="lib/jq/jquery.js"></script> -->
+    <!-- <script src="lib/af/jq.appframework.js"></script> -->
+    <!-- <script src="lib/af/appframework.ui.js"></script> -->
+
+    <!-- <link rel="stylesheet" href="lib/af/icons.css"> -->
+    <!-- <link rel="stylesheet" href="lib/af/af.ui.css"> -->
+<!--
+    <script>
+        // if you're using App Framework, you might want to do this
+        $.ui.autoLaunch = false ;
+        // and then use $.ui.launch() in the app.initApplication() function
+        // see https://github.com/01org/appframework/blob/master/documentation/detail/%24.ui.launch.md
+    </script>
+-->
+    <link rel="stylesheet" href="css/mobile-login.css">
+    <link href="css/ce4.style.css" rel="Stylesheet" type="text/css" />
+    <link href="css/shared/xri.style.css" rel="Stylesheet" type="text/css" />
+    <link href="css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+    <link href="css/jquery.terminal.css" rel="stylesheet" type="text/css" />
+    <script src="js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="js/lib/jquery.tmpl.js" type="text/javascript"></script>
+    <script src="js/lib/velocity.min.js" type="text/javascript"></script>
+    <script src="js/shared/xri.validation.js" type="text/javascript"></script>
+</head>
+
+
+<body class="body-base">
+<div id="tmpl-content">
+    <!-- The templating system will fill in our document body here. -->
+</div>
+
+<!-- ========= HOME ========= -->
+<script type="text/html" id="home_page" title="Home">
+<div id="id-home-container">
+    <div style="display: table; position: absolute; height: 100%; width: 100%;">
+    <div style="display: table-cell; vertical-align: middle; text-align:center;">
+    <div style="display: inline-block;">
+        <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br><br>
+        <input type="button" id="id_btnExistingAccount" class="gradient-button gradient-button-store" style="min-width: 200px" value="I have an account"><br><br>
+        <input type="button" id="id_btnNewAccount" class="gradient-button gradient-button-store" style="min-width: 200px" value="Create a new account">
+    </div>
+    </div>
+    </div>
+</div>
+</script>
+
+<!-- ========= LOADING ========= -->
+<script type="text/html" id="loading_page" title="Loading">
+<div id="id-loading-container">
+    <div style="display: table; position: absolute; height: 100%; width: 100%;">
+    <div style="display: table-cell; vertical-align: middle; text-align:center;">
+    <div style="display: inline-block;">
+        <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br><br>
+        <img src="static/img/css/loading_64x64.gif">
+    </div>
+    </div>
+    </div>
+</div>
+</script>
+
+<!-- ========= LOGIN ========= -->
+<script type="text/html" id="login_page" title="Login">
+<div id="id-login-container">
+  <div style="display: table; position: absolute; height: 100%; width: 100%;">
+    <div style="display: table-row; vertical-align: top; background-color:rgba(128, 128, 128, 0.5); height: 30px">
+      <input type="button" id="id_btnBack" class="gradient-button gradient-button-standard gradient-button-grey" style="font-size:15px; padding:3px; margin:5px; min-width:80px; height:30px" value="Back">
+    </div>
+  <div style="display: table-cell; vertical-align: middle; text-align:center;">
+  <div style="display: inline-block;">
+    <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br><br>
+    <form id="form_login">
+    <table border=0 class="center">
+    <tr><td colspan=2>
+        <span id="error_login" style="color:#a00000; max-width:300px; min-height:40px">
+            ${error_message}
+        </span>
+    </td></tr>
+    <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:right; height:30px; padding:7px; vertical-align:middle"><label for="login-email">Email</label></td>
+        <td style="color:#a0a0a0; text-align:left; height:30px; padding:7px; vertical-align:middle"><input type="text" id="login_email" name="login_email" type="email" style="font-size:15px; padding: 3px; width: 180px; border-radius: 0px; color: #a0a0a0; background: #202020; border: 1px solid #a0a0a0" autocorrect="off"></td></tr>
+    <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:right; height:30px; padding:7px; vertical-align:middle"><label for="login-password">Password</label></td>
+        <td style="color:#a0a0a0; text-align:left; height:30px; padding:7px; vertical-align:middle"><input id="login_password" name="login_password" type="password" style="font-size:15px; padding: 3px; width: 180px; border-radius: 0px; color: #a0a0a0; background: #202020; border: 1px solid #a0a0a0"></td></tr>
+    <tr><td colspan=2 style="text-align:center; height:40px; vertical-align:bottom">
+        <input type="button" id="id_btnLogin" class="gradient-button gradient-button-store" value="Login"></td></tr>
+    % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True:
+        <tr><td colspan=2 style="text-align:center; height:40px; vertical-align:bottom; color:#a0a0a0">
+            &mdash; or &mdash;</td></tr>
+        <tr><td colspan=2 style="text-align:center; height:40px; vertical-align:bottom">
+          <div id="facebook_login" style="text-align:center; color:#a0a0a0;">
+            <a href="#" onclick="onFacebookLoginButton(); return false;"><img src="/static/img/ui/facebook_login_button.png"></a>
+          </div>
+        </td></tr>
+    % endif
+    </table>
+    </form>
+  </div>
+  </div>
+  </div>
+</div>
+</script>
+
+<!-- ========= SIGNUP ========= -->
+<script type="text/html" id="signup_page" title="Signup">
+<div id="id-signup-container">
+  <div style="display: table; position: absolute; height: 100%; width: 100%;">
+    <div style="display: table-row; vertical-align: top; background-color:rgba(128, 128, 128, 0.5); height: 30px">
+      <input type="button" id="id_btnBack" class="gradient-button gradient-button-standard gradient-button-grey" style="font-size:15px; padding:3px; margin:5px; min-width:80px; height:30px" value="Back">
+    </div>
+  <div style="display: table-cell; vertical-align: middle; text-align:center;">
+  <div style="display: inline-block;">
+
+    <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br><br>
+
+    <iframe id="id_introVideo" width="200" height="200" style="margin-left:auto; margin-right:auto; border:2px solid #303030; background-color:#000" src="https://www.youtube.com/embed/lBxIQyvLiq8?rel=0&iv_load_policy=3&showinfo=0" frameborder="0" allowfullscreen>
+    </iframe>
+    
+    <!--<div id="id_introVideo" width="320" height="240" style="margin-left:auto; margin-right:auto; border:2px solid #303030; background-color:#000">
+      <video controls width="100%" height="100%" poster="static/video/xri_intro_thumb.jpg">
+        <source src="/static/video/xri_intro.mp4" type="video/mp4">
+        Video format unsupported.
+      </video>
+    </div>-->
+
+    <form id="form_signup">
+    <table border=0 class="center">
+
+    <tr><td colspan=2>
+        <span id="error_signup" style="color:#a00000; max-width:300px; min-height:10px">
+            ${error_message}
+        </span>
+    </td></tr>
+      <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:left; height:30px; padding:7px; vertical-align:middle">
+            <span>Name</span><br>
+            <input name="first_name" id="first_name" type="text" value="" placeholder="First" style="padding: 4px; width: 100px; border-radius: 5px;" autocorrect="off"/> &nbsp;
+            <input name="last_name" id="last_name" type="text" value="" placeholder="Last" style="padding: 4px; width: 100px; border-radius: 5px;" autocorrect="off"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:left; height:30px; padding:7px; vertical-align:middle">
+          <span>Email</span><br>
+          <input name="signup_email" id="signup_email" type="email" value="" style="padding: 4px; width: 224px; border-radius: 5px;" autocorrect="off"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:left; height:30px; padding:7px; vertical-align:middle">
+          <span>Create Password</span><br>
+          <input name="signup_password" id="signup_password" type="password" value="" style="padding: 4px; width: 224px; border-radius: 5px;"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:left; height:20px; padding:7px; vertical-align:middle"><input name="signup_age" id="signup_age" type="checkbox" style="font-size:18px; margin-right:10px"><label for="signup_age">I am 13 years or older <span style="font-size:18px">[<a href="#" onclick="$('#id-age-container').removeClass('hidden'); $('#id-signup-container').addClass('hidden');">?</a>]</span></label></td>
+      </tr>
+      <tr>
+        <td style="font-size:15px; color:#a0a0a0; text-align:left; height:20px; padding:7px; vertical-align:middle"><input name="signup_terms" id="signup_terms" type="checkbox" style="font-size:18px; margin-right:10px"><label for="signup_terms">I agree to the <a href="#" onclick="$('#id-tos-container').removeClass('hidden'); $('#id-signup-container').addClass('hidden');">Terms of Service</a></label></td>
+      </tr>
+      <tr>
+        <td style="text-align: center;"><input type="button" id="id_btnSignup" class="gradient-button gradient-button-standard gradient-button-store" value="Sign up" />
+        </td>
+      </tr>
+      % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True:
+        <tr><td colspan=2 style="text-align:center; height:40px; vertical-align:bottom; color:#a0a0a0">
+            &mdash; or &mdash;</td></tr>
+        <tr><td colspan=2 style="text-align:center; height:40px; vertical-align:bottom">
+          <div id="facebook_login" style="text-align:center; color:#a0a0a0;">
+            <a href="#" onclick="onFacebookLoginButton(); return false;"><img src="/static/img/ui/facebook_login_button.png"></a>
+          </div>
+        </td></tr>
+      % endif
+      <tr><td height="10px">&nbsp;</td></tr>
+    </table>
+    </form>
+
+    </table>
+    </form>
+  </div>
+  </div>
+  </div>
+</div>
+
+<!-- -------- TERMS OF SERVICE -------- -->
+<div id="id-tos-container" class="hidden">
+    <div style="position:fixed; top:0px; margin:auto; z-index:100000; width:100%; height: 40px; vertical-align: top; background-color:rgba(128, 128, 128, 0.5);">
+      <input type="button" id="id_btnTOSBack" class="gradient-button gradient-button-standard gradient-button-grey" style="font-size:15px; padding:3px; margin:5px; min-width:80px; height:30px" value="Back">
+    </div>
+  
+  <div class="center" style="width: 90%; text-align:left; color:#c0c0c0; font-size:14px;">
+    <br><br>
+    <h2>Extrasolar&reg; Terms of Service</h2>
+    <p>Last modified: September 13, 2013</p>
+
+    <h3>Welcome to Extrasolar!</h3>
+    <p><em>Extrasolar is a game</em>.  While Extrasolar ("the Game") and the characters and situations that you encounter within Extrasolar may at times feel very real, they are in fact part of a fictional story.  Extrasolar is created and maintained by Lazy 8 Studios&trade; in San Francisco, California, United States.</p>
+
+    <p>By participating in the Game, you are agreeing to these terms. Please read them carefully.</p>
+
+    <h3>Playing the Game</h3>
+    <p>You must be at least 13 years of age to play the Game.</p>
+
+    <p>Don't misuse the Game. For example, don't interfere with the Game or try to access it using a method other than the interface that we provide. You may use the Game only as permitted by law, including applicable export and re-export control laws and regulations. We reserve the right to suspend or stop providing access to the Game at any time, even if you have a paid account.</p>
+
+    <p>Participating in the Game does not give you ownership of any intellectual property rights in the content you access through the Game. You may not use content from the Game unless you are sharing such content via the provided mechanisms. These terms do not grant you the right to use any branding or logos used in the Game. Don't remove, obscure, or alter any legal notices displayed in or along with the Game.</p>
+
+    <p>In connection with your use of the Game, we may send you service announcements, administrative messages, and other information. You may opt out of some of those communications.</p>
+
+    <h3>Your Account</h3>
+    <p>You will need to create an account in order to use some of the features of the Game.  If you learn of any unauthorized use of your password or account, please change your password immediately by visiting the login page and using the password reset link.</p>
+
+    <h3>Privacy and Copyright Protection</h3>
+
+    <h4>Information we collect</h4>
+    <p>We collect information to provide better services to all of our users.  We collect information in two ways:</p>
+    <ul>
+      <li><strong>Information you give us</strong>. For example, in order to play the Game, you must sign up for an account. When you do, we'll ask for personal information, like your name and email address. If you want to take full advantage of the features offered by the Game, we might also ask you to include your address or credit card information required to upgrade your account.</li>
+      <li><strong>Information we get from your use of our services</strong>. We may collect information about how you use the Game, like when you visit websites that are part of the Game and how you interact with the content. This information includes:
+        <ul>
+        <li><strong>Device information</strong>: We may collect hardware-specific information such at the type of device you use to access the Game.</li>
+        <li><strong>Log information</strong>: When you access the Game, we may automatically collect and store certain information in server logs, including your Internet protocol (IP) address, cookies that may uniquely identify your browser, or device event information such as crashes, system activity, hardware settings, browser type, browser language, the date and time of your request and referral URL.</li>
+        <li><strong>Cookies and anonymous identifiers</strong>: We use various technologies to collect and store information when you visit the Game, and this may include sending one or more cookies or anonymous identifiers to your browser.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>How we use information we collect</h4>
+    <p>We use the information we collect from the Game to maintain, protect and improve it, to develop new services, and to protect the Game and our users.</p>
+
+    <p>When you create an account in the Game, we automatically generate a public profile that can be viewed by others.  We may display the name you provide in your public profile.</p>
+
+    <p>When you contact Lazy 8 Studios, we may keep a record of your communication to help solve any issues you might be facing. We may use your email address to inform you about our the Game, such as letting you know about improvements or expanded content.</p>
+
+    <p>We use information collected from cookies and other technologies to improve your user experience and the overall quality of the Game.</p> 
+
+    <p>Lazy 8 Studios may have servers located in many countries around the world. We may process your personal information on a server located outside the country where you live.</p>
+
+    <p>Some users may set their browser to block cookies, including cookies associated with the Game.  However, it's important to remember that the Game will not function properly if your cookies are disabled.</p>
+
+    <h4>Information you share</h4>
+    <p>Some information, such as your first name and last initial, will be made available to be others through your public profile.  Because this information is shared publicly, it may be indexable by search engines.</p>
+
+    <h4>Accessing and updating your personal information</h4>
+    <p>Where we can provide information access and correction, we will do so for free, except where it would require a disproportionate effort. We aim to maintain our services in a manner that protects information from accidental or malicious destruction. Because of this, after you delete information from our services, we may not immediately delete residual copies from our active servers and may not remove information from our backup systems.</p>
+
+    <h4>Information we share</h4>
+    <p>We do not share personal information with companies, organizations and individuals outside of Lazy 8 Studios unless one of the following circumstances apply:</p>
+    <ul>
+      <li><strong>With your consent</strong>: We will share personal information with companies, organizations or individuals outside of Lazy 8 Studios when we have your consent to do so.</li>
+      <li><strong>For external processing</strong>: We provide personal information to our affiliates or other trusted businesses or persons to process it for us, based on our instructions and in compliance with this privacy policy and any other appropriate confidentiality and security measures.</li>
+      <li><strong>For legal reasons</strong>: We will share personal information with companies, organizations or individuals outside of Lazy 8 Studios if we have a good-faith belief that access, use, preservation or disclosure of the information is reasonably necessary to:
+        <ul>
+        <li>meet any applicable law, regulation, legal process or enforceable governmental request.</li>
+        <li>enforce applicable Terms of Service, including investigation of potential violations.</li>
+        <li>detect, prevent, or otherwise address fraud, security or technical issues.</li>
+        <li>protect against harm to the rights, property or safety of Lazy 8 Studios, our users or the public as required or permitted by law.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <p>We may share aggregated, non-personally identifiable information publicly and with our partners -- like publishers, advertisers or connected sites. For example, we may share information publicly to show trends about the general use of the Game.</p>
+
+    <p>If Lazy 8 Studios is involved in a merger, acquisition or asset sale, we will continue to ensure the confidentiality of any personal information.</p>
+
+    <h4>Information security</h4>
+    <p>We work hard to protect users of the Game from unauthorized access to or unauthorized alteration, disclosure or destruction of information we hold. In particular:</p>
+    <ul>
+      <li>We may encrypt access to the Game using SSL.</li>
+      <li>We restrict access to personal information to Lazy 8 Studios employees, contractors and agents.</li>
+    </ul>
+
+    <h3>Our Warranties and Disclaimers</h3>
+    <p>We provide the Game using a commercially reasonable level of skill and care and we hope that you will enjoy playing. But there are certain things that we don't promise about the Game.</p>
+
+    <p>OTHER THAN AS EXPRESSLY SET OUT IN THESE TERMS, NEITHER LAZY 8 STUDIOS NOR ITS SUPPLIERS OR DISTRIBUTORS MAKE ANY SPECIFIC PROMISES ABOUT THE GAME. FOR EXAMPLE, WE DON'T MAKE ANY COMMITMENTS ABOUT THE CONTENT WITHIN THE GAME OR ITS RELIABILITY OR AVAILABILITY.</p>
+
+    <p>WE PROVIDE THE GAME "AS IS".  SOME JURISDICTIONS PROVIDE FOR CERTAIN WARRANTIES, LIKE THE IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE EXTENT PERMITTED BY LAW, WE EXCLUDE ALL WARRANTIES.</p>
+    Liability for our Services
+    WHEN PERMITTED BY LAW, LAZY 8 STUDIOS AND ITS SUPPLIERS AND DISTRIBUTORS, WILL NOT BE RESPONSIBLE FOR LOST PROFITS, REVENUES, OR DATA, FINANCIAL LOSSES OR INDIRECT, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES.</p>
+
+    <p>TO THE EXTENT PERMITTED BY LAW, THE TOTAL LIABILITY OF LAZY 8 STUDIOS, AND ITS SUPPLIERS AND DISTRIBUTORS, FOR ANY CLAIM UNDER THESE TERMS, INCLUDING FOR ANY IMPLIED WARRANTIES, IS LIMITED TO THE AMOUNT YOU PAID US TO USE THE GAME.</p>
+
+    <p>IN ALL CASES, LAZY 8 STUDIOS, AND ITS SUPPLIERS AND DISTRIBUTORS, WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE THAT IS NOT REASONABLY FORESEEABLE.</p>
+
+    <h3>About these Terms</h3>
+    <p>We may modify these terms or any additional terms that apply to the Game to, for example, reflect changes to the law or changes to the Game. You should look at the terms regularly. We'll post notice of modifications to these terms on this page.  If you do not agree to the modified terms for the Game, you should discontinue your use.</p>
+
+    <p>These terms control the relationship between Lazy 8 Studios and you. They do not create any third party beneficiary rights.</p>
+
+    <p>If you do not comply with these terms, and we don't take action right away, this doesn't mean that we are giving up any rights that we may have (such as taking action in the future).</p>
+
+    <p>If it turns out that a particular term is not enforceable, this will not affect any other terms.</p>
+
+    <p>The laws of California, U.S.A., excluding California's conflict of laws rules, will apply to any disputes arising out of or relating to these terms or use of the Game. All claims arising out of or relating to these terms or the Game will be litigated exclusively in the federal or state courts of San Francisco County, California, USA, and you and Lazy 8 Studios consent to personal jurisdiction in those courts.</p>
+
+    <p>For information about how to contact Lazy 8 Studios, please visit our contact page at www.lazy8studios.com/contact.</p>
+    <br><br>
+
+  </div>
+</div>
+
+<!-- -------- AGE EXPLANATION -------- -->
+<div id="id-age-container" class="hidden">
+    <div style="position:fixed; top:0px; margin:auto; z-index:100000; width:100%; height: 40px; vertical-align: top; background-color:rgba(128, 128, 128, 0.5);">
+      <input type="button" id="id_btnAgeBack" class="gradient-button gradient-button-standard gradient-button-grey" style="font-size:15px; padding:3px; margin:5px; min-width:80px; height:30px" value="Back">
+    </div>
+  
+  <div class="center" style="width: 90%; text-align:left; color:#c0c0c0; font-size:14px;">
+  <br><br>
+  <h2>Why the age restriction?</h2>
+  <h3>Immersion</h3>
+  <p><em>Extrasolar is a game</em>. However, it's quite different from other games and there may be times when you're not sure where the game ends and reality begins. Extrasolar is not self-contained and you may, at times, find yourself linking from domains within the game to websites that we don't control.</p>
+  <h3>Themes</h3>
+  <p>There is no violence in Extrasolar, but some of the themes have a mature nature. For instance, the story may refer to violent events and may simulate engaging in illegal behavior.</p>
+  <h3>Language</h3>
+  <p>I believe we use the word "dammit" in a couple of places, but that's as bad as it gets.</p>
+  <h3>Legal</h3>
+  <p>Due to COPPA (The Children's Online Privacy Protection Act) in the United States, it's our understanding that any website that collects email addresses for users must limit access to children under the age of 13. It should be noted that Extrasolar also creates a public profile page that lists the participant's first name and last initial. We hope to eventually meet COPPA requirements, but for now, we're being extra cautious.</p>
+  <p>This legal constraint is unfortunate as we believe that Extrasolar will be an exciting and educational experience for participants of all ages. We encourage parents to create an account with their own name and email address and play with their kids.</p>
+  <br><br>
+  </div>
+</div>
+</script>
+
+<!-- ========= UNAUTHORIZED (OVER CAPACITY) ========= -->
+<script type="text/html" id="unauthorized_page" title="Over Capacity">
+<div id="id-unauthorized-container">
+    <div class="center" style="width: 90%; text-align:left; color:#c0c0c0; font-size:14px;">
+      <p align="center">
+        <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br>
+        <h2 align="center">No Available Rovers</h2>
+
+            <p>Thank you for your interest in the <i>Extrasolar</i> rover driver pilot program. Unfortunately, due to the large volume of applications we have received, all entry-tier rovers that have been deployed on the planet's surface have been assigned to drivers.  As a result, for the time being, we are limiting our selections to accredited scientists with active government clearances.</p>
+
+            <p>Over the coming weeks, we will be selecting additional sites for landing capsules.
+            We will attempt to contact you if additional rovers become available.
+            </p>
+      </p>
+    </div>
+% if is_native is UNDEFINED or is_native == False:
+    <audio id="id-audio-glitch"><source src="/static/audio/glitch.mp3" type="audio/mpeg"></audio>
+% endif
+    <div id="id_glitch1" class="hidden" style="position: absolute; top: 30%; left:0px; width: 100%; height: 20%; background: url(img/app/glitch.png) repeat center top fixed;"></div>
+    <div id="id_glitch2" class="hidden" style="position: absolute; top: 50%; left:0px; width: 100%; height: 50%; background: url(img/app/glitch.png) repeat center top fixed; background-position: 128px 0px;"></div>
+</div>
+
+<!-- -------- TERMINAL -------- -->
+<div id="id-terminal-container" class="hidden">
+    <div style="height:100%; width:100%; position:fixed; top:0px; left:0px; overflow:hidden; background-color:#404040;">
+    </div>
+    <div id="k81-terminal-scroll" style="width: 100%; min-height: 100%; overflow-x: hidden; overflow-y: scroll; display: block; position: relative; background-color:#404040; color: #a0a0a0; font-family:FreeMono,monospace; font-size:14px">
+        <div istyle="width:95%; margin-left:auto; margin-right: auto;">
+            <div id="k81-terminal-content"></div>
+            <div>
+                <span class="prompt">&gt; </span>
+                <span id="k81-terminal-cursor">&nbsp;</span><a name="cursor"></a>
+            </div>
+        </div>
+% if is_native is UNDEFINED or is_native == False:
+        <audio id="id-audio-g"><source src="/static/audio/g.mp3" type="audio/mpeg"></audio>
+        <audio id="id-audio-a"><source src="/static/audio/a.mp3" type="audio/mpeg"></audio>
+        <audio id="id-audio-f"><source src="/static/audio/f.mp3" type="audio/mpeg"></audio>
+        <audio id="id-audio-f0"><source src="/static/audio/f0.mp3" type="audio/mpeg"></audio>
+        <audio id="id-audio-c"><source src="/static/audio/c.mp3" type="audio/mpeg"></audio>
+% endif
+        <svg height="100%" width="100%" style="position:fixed; top:0px; left:0px; overflow:hidden">
+          <circle id="id-kryptex-button0" data-index="0" cx="0" cy="0" r="0" stroke="#fff" stroke-width="0" fill="#aaa" opacity=0/>
+          <circle id="id-kryptex-button1" data-index="1" cx="0" cy="0" r="0" stroke="#fff" stroke-width="0" fill="#aaa" opacity=0/>
+          <circle id="id-kryptex-button2" data-index="2" cx="0" cy="0" r="0" stroke="#fff" stroke-width="0" fill="#aaa" opacity=0/>
+          <circle id="id-kryptex-button3" data-index="3" cx="0" cy="0" r="0" stroke="#fff" stroke-width="0" fill="#aaa" opacity=0/>
+        </svg>
+    </div>
+</div>
+</script>
+
+<!-- ========= UNAUTHORIZED (OVER CAPACITY) ========= -->
+<script type="text/html" id="backdoor_page" title="Welcome to Extrasolar">
+<div id="id-backdoor-container">
+    <div class="center" style="width: 90%; text-align:left; color:#c0c0c0; font-size:14px;">
+      <p align="center">
+        <img src="img/app/extrasolar_header.png" style="max-width:90%; width:90%;"><br>
+        <h2 align="center">Account Authenticated</h2>
+
+            <p>Welcome to <i>Extrasolar</i>, the rover driver pilot program hosted by the Exoplanetary Research Institute (XRI).  Your account has now been authenticated.  As you may know, the number of applicants to this program far exceeded the number of available spaces.  Please understand that it is a great privilege to be able to participate and we expect the highest level of professionalism on this unprecedented scientific expedition.</p>
+
+            <div style="margin-left: auto; margin-right: auto; width: 100%; text-align:center">
+            <input type="button" id="id_btnOps" class="gradient-button gradient-button-store" style="min-width: 200px" value="Continue to my account">
+            </div>
+      </p>
+    </div>
+</div>
+</script>
+
+<!--
+    Recommended JavaScript library load order:
+
+    <head>
+    ...
+     * "Device-Independent" JavaScript libraries.
+    ...
+    <style> (or CSS loads) </style>
+    </head>
+
+    <body>
+    ...html tags...
+     * optional: weinre debug script tag for remote console debug (see notes).
+     * Intel XDK device JavaScript library.
+     * Cordova/PhoneGap device JavaScript library.
+     * "Device-Dependent" JavaScript libraries.
+     * Application JavaScript <script> tags and libraries.
+     * optional: weinre debug script tag for remote console debug (see notes).
+    </body>
+
+    JavaScript is being loaded at both ends of the HTML file, in order to coordinate the loading of
+    the JavaScript libraries in the webview. You have to wait for the underlying device API native
+    code to finish its init, which can take longer than the webview init...
+
+    VERY IMPORTANT: notice that all of the libraries used in this project are located within the app's
+    local directories, which means they will get bundled with the app. They are NOT being pulled in
+    over the net. In most cases, this is what you should be doing when you build a hybrid mobile app.
+    This insures that you always use the JS code that you debugged against AND that you are not requiring
+    a data connection (network connection) to get the app started. If your app startup required a data
+    connection to initialize and start interaction with the user, lack of a reliable network connection
+    coud be disasterous. Not to mention it generally results in a slower load time. Loading locally is
+    is much, much friendlier to your end user's data plan and battery.  :-)
+
+    NOTE: do not use a directory prefix with intelxdk.js or cordova.js - they are inserted automatically
+    by the build system, emulator and other tools and are assumed to be in the index.html source directory.
+    You will not find these JS files anywhere in your project, they are "phantom" libraries. If you do see
+    copies of these files as part of your project they should be removed to avoid confusing the XDK.
+
+    When building with any of the XDK Cordova build systems (e.g., "Cordova Hybrid App") you can
+    omit the "intelxdk.js" and "xhr.js" script files shown below. It does not hurt to keep them, but
+    they are not used in that environment, they are only needed for the "legacy" XDK build systems.
+    (In the case of the Cordova build system, the Cordova and XDK apis are included as plugins
+    and the CORS configuration is specified as a parameter in the build configuration file.)
+
+    FINAL VERY IMPORTANT NOTE: If you are using a large number of JavaScript libraries, especially
+    third-party libraries (like jQuery, mustache, Underscore, etc.) that are "independent" of the
+    device APIs provided by the XDK and Cordova libraries, and are independent of your application, your
+    app initialization will be most successful if you load these libraries BEFORE the Cordova and
+    XDK libraries, in the <head> section of your index.html file. Obviously, any code that depends
+    on the Cordova or XDK library APIs should be loaded AFTER the intelxdk.js and cordova.js libraries.
+
+    Libraries that are "independent" of the device APIs are libraries that you could use in a desktop
+    browser in a normal web page or web app. "Dependent" libraries are, most likely, your own code
+    that you've written specifically to work with the Cordova or XDK device APIs. In some cases, if
+    your device-dependent code requires access to the device-independent code to get started, you may
+    have to use something like CommonJS to force the device-dependent code to wait for the device-
+    independent code to initialize, otherwise you may have trouble getting your app started.
+
+    Because of this added dependency on the underlying native code (device) initialization, you should
+    not use the "document ready" event to start your application. You should wait for the "device ready"
+    event before you begin your application (if it uses any device APIs); in practice, it is best to wait
+    for both. (See the init-dev.js file in this demo app for an example of how to do this, it generates
+    a custom "app.Ready" event that you can trigger off of and just forget about the other events.)
+
+    NOTE: *any* library that redefines addEventListener() or fiddles with outstanding events may
+    interfere with capturing the "device ready" event and should, therefore, be placed *BEFORE*
+    the Cordova and XDK libraries in the load order.
+
+    ALSO: if you use weinre for debugging (ala the Test tab or your own), you may have to experiment with
+    the placement of the weinre script. Two recommended locations are shown below. If these two locations
+    do not work, you may have to experiment. The optimum placement can be app-specific, primarily as a
+    function of the included JavaScript libraries and your initialization.
+-->
+
+    <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+    <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work below -->
+    <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+
+    <script src="js/lib/mobile-login.js"></script>
+    <script>
+    ce4.launcher.fb_application_id = "${fb_application_id}";
+    </script>
+% if is_native is not UNDEFINED and is_native == True:
+    <script>
+    ce4.launcher.ops_server = "${ops_server}";
+    </script>
+<!-- See <head> section above for additional JS libraries loaded as part of this application. -->
+    <script src="intelxdk.js"></script>         <!-- phantom library, needed for XDK api calls -->
+    <script src="cordova.js"></script>          <!-- phantom library, needed for Cordova api calls -->
+    <script src="xhr.js"></script>              <!-- phantom library, needed for XDK CORS -->
+
+    <script src="js/app.js"></script>
+    <script src="js/app-init-device.js"></script>
+    <script src="http://debug-software.intel.com/target/target-script-min.js#ECcZSty5SvPax387ebNdPMd00GZU5JeLDaSF23zd-uk"></script>
+    <!-- IMPORTANT: Do not include your weinre script tag as part of your release builds! -->
+    <!-- Place your remote debugging (weinre) script URL from the Test tab here, if it does not work above -->
+    <!-- <script src="http://debug-software.intel.com/target/target-script-min.js#insertabiglongfunkynumberfromthexdkstesttab"></script> -->
+% endif
+
+% if is_native is UNDEFINED or is_native == False:
+    <script>
+    $( document ).ready(function() {
+      ce4.launcher.init();
+    });
+    </script>
+% endif
+
+</body>
+</html>

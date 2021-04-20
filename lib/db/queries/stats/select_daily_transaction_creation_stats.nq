@@ -1,0 +1,2 @@
+{"base":
+ "SELECT DATE_FORMAT(created, :date_format) AS day, COUNT(*) AS count, SUM(amount) AS sum FROM transactions WHERE created >= :start AND created < :end GROUP BY day"}

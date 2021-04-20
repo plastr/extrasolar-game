@@ -1,0 +1,70 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>${self.title()}</title>
+    <meta name="description" content="">
+    <meta name="author" content="Lazy 8 Studios">
+
+    <meta name="viewport" content="width=device-width">
+
+    <link href="/css/ce4.style.css" rel="Stylesheet" type="text/css" />
+    <link href="/css/shared/xri.style.css" rel="Stylesheet" type="text/css" />
+
+    <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script>window.html5 || document.write('<script src="/js/libs/html5.js"><\/script>')</script>
+    <![endif]-->
+
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/img/favicon_touch.png" />
+
+    <script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+    ${self.head()}
+</head>
+
+<body class="body-base">
+<%include file="tracking_tags.html"/>
+    <div id="fb-root"></div>
+
+% if show_login_header is not UNDEFINED and show_login_header == True:
+    <%include file="login_header_snippet.html"/>
+% endif
+
+    <div style="text-align:center">
+        <img src="/img/header_login.png">
+    </div>
+
+    <div id="xri-login-wrapper" role="main">
+        ${self.body()}
+    </div>
+
+</body>
+</html>
+
+<%def name="head()">
+</%def>
+
+<%def name="title()">
+CE4
+</%def>
+
+<%def name="errors()">
+% if error is not UNDEFINED:
+<p>${error}</p>
+% endif
+</%def>
+
+
+<%def name="logout()">
+<form action="/logout" method="POST" class="logout">
+<input type="submit" name="submit" value="Logout" class="logout"/>
+</form>
+</%def>
+
+

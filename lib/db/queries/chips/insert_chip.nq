@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO chips SET user_id=:user_id, content=:content, transient=#:transient, time=:time"}

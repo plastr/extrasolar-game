@@ -1,0 +1,109 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin User Map
+</%def>
+
+<%def name="head()">
+<link href="/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+<link href="/css/ce4.style.css" rel="Stylesheet" type="text/css" />
+<link href="/css/leaflet.css" rel="stylesheet" />
+<link href="/css/leaflet.draw.css" rel="stylesheet" />
+
+% if use_compiled_javascript:
+<script src="${static_url_version('/js/compiled-libs.js')}" type="text/javascript"></script>
+<script src="${static_url_version('/js/compiled.js')}" type="text/javascript"></script>
+% else:
+<script src="/js/lib/html5.js" type="text/javascript"></script>
+<script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/js/lib/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+<script src="/js/lib/json2.js" type="text/javascript"></script>
+<script src="/js/lib/date.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.tmpl.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.bocks.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.ce4.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.draw.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.draw-mod.js" type="text/javascript"></script>
+<script src="/js/lib/jQueryRotateCompressed.2.2.js" type="text/javascript"></script>
+<script src="/js/lib/jquery.pajinate.min.js" type="text/javascript"></script>
+<script src="/js/lib/dhtmlxcommon.js" type="text/javascript"></script>
+<script src="/js/lib/dhtmlxslider.js" type="text/javascript"></script>
+<script src="/js/lib/leaflet.Marker.Rotate.js" type="text/javascript"></script>
+
+<script src="/js/lib/closure/goog/base.js"></script>
+<script src="/js/deps.js" type="text/javascript"></script>
+% endif
+
+<script type="text/javascript">
+    goog.require('ce4.game');
+    goog.require('ce4.assets');
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(function() {
+        // Insert the assets.json data into the ce4.assets namespace, as provided by the templating system
+        var assets_json = ${assets_json_s |n};
+        $.extend(ce4.assets, assets_json);
+
+        <%
+        from front.lib import xjson
+        gamestate_s = xjson.dumps(gamestate, indent=2)
+        %>
+        var gamestate = ${gamestate_s |n};
+
+        // TODO: This should go away once the map doesn't use ce4.gamestate at all.
+        goog.require('ce4.gamestate');
+        goog.require('ce4.leaflet');
+
+        // Construct the User object and all the child Models and Collections.
+        ce4.gamestate.user = new ce4.user.User(gamestate.user);
+        // Store the server provided configuration.
+        ce4.gamestate.config = gamestate.config;
+        // Store the server provided URLs.
+        ce4.gamestate.urls = gamestate.urls;
+        var user = ce4.gamestate.user;
+
+        var dom = document.getElementById("leaflet-container");
+
+        var map = new ce4.leaflet.ExtraSolarMap({ urls:ce4.gamestate.urls, user:user });
+        map.onShow();
+        map.leafletMap.setZoom(ce4.leaflet.MIN_ZOOM);
+    });
+//]]>
+</script>
+
+</%def>
+
+<div class="div_admin_center">
+    <h1><a href="${urls.admin_root()}">« Admin</a> User Map</h1>
+    <table>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Started</th>
+            <th>Last Access</th>
+            <th>Campaign</th>
+        </tr>
+        % if u.valid == 0:
+        <tr class="user_invalid">
+        % elif len(u.vouchers) > 0:
+        <tr class="user_has_vouchers">
+        % else:
+        <tr>
+        % endif
+            <td><a href="${u.url_admin()}">${u.email}</a></td>
+            <td>${u.first_name} ${u.last_name}</td>
+            <td>${u.profile_approx_time_since_activated()}</td>
+            <td>${u.profile_approx_time_since_last_accessed()}</td>
+            <td>${u.campaign_name}</td>
+        </tr>
+    </table>
+    <div class="xri-pane">
+        <div id="map-container" style="width:100%;height:100%">
+            <div id="leaflet-container" style="width:100%;height:100%"></div>
+        </div>
+    </div>
+</div>
+
+<div id="div_footer"></div>

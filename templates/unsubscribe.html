@@ -1,0 +1,30 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Unsubscribed
+</%def>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+  <tr>
+    <td>
+      <h2 align="center" style="margin-bottom:0px"><i>Extrasolar</i></h2>
+      <h3 align="center" style="margin-top:0px">Exploring the Universe One Photo at a Time</h3>
+
+      <div id="error_login" class="form-error" align="center"> 
+        % if error is not UNDEFINED:
+        ${error}
+        % endif 
+      </div>
+
+      % if user is not UNDEFINED:
+      <div align="center"> 
+        You have been unsubscribed from all notifications. <a href="${urls.ops()}">Continue to Rover Operations</a>.
+      </div>
+      % endif
+    </td>
+  </tr>
+</table>
+
+<div class="patch-logo">
+  <!-- <img src="http://www.extrasolar.com/images/mission-patch.png" alt="mission-patch" class="patch">-->
+  <!-- <img src="/img/XRI_logo_300x300.png" alt="" class="xri-logo"> -->
+</div><!-- / -->

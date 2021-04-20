@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO target_image_rects SET user_id=:user_id, target_id=:target_id, seq=:seq, xmin=:xmin, ymin=:ymin, xmax=:xmax, ymax=:ymax, species_id=:species_id, subspecies_id=:subspecies_id, density=:density, created=:created"}

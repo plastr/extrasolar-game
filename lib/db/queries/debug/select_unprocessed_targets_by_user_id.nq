@@ -1,0 +1,2 @@
+{"base":
+ "SELECT user_id, rover_id, target_id, start_time, arrival_time FROM targets WHERE processed=0 AND picture=1 AND render_at < :render_after AND user_id = :user_id ORDER BY arrival_time, seq"}

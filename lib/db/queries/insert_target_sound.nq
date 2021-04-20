@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO target_sounds SET user_id=:user_id, target_id=:target_id, sound_key=:sound_key, created=:created"}

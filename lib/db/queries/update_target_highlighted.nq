@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE targets SET highlighted=:highlighted WHERE target_id=:target_id"}

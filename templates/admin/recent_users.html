@@ -1,0 +1,38 @@
+<table>
+    <tr>
+        <th>Email</th>
+        % if show_user_full_name is not UNDEFINED:
+        <th>Name</th>
+        % endif
+        <th>Last Accessed</th>
+        <th><acronym title="User created targets">TGs</acronym></th>
+        <th><acronym title="Target tagging rectangles">IDs</acronym></th>
+        <th>Campaign</th>
+        <th>Map</th>
+    </tr>
+    % for u in recent_users:
+    % if u.valid == 0:
+    <tr class="user_invalid">
+    % elif u.voucher_count > 0:
+    <tr class="user_has_vouchers">
+    % else:
+    <tr>
+    % endif
+        <td><a href="${urls.admin_user(u.user_id)}" title="${u.email}">${format_user_label(u)}</a></td>
+        % if show_user_full_name is not UNDEFINED:
+        <td>${u.first_name} ${u.last_name}</td>
+        % endif
+        <td>${u.last_accessed_approx}</td>
+        <td>${u.target_count}</td>
+        <td>${u.image_rects_count}</td>
+        % if u.has_campaign_name():
+        <td><a class="no_style" href="${urls.admin_users_by_campaign_name(u.campaign_name)}">${format_field(u.campaign_name, 18)}</a></td>
+        % else:
+        <td></td>
+        % endif
+        <td><a href="${urls.admin_user_map(u.user_id)}">Map</a></td>
+    </tr>
+    % endfor
+</table>
+<span id='recent_users_count_data' data-count="${len(recent_users)}"></span>
+<span id='all_users_count_data' data-count="${all_users_count}"></span>

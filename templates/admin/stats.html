@@ -1,0 +1,100 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Stats
+</%def>
+
+<%def name="head()">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    var template_data = ${template_data_s |n};
+</script>
+
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(load_all_charts);
+    function load_all_charts() {
+        for (var i = 0; i < template_data.all_chart_names.length; i++) {
+            var chart_name = template_data.all_chart_names[i];
+            load_chart_data_and_draw(chart_name);
+        }
+    };
+
+    var load_chart_data_and_draw = function(chart_name) {
+        $.ajax({
+            type: 'POST',
+            url: template_data.url_admin_api_chart_data,
+            data: JSON.stringify({"chart_name": chart_name, "use_debug_data": template_data.use_debug_data}),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (data) {
+                // true as first argument means this will be a deep merge, so nested values are preserved.
+                var options = $.extend(true, {}, default_options, data.chart_options);
+                var wrapper = new google.visualization.ChartWrapper({
+                    chartType: data.chart_type,
+                    dataTable: data.chart_data,
+                    options: options,
+                    containerId: 'div_chart_' + chart_name
+                });
+                wrapper.draw();
+            },
+            error: function(data, status, error) {
+                var errorMsg = "An unknown error occurred when loading chart: " + chart_name;
+                if (data.responseJSON && data.responseJSON.errors) errorMsg = data.responseJSON.errors[0];
+                $('#div_chart_errors').append('<div class="error">' + errorMsg + '</div');
+            }
+        });
+    };
+
+    // Default chart display options, overriden per chart with server provided object.
+    var default_options = {
+        chartArea: { width: "90%", height: "80%" },
+        bar: { groupWidth: "80%" },
+        legend: { position: 'bottom' },
+        hAxis: {
+            titleTextStyle: { color: 'black' },
+            slantedText: false,
+            minTextSpacing: 1,
+            maxAlternation: 1,
+            showTextEvery: 2
+        },
+        vAxis: {
+            minorGridlines: { count: 2 }
+        }
+    };
+</script>
+<style type="text/css">
+    table {
+    }
+
+    th,td {
+        padding: 3px;
+    }
+
+    td {
+        text-align: right;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    .chart_holder {
+        margin-bottom: 10px;
+    }
+</style>
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Stats</h1>
+<h3 style="text-align: right;"><a href="${urls.admin_stats_attrition()}">View Attrition Stats »</a></h3>
+<div class="div_admin_center">
+
+    <div id='div_charts_container' style="width: 90%; margin:auto;">
+    <div id="div_chart_errors"class="error"></div>
+    % for chart_name in all_chart_names:
+    <div id="div_chart_${chart_name}" class="chart_holder" style="width: 100%; height: 350px;">Loading Chart Data...</div>
+    % endfor
+    </div>
+
+</div>
+
+<div id="div_footer"></div>

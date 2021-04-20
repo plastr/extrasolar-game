@@ -1,0 +1,783 @@
+<div id="xri-wrapper" role="main">
+    <header class="game-header clearfix">
+      <div id="xri-tabs">
+        <div class="xri-tabs">
+            <ul class="clearfix">
+                <li class="home" id="home_tab"><a href="#home" title="" onclick="ce4.ui.clear_unviewed_alerts('home');">Home<div id="home_unviewed_alerts" title="New updates" class="unviewed_alerts">0</div></a></li>
+                <li class="map" id="map_tab"><a href="#map">Map</a></li>
+                <li class="profile" id="profile_tab"><a href="#profile" onclick="ce4.ui.clear_unviewed_alerts('profile');">Profile<div id="profile_unviewed_alerts" title="New updates" class="unviewed_alerts">0</div></a></li>
+                <li class="classroom" id="classroom_tab" style="display:none"><a href="#classroom">Class</a></li>
+            </ul>
+        </div>
+      </div>
+    <img src="/img/header/extrasolar_title.png" alt="">
+    <div class="level" onclick="ce4.ui.store.dialogOpen();">
+        <section>
+            <span class="title">&nbsp;</span>
+            <span class="upgrade" style="display:none"><button class="gradient-button gradient-button-upgrade gradient-button-small">Support XRI</button></span>
+        </section>
+    </div>
+    </header><!-- xri-header -->
+
+    <div id="content">
+        <div class="preloader">
+            <div class="xri-anim-logo">
+                <img class="lightblue-belt" src="/img/XRI_logo_0000_lightblue-belt.png" />
+                <img class="darkblue-belt" src="/img/XRI_logo_0001_darkblue-belt.png" />
+                <img class="planet-top" src="/img/XRI_logo_0003_planet-top.png" />
+                <img class="planet-bottom" src="/img/XRI_logo_0004_planet-bottom.png" />
+                <img class="xri-text" src="/img/XRI_logo_0002_xri-text.png" />
+            </div>
+
+            <div class="subloader">
+                <p>Connecting to rover ...</p>
+
+                <div>
+                    <img src="/img/XRI_logo_0000_tv-icn.png" alt="">
+                    <img src="/img/xri-loader.gif" alt="">
+                    <img src="/img/XRI_logo_0001_satel-icn.png" alt="">
+                    <img src="/img/xri-loader.gif" alt="">
+                    <img src="/img/XRI_logo_0002_world-icn.png" alt="">
+                    <img src="/img/xri-loader.gif" alt="">
+                    <img src="/img/XRI_logo_0003_rover-icn.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="xri-footer">
+        <a href="#copyright"><script type="text/javascript">document.write(xri.ui.copyright());</script></a> &nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.whatisextrasolar.com/support" target="_blank">Report a problem</a>
+        <div class="socialize" style="vertical-align: top">
+          <span class="facebook">
+              <fb:like href="https://www.facebook.com/extrasolarproject" send="false" layout="button_count" width="120" show_faces="false"></fb:like>
+          </span>
+          <span class="twitter">
+              <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-size="small" data-via="ExoResearch" data-related="ExoResearch:The eXoplanetary Research Institute (XRI)" data-hashtags="Extrasolar" data-text="Exploring the surface of an alien world!" data-url="http://www.extrasolar.com/"></a>
+          </span>
+          <span class="google" style="display: inline-block; height: 20px;">
+              <div class="g-plusone" data-size="medium" data-annotation="bubble" data-width="120" data-callback="ce4.ui.social.google.callback" data-href="http://www.extrasolar.com/"></div>
+          </span>
+      </div>
+    </footer>
+
+</div><!-- xri-wrapper -->
+
+    <script type="text/javascript">
+    //<![CDATA[
+    $(document).ready(
+        function() {
+
+            // We are not using the mobile template
+            ce4.util.ops_server = "${ops_server}";
+
+            // Start the preloader animation on document.ready
+            $(".xri-anim-logo img").addClass("anim");
+            // modernizr fallback
+            //$("#bt").click(function() {
+                //if (Modernizr.csstransitions) {
+                    //$(".box").toggleClass("box-change");
+                //} else {
+                    //// do some jQuery-based animations/transitions here
+                    //// for IE 6-9
+                //}
+            //});
+
+            // Insert the assets.json data into the ce4.assets namespace, as provided by the templating system
+            var assets_json = ${assets_json_s |n};
+            $.extend(ce4.assets, assets_json);
+
+            // The URL value is provided by the server template rendering.
+            var gamestate_url = "${gamestate_url}";
+            ce4.game.fetch_gamestate(gamestate_url);
+        });
+    //]]>
+    </script>
+
+    <!-- ========= HOME ========= -->
+    <script type="text/html" id="home_page" title="Home">
+        <div id="home-container">
+        <div class="xri-pane clearfix" role="main">
+            <div class="xri-main-Lcol">
+                <div class="messages-tasks clearfix">
+
+                    <section class="messages">
+                        <header>
+                            <a href="#mail" class="pagelink">
+                                <span class="outer"><span class="inner">Messages<span id="id_unviewed_message_count"></span></span></span>
+                                <cite>See All <img src="/img/see-all-icon.png"></cite>
+                            </a>
+                        </header>
+                        <div class="content">
+                            <div class="messages-holder"><!-- populated by ce4.ui functions --></div>
+                        </div>
+                    </section>
+                    <!-- messages -->
+
+                    <section class="tasks">
+                        <header>
+                            <a href="#tasks" class="pagelink">
+                                <span class="outer"><span class="inner">Tasks<span id="id_unviewed_task_count"></span></span></span>
+                                <cite>See All <img src="/img/see-all-icon.png"></cite>
+                            </a>
+                        </header>
+                        <div class="content">
+
+                            <div id="not_done_missions">
+                                <h3>Active</h3>
+                                <ul>
+
+                                </ul>
+                            </div>
+
+                            <div id="done_missions">
+                                <h3>Completed</h3>
+                                <ul>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- tasks -->
+
+                </div><!-- messages-tasks -->
+
+                <section class="rover-data">
+                    <header>
+                        <a href="#gallery" class="pagelink">
+                            <span class="outer"><span class="inner">Newest Photos<span id="id_unviewed_photo_count"></span></span></span>
+                            <cite>See All <img src="/img/see-all-icon.png"></cite>
+                        </a>
+                    </header>
+                    <div class="newest-data">
+                        <ul id="gallery-thumbnails" class="thumb-list clearfix"></ul>
+                    </div><!-- newest data -->
+
+                </section><!-- rover data -->
+
+             </div><!-- xri-main-Lcol -->
+
+            <div class="xri-main-Rcol">
+                <div class="details">
+
+                    <section>
+                        <h2>Current Planet Status</h2>
+
+                        <div class="planet-phases">
+                            <img src="/img/planet_phases/planet-midday.png"/>
+                            <p class="planet-time">Mid Afternoon</p>
+                            <p class="planet-sun-phase">Sunset in 3 hours</p>
+                        </div>
+
+                        <div class="moon1 moonbox">
+                            <img src="/img/moon_phases/major/moon1.png"/>
+                            <p>
+                                <span class="moon_name">Waxing Crescent</span>
+                                <span class="moon_set">Setting in 5h 10m</span>
+                            </p>
+                        </div>
+                        <div class="moon2 moonbox">
+                            <img src="/img/moon_phases/minor/moon1.png"/>
+                            <p>
+                                <span class="moon_name">Waning Gibbous</span>
+                                <span class="moon_set">Rises in 3h 40m</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <div class="minimap">
+                    <section>
+                        <h2><a href="#map">Rover Location <img src="/img/see-all-icon.png" /></a></h2>
+                        <div class="map">
+                            <div class="crosshairs"><img src="/img/1x1.gif" alt="" title="Alt-Click to center on location" class="clickable"></div>
+                            <img src="/img/map-dummy.jpg" alt="">
+                        </div>
+                    </section>
+                    <!-- minimap -->
+                </div>
+                <div class="catalog">
+                    <section>
+                        <h2><a href="#catalog">Discoveries<span id="id_unviewed_catalog_count"></span><img src="/img/see-all-icon.png" /></a></h2>
+                        <ul id="catalog_preview" class=""></ul>
+                    </section>
+                    <!-- catalog -->
+                </div>
+            </div><!-- xri-main-Rcol -->
+
+        </div><!-- xri-home -->
+      </div>
+  </script>
+
+
+ <!-- ==================== MAIL ==================== -->
+  <script type="text/html" id="mail_page" title="Inbox">
+    <div id="mail-container">
+        <div class="xri-pane" class="clearfix">
+
+        <section class="xri-inbox">
+
+            <header>
+                <span class="outer">
+                    <span class="inner">
+                        <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                        Messages<span id="id_unviewed_message_count"></span>
+                    </span>
+                </span>
+
+                <div class="paging-holder">
+                    <div class="clearfix">
+                        <div class="paging clearfix">
+                            <div class="info_text numbers"></div>
+                            <div class="page_navigation clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- a class="xri-close-btn" href="#home"></a -->
+            </header>
+            <div class="content">
+                <div class="messages-holder"><!-- populated by ce4.ui functions --></div>
+            </div>
+        </section> <!-- inbox -->
+
+    </div> <!-- xri-main -->
+
+    </div>
+  </script>
+
+
+  <!-- ==================== MESSAGE ==================== -->
+  <script type="text/html" id="message_page" title="Loading message">
+    <div id="message-container">
+
+        <div class="xri-pane">
+
+            <section class="xri-message">
+
+                <header>
+                    <span class="outer">
+                        <span class="inner">
+                            <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                            <a href="#mail">Messages<span id="id_unviewed_message_count"></span></a> &#9474;
+                            <span id="message_title"></span>
+                        </span>
+                    </span>
+
+                    <div class="paging-holder">
+                        <div class="clearfix">
+                            <div class="paging clearfix">
+                                <div class="page_navigation clearfix">
+                                    <a class="previous_link  no_more" href="">Newer</a>
+                                    <a class="next_link  no_more" href="">Older</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- a class="xri-close-btn" href="#mail"></a -->
+                </header>
+
+                <div class="message-body">
+                    <div class="message-detail">
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr class="message-header">
+                          <td>
+                            <div class="mail-thumb"><img src="/img/1x1.gif" width="72" height="72"/></div>
+                            <div class="mail-from">
+                                From : <span id="message_from"></span>
+                            </div>
+                            <div class="mail-to">
+                                To : <span id="message_to"></span>
+                            </div>
+                            <div class="mail-subject">
+                                Subject : <span id="message_subject"></span>
+                            </div>
+                          </td>
+                          <td>
+                            <span class="mail-date" id="message_date"></span>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td colspan="2">
+                            <div id="message">
+                                <p class="message_loading">Loading message...</p>
+                                <div class="loading-underlay"></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                        </tr>
+                      </table>
+
+                    </div>
+
+            </section> <!-- inbox -->
+
+        </div><!-- xri-pane -->
+
+    </div>
+  </script>
+
+  <!-- ==================== LEAFLET ==================== -->
+  <script type="text/html" id="map_page" title="Map">
+    <div class="xri-pane">
+        <div id="map-container" style="width:100%;height:100%">
+            <div id="leaflet-container" style="width:100%;height:100%"></div>
+        </div>
+    </div>
+  </script>
+
+  <!-- ==================== GALLERY ==================== -->
+  <script type="text/html" id="gallery_page" title="Gallery">
+    <div id="photo-container">
+        <div class="xri-pane">
+
+            <header>
+                <span class="outer">
+                    <span class="inner">
+                        <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                        Gallery<span id="id_unviewed_photo_count"></span>
+                    </span>
+                </span>
+
+                <div class="paging-holder">
+                    <div class="clearfix">
+                        <div class="paging clearfix">
+                            <div class="info_text numbers"></div>
+                            <div class="page_navigation clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- a class="xri-close-btn" href="#home"></a -->
+
+            </header>
+
+            <div class="newest-data">
+                <ul id="gallery-thumbnails" class="thumb-list clearfix"></ul>
+             </div>
+
+        </div><!-- xri-pane -->
+
+    </div>
+  </script>
+
+  <!-- ==================== PICTURE ==================== -->
+  <script type="text/html" id="picture_page" title="Picture Detail">
+    <div class="xri-pane">
+        <header>
+            <span class="outer">
+                <span class="inner">
+                    <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                    <a href="#gallery">Gallery<span id="id_unviewed_photo_count"></span></a> &#9474;
+                    {{= ce4.util.format_time_since(args.target.arrival_time_ms())}} &#9474;
+                    {{if !args.target.is_classified()}}
+                    <div class="socialize socialize-picture" id="id-picture-social"></div>
+                    {{else}}
+                    <b>CLASSIFIED</b>
+                    {{/if}}
+                </span>
+                <a class="maplink" href="{{= ce4.util.url_map({target: args.target.target_id})}}"><cite>See on Map<img src="/img/see-all-icon.png"></img></cite></a>
+            </span>
+
+
+            <!-- a class="xri-close-btn" href="#gallery"></a -->
+        </header>
+        <div class="photo-gallery">
+            <div class="gallery-container clearfix">
+                <div class="leftcol">
+                    <div id="id-species-identified">
+                        <ul id="species-ids"></ul>
+                        <ul id="species-tags"></ul>
+                    </div>
+                    <div id="id-species-controls">
+                        <button class="gradient-button gradient-button-standard" id="id-add-tag"><img src="/img/arrow_narrow_up.png"><br>Add Tag</button><br><br>
+                        <button class="gradient-button gradient-button-standard" id="id-species-submit">Submit</button>
+                        <span id="id-image-rects-loading" class="loading hidden"><img src="/img/loading_small.gif"></span>
+                    </div>
+                </div>
+                <div class="rightcol">
+                    <div id="image-container" class="loading-background">
+                        {{if args.target.is_panorama()}}
+                            <ul id="image-drag">
+                                <li>
+                                    <div class="compass-panorama hoverbox" style="background-position: {{= -Math.round((60/9) * ((args.target.yaw*180)/Math.PI))}}px 0px"></div>
+                                    <div class="compass-panorama-caret hoverbox"></div>
+                                    <img src="{{= ce4.util.url_static(args.target.images.PHOTO)}}" id="picture-detailed" height="600" width="2400"/>
+                                </li>
+                            </ul>
+                            <div class="pan-left-control hoverbox" id="image-drag-pan-left"><div title="Pan image left" class="overlay-button-border"><div class="pan-left-button-interior"></div></div></div>
+                            <div class="pan-right-control hoverbox" id="image-drag-pan-right"><div title="Pan image right" class="overlay-button-border"><div class="pan-right-button-interior"></div></div></div>
+                        {{else}}
+                            <div class="compass hoverbox" style="background-position: {{= -Math.round((80/9) * ((args.target.yaw*180)/Math.PI))}}px 0px"><img src="/img/compass_caret.png"></div>
+                            <img src="{{= ce4.util.url_static(args.target.images.PHOTO)}}" id="picture-detailed" height="600" width="800"/>
+                        {{/if}}
+
+                        {{if args.target.has_sound()}}
+                            <div class="sound-control">
+                                <iframe src="{{= args.target.sounds.any().video_url() }}" width="360" height="60" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                            </div>
+                        {{/if}}
+                        <div class="text-overlay overlay-container overlay-container-small hoverbox">{{= ce4.ui.eri_interval_name(ce4.planet.date_to_eris(args.target.arrival_time_date()))}}</div>
+                        <div class="fullscreen-control hoverbox" onclick="ce4.ui.fullscreen(true, {image: '{{= ce4.util.url_static(args.target.images.WALLPAPER)}}', is_panorama: {{= args.target.is_panorama()}} });">
+                            <div title="Full screen" class="overlay-button-border"><div class="fullscreen-enter-button-interior"></div><span class="overlay-button-text">Fullscreen</span></div>
+                        </div>
+                        {{if args.target.images.INFRARED != undefined}}
+                        <div class="infrared-control hoverbox" id="id-photo-toggle-infrared">
+                            <div title="Toggle infrared" class="overlay-button-border"><div class="infrared-button-interior"></div><span class="overlay-button-text">Infrared</span></div>
+                        </div>
+                        {{/if}}
+                    </div>
+
+                    <div id="id-photo-buttons">
+                        {{if args.target.images.WALLPAPER != undefined}}
+                            <button class="gradient-button gradient-button-standard" id="id-photo-download-hires" onclick="window.location = '{{= args.target.link_url_download_hires()}}'">Download <br>Hi-Res <img src="/img/download-icon.png"></button>
+                        {{/if}}
+                    </div>
+                    <div id="thumbnails"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </script>
+
+
+  <!-- ==================== TASKS ==================== -->
+  <script type="text/html" id="tasks_page" title="Tasks">
+    <div class="xri-pane">
+
+        <header>
+            <span class="outer">
+                <span class="inner">
+                    <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                    Tasks<span id="id_unviewed_task_count"></span>
+                </span>
+            </span>
+
+            <!-- a class="xri-close-btn" href="#home"></a -->
+        </header>
+
+        <div id="missions-container">
+
+            <div class="mission-pane clearfix">
+
+                <div id="mission-list">
+
+                    <div id="ongoing-missions">
+                        <div class="paging clearfix">
+                            <div class="info_text numbers"></div>
+                            <div class="page_navigation clearfix"></div>
+                        </div>
+
+                        <h2>Active</h2>
+                        <ul class="missions-list missions-active" id="active-missions-list"></ul>
+                    </div><!-- //ongoing missions -->
+
+                    <div id="completed-missions">
+                        <div class="paging clearfix">
+                            <div class="info_text numbers"></div>
+                            <div class="page_navigation clearfix"></div>
+                        </div>
+
+                        <h2>Completed</h2>
+                        <ul class="missions-list missions-done" id="completed-missions-list"></ul>
+                    </div><!-- //completed missions -->
+
+                </div><!-- //mission-list -->
+
+                <div id="mission-details">
+                    <div class="mission-detail">
+                        <div class="mission-body"></div>
+                        <ul class="submissions"></ul>
+                    </div>
+                </div><!-- //mission-detail -->
+
+            </div><!-- //mission-pane -->
+
+        </div><!-- //missions container -->
+    </div><!-- //xri-pane -->
+
+  </script>
+
+<!-- ==================== TASK ==================== -->
+<script type="text/html" id="task_page" title="Task">
+    <div class="xri-pane">
+
+        <header>
+            <span class="outer">
+                <span class="inner">
+                    <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                    Tasks<span id="id_unviewed_task_count"></span>
+                </span>
+            </span>
+            <!-- a class="xri-close-btn" href="#home"></a -->
+        </header>
+
+        <div id="missions-container">
+
+            <div class="mission-pane clearfix">
+
+                <div id="mission-list">
+
+                    <div id="ongoing-missions">
+                        <h2>Active</h2>
+                        <ul class="missions-list missions-active"></ul>
+                    </div><!-- //ongoing missions -->
+
+                    <div id="completed-missions">
+                        <div class="paging clearfix">
+                            <div class="info_text numbers"></div>
+                            <div class="page_navigation clearfix"></div>
+                        </div>
+
+                        <h2>Completed</h2>
+                        <ul class="missions-list missions-done" id="completed-missions-list">
+
+                        </ul>
+                    </div><!-- //completed missions -->
+
+                </div><!-- //mission-list -->
+
+                <div id="mission-details">
+                    <div class="mission-detail">
+                        <div class="mission-body"></div>
+                        <ul class="submissions"></ul>
+                    </div>
+                </div><!-- //mission-detail -->
+
+            </div><!-- //mission-pane -->
+
+        </div><!-- //missions container -->
+
+    </div><!-- //xri-pane -->
+</script>
+
+  <!-- ==================== SPECIES CATALOG ==================== -->
+  <script type="text/html" id="catalog_page" title="Species Catalog">
+    <div class="xri-pane xri-catalog">
+        <header>
+            <span class="outer">
+                <span class="inner">
+                    <a href="#home"><img src="/img/return-home-icon.png" class="homeicon" alt=""> Home</a> &#9474;
+                    Discoveries<span id="id_unviewed_catalog_count"></span>
+                </span>
+            </span>
+
+
+            <!-- a class="xri-close-btn" href="#gallery"></a -->
+        </header>
+
+        <div id="catalog-container">
+            <div class="species-holder">
+                <div class="paging-holder">
+                    <div class="paging clearfix">
+                        <div class="info_text numbers"></div>
+                        <div class="page_navigation clearfix"></div>
+                    </div>
+                </div>
+                <select id="catalog-categories"></select>
+                <ul id="species-catalog" class="clearfix"></ul>
+            </div>
+            <div id="species-view">
+                <div id="species-detail"></div>
+                <div id="species-photos">
+                    <div id="species-photos-info"></div>
+                    <div id="species-photos-thumbnails"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </script>
+
+  <!-- ==================== PROFILE ==================== -->
+  <script type="text/html" id="profile_page" title="Profile">
+    <div class="xri-pane">
+        <div class="profile-container">
+            <div class="profile-leftcol">
+
+                <header><span class="outer">
+                    <span class="inner">Profile: {{= ce4.gamestate.user.first_name}} {{= ce4.gamestate.user.last_name}}</span>
+                    <div class="socialize socialize-profile">
+                      {{if ce4.gamestate.user.is_social_enabled()}}
+                        <span><a href="{{= ce4.gamestate.urls.user_public_profile}}" target="_blank"><img src="/img/link_share.png"/></a></span>
+                        <span class="facebook" style="display:none">
+                            <a href="#" onclick="return ce4.ui.social.facebook.share({link: '{{= ce4.gamestate.urls.user_public_profile}}', caption: 'My rover\'s progress in exploring the surface of Epsilon Prime. Made possible by the Extrasolar project at XRI, the eXoplanetary Research Institute.'});">
+                                <img src="/img/facebook_share.png"/>
+                            </a>
+                        </span>
+                        <span class="twitter">
+                            <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-lang="en" data-size="small" data-via="ExoResearch" data-related="ExoResearch:The eXoplanetary Research Institute (XRI)" data-text="My rover's progress in exploring the #extrasolar planet Epsilon Prime." data-url="{{= ce4.gamestate.urls.user_public_profile}}"></a>
+                        </span>
+                        <span class="google">
+                            <div class="g-plus" data-action="share" data-annotation="none" data-href="{{= ce4.gamestate.urls.user_public_profile}}"></div>
+                        </span>
+                      {{/if}}
+                    </span></div>
+                </header>
+
+                <div class="profile-info">
+
+                    <div class="profile-stats profile-stats-JR-S">
+                        <div class="profile-stats-generic">
+                            <span class="profile-stats-header">Account</span>
+                            <br>Date activated: {{= ce4.gamestate.user.profile_account_activation_date()}}
+                            <br>Days logged: {{= ce4.gamestate.user.profile_time_since_activated()}}
+                            <br><br>
+                            <span class="profile-stats-header">Tasks</span>
+                            <br>Completed: {{= ce4.gamestate.user.done_missions("root").length}}
+                        </div>
+                        <div class="profile-stats-distances">
+                            <span class="profile-stats-header">6 wheel armature-enabled<br>drive system</span>
+                            <br>Traveled: {{= ce4.gamestate.user.profile_distance_traveled()}} meters
+                        </div>
+                        <div class="profile-stats-species">
+                            <span class="profile-stats-header">Species identified</span>
+                            <br>Photobiont: {{= ce4.gamestate.user.profile_species_count_of_type("PLANT")}}
+                            {{if ce4.gamestate.user.profile_species_count_of_type("ANIMAL") > 0}}
+                                <br>Motobiont: {{= ce4.gamestate.user.profile_species_count_of_type("ANIMAL")}}
+                            {{/if}}
+                        </div>
+                        <div class="profile-stats-pictures">
+                            <span class="profile-stats-header">2.8 Megapixel color still cam</span>
+                            <br>Photos taken: {{= ce4.gamestate.user.profile_pictures_taken()}}
+                            <br>Tags submitted: {{= ce4.gamestate.user.image_rect_list().length}}
+                            <br>Successful tags: {{= ce4.gamestate.user.profile_successful_image_tags()}}
+                        </div>
+                    </div>
+
+                    <div class="player-achievements">
+                        <ul>
+                            {{each(k, ach) ce4.gamestate.user.visible_nonclassified_achievements() }}
+                                <li>
+                                    <img src="{{= ach.url_icon()}}" />
+                                    <div class="description">
+                                        <strong>{{= ach.title}}</strong>: {{= ach.description}}<br>
+                                        {{if ach.was_achieved()}}
+                                            Received {{= ce4.util.format_time_since(ach.achieved_at_date())}}
+                                        {{else}}
+                                            Requirements not met
+                                        {{/if}}
+                                    </div>
+                                </li>
+                            {{/each}}
+                            {{each(k, ach) ce4.gamestate.user.visible_classified_achievements() }}
+                                <li>
+                                    <img src="{{= ach.url_icon()}}" />
+                                    <div class="description">
+                                        <strong>{{= ach.title}}</strong>: {{= ach.description}}<br>
+                                        {{if ach.was_achieved()}}
+                                            Received {{= ce4.util.format_time_since(ach.achieved_at_date())}}
+                                        {{else}}
+                                            Requirements not met
+                                        {{/if}}
+                                    </div>
+                                </li>
+                            {{/each}}
+                        </ul>
+                    </div>
+
+                    <div class="player-invitations">
+                        <br><br>
+                        {{if !ce4.gamestate.user.invitations.isEmpty()}}
+                            <center><table><tr><td>Invitations</td><td>Sent</td><td>Redeemed</td></tr>
+                            {{each(k, invitation) ce4.gamestate.user.invitations.sorted("recipient_first_name") }}
+                                <tr>
+                                    <td>
+                                        {{if invitation.urls.recipient_public_profile != null}}
+                                            <a href="{{= invitation.urls.recipient_public_profile}}" target="_blank">{{= invitation.recipient_first_name}} {{= invitation.recipient_last_name}}</a
+                                        {{else}}
+                                            {{= invitation.recipient_first_name}} {{= invitation.recipient_last_name}}
+                                        {{/if}}
+                                    </td>
+                                    <td>{{= invitation.sent_at_date_nice()}}</td>
+                                    <td>{{= invitation.was_accepted_nice()}}</td>
+                                </tr>
+                            {{/each}}
+                            </table></center>
+                        {{/if}}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="profile-rightcol">
+                <header><span class="outer"><span class="inner">Account</span> <span><button id="logout-button" type="button" class="logout">Logout</button></span></span></header>
+                <div class="account-details">
+                    <div class="profile-upgrade" onclick="ce4.ui.store.dialogOpen();">
+                        <img src="/img/store/store_bigicon_pioneer.png" class="clickable"></img>
+                        <br>
+                        <br><button class="gradient-button gradient-button-upgrade gradient-button-stretch">Support XRI</button>
+                        <br>
+                        <br><button class="gradient-button gradient-button-upgrade gradient-button-stretch">Invite Friends</button>
+                        {{if ce4.gamestate.user.invites_left > 1}}
+                            <br><span class="profile-invites-left">{{= ce4.gamestate.user.invites_left}} invitations left</span>
+                        {{/if}}
+                        {{if ce4.gamestate.user.invites_left == 1}}
+                            <br><span class="profile-invites-left">1 invitation left</span>
+                        {{/if}}
+                    </div>
+                    <hr>
+                    <div>
+                        Email Address:
+                        {{if ce4.gamestate.user.email}}
+                            {{= ce4.gamestate.user.email}}
+                        {{else}}
+                            None
+                        {{/if}}
+                        <br>
+                        <br><center><button class="gradient-button gradient-button-standard gradient-button-stretch" onclick="" disabled>Change Email</button></center>
+                        <br><center><button class="gradient-button gradient-button-standard gradient-button-stretch" onclick="" disabled>Change Password</button></center>
+                        <br>Email Notifications: <span id="notification_settings_result"></span>
+                        <div class="account-notifications">
+                            <br><!-- input type="checkbox" --> Activity Alerts:
+                            <select name="notification_settings" id="notification_settings">
+                              <option value="SHORT">30 minutes</option>
+                              <option value="MEDIUM">90 minutes</option>
+                              <option value="LONG">6 hours</option>
+                              <option value="OFF">Off</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        {{if ce4.gamestate.user.inviter_id}}
+                            <br>View <a href="{{= ce4.gamestate.user.inviter.url_public_profile}}" data-inviter="{{= ce4.gamestate.user.inviter_id}}">Sponsor Profile</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- xri-pane -->
+
+  </script>
+
+  <!-- ==================== CLASSROOM ==================== -->
+  <script type="text/html" id="classroom_page" title="Class">
+    <div class="xri-pane" class="clearfix">
+        <div class="classroom-body">
+            <div id="classroom-tooltip" style="min-height:50px">Mouseover any column for more details.</div>
+            <div id="classroom-data"></div>
+        </div>
+    </div>
+  </script>
+
+  <!-- ==================== COPYRIGHT ==================== -->
+  <script type="text/html" id="copyright_page" title="Copyright">
+
+    <div class="xri-pane">
+
+        <header><span class="outer"><span class="inner">Copyright</span></span></header>
+
+        <div class="copyright">
+            <p>{{= xri.ui.copyright(true) }}</p>
+            <p>The eXoplanetary Research Institute (XRI)&trade; is a trademark of Lazy 8 Studios, Inc.  Extrasolar&reg; is a registered trademark of Lazy 8 Studios.</p>
+        </div>
+    </div><!-- xri-pane -->
+  </script>
+
+  <div id="fb-root"></div>
+  <div id="fullscreen"></div>
+  <div id="fullscreen-tabs" class="xri-tabs-inverted"></div>
+  <div id="toasts"></div>
+  <div id="toasts-history" onclick="ce4.ui.toast_replay(5);" title="Recent notifications">&#8250;</div>

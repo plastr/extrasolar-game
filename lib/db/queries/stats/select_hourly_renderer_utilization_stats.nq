@@ -1,0 +1,2 @@
+{"base":
+ "SELECT DATE_FORMAT(instance.created, :date_format) AS hour, instance.value AS instance_name, SUM(total_time.value) AS sum_total_time, COUNT(*) AS count FROM targets t LEFT JOIN (target_metadata instance) ON (t.target_id=instance.target_id AND instance.key = 'TGT_RDR_SERVER') LEFT JOIN (target_metadata total_time) ON (t.target_id=total_time.target_id AND total_time.key = 'TGT_RDR_TOTAL_TIME') WHERE instance.created >= :start AND instance.created < :end GROUP BY hour, instance_name"}

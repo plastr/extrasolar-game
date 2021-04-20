@@ -1,0 +1,2 @@
+{"base":
+ "SELECT EXISTS(SELECT group_id FROM edmodo_groups WHERE group_id=:group_id and sandbox=:sandbox) AS exist"}

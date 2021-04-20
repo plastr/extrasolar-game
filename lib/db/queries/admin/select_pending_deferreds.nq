@@ -1,0 +1,2 @@
+{"base":
+ "SELECT deferred.*, email FROM deferred, users WHERE deferred.user_id = users.user_id ORDER BY run_at ASC"}

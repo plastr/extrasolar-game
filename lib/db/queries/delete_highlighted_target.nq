@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM highlighted_targets WHERE target_id=:target_id"}

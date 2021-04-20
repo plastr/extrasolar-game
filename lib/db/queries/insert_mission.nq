@@ -1,0 +1,3 @@
+{"base":
+ "INSERT INTO missions SET user_id=:user_id, mission_definition=:mission_definition, specifics=:specifics, specifics_hash=:specifics_hash, done=:done, parent_hash=:parent_hash, started_at=:started_at, created=:created"}
+

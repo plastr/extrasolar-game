@@ -1,0 +1,2 @@
+{"base":
+ "SELECT creator_id FROM gifts WHERE gift_id=:gift_id"}

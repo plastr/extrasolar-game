@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM email_queue WHERE queue_id=:queue_id"}

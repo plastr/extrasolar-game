@@ -1,0 +1,2 @@
+{"base":
+ "SELECT users_notification.user_id, lure_alert_last_checked, last_accessed FROM users_notification, users WHERE users_notification.user_id=users.user_id AND users.valid=1 AND wants_activity_alert=1 AND (TO_SECONDS(:now) - TO_SECONDS(users.last_accessed)) > :lure_threshold_seconds AND (lure_alert_last_checked is NULL OR lure_alert_last_checked <= users.last_accessed)"}

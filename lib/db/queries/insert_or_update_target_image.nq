@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO target_images SET user_id=:user_id, target_id=:target_id, type=:type, url=:url, created=:created ON DUPLICATE KEY UPDATE url=:url, created=:created"}

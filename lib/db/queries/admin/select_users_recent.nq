@@ -1,0 +1,7 @@
+{"base":
+ "SELECT users.*, (SELECT COUNT(*) FROM targets WHERE targets.user_id=users.user_id AND targets.picture=1 AND targets.user_created=1) AS target_count, (SELECT COUNT(*) FROM target_image_rects WHERE target_image_rects.user_id=users.user_id) AS image_rects_count, (SELECT COUNT(*) FROM vouchers WHERE vouchers.user_id=users.user_id) AS voucher_count FROM users",
+ "dynamic_where":{
+     "last_accessed_after":"WHERE last_accessed >= :last_accessed_after",
+     "campaign_name":",users_metadata WHERE users_metadata.user_id=users.user_id AND users_metadata.key='MET_CAMPAIGN_NAME' AND users_metadata.value=:campaign_name"
+  },
+ "query_suffix":"ORDER BY last_accessed DESC LIMIT :limit"}

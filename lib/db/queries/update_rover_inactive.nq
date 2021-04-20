@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE rovers SET active=0 WHERE rover_id=:rover_id"}

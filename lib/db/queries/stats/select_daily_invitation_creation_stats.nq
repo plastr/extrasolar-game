@@ -1,0 +1,2 @@
+{"base":
+ "SELECT DATE_FORMAT(sent_at, :date_format) AS day, CASE WHEN accepted_at IS NOT NULL THEN 1 ELSE 0 END accepted, COUNT(*) AS count FROM invitations WHERE sent_at >= :start AND sent_at < :end GROUP BY day, accepted WITH ROLLUP"}

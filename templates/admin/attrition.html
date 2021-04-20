@@ -1,0 +1,101 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Stats Attrition
+</%def>
+
+<%def name="head()">
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    var template_data = ${template_data_s |n};
+</script>
+
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(load_all_charts);
+    // NOTE: Some of the code in load_all_charts and load_chart_data_and_draw is common between this
+    // template and stats.html. Eventually this should probably be factored out.
+    function load_all_charts() {
+        for (var i = 0; i < template_data.all_chart_names.length; i++) {
+            var chart_name = template_data.all_chart_names[i];
+            load_chart_data_and_draw(chart_name);
+        }
+    };
+
+    var wrappers = {};
+    var load_chart_data_and_draw = function(chart_name) {
+        $.ajax({
+            type: 'POST',
+            url: template_data.url_admin_api_chart_data,
+            data: JSON.stringify({"chart_name": chart_name, "use_debug_data": template_data.use_debug_data}),
+            contentType: 'application/json',
+            dataType: "json",
+            success: function (data) {
+                var wrapper = new google.visualization.ChartWrapper({
+                    chartType: data.chart_type,
+                    dataTable: data.chart_data,
+                    options: data.chart_options,
+                    containerId: 'div_chart_' + chart_name
+                });
+                wrappers[chart_name] = wrapper;
+                draw_chart_in_orientation(chart_name, data.chart_options['orientation']);
+            },
+            error: function(data, status, error) {
+                var errorMsg = "An unknown error occurred when loading chart: " + chart_name;
+                if (data.responseJSON && data.responseJSON.errors) errorMsg = data.responseJSON.errors[0];
+                $('#div_chart_errors').append('<div class="error">' + errorMsg + '</div');
+            }
+        });
+    };
+
+    var recent_message_attrition_dimensions = {
+        'recent_message_attrition' : {
+            'horizontal': {
+                'chart_area':     {'height': '65%', 'width': '95%'},
+                'div_dimensions': {'height': '800px', 'width': '1400px'}
+            },
+            'vertical': {
+                'chart_area':     {'height': '90%', 'width': '70%'},
+                'div_dimensions': {'height': '1500px', 'width': '1400px'}
+            }            
+        }
+    }
+
+    function draw_chart_in_orientation(chart_name, orientation) {
+        var wrapper = wrappers[chart_name];
+        wrapper.setOption('orientation', orientation);
+        var dimensions = recent_message_attrition_dimensions[chart_name];
+        wrapper.setOption('chartArea', dimensions[orientation]['chart_area']);
+        var div_dimensions = dimensions[orientation]['div_dimensions'];
+        $('#div_chart_' + chart_name).height(div_dimensions['height']).width(div_dimensions['width']);
+        wrapper.draw();
+    }
+
+    $(document).ready(function() {
+        $('#button_toggle_recent_message_attrition_orientation').click(function() {
+            var chart_name = 'recent_message_attrition';
+            var wrapper = wrappers[chart_name];
+            if (wrapper.getOption('orientation') === 'horizontal') {
+                draw_chart_in_orientation(chart_name, 'vertical');
+            } else {
+                draw_chart_in_orientation(chart_name, 'horizontal');
+            }
+        });
+    });
+</script>
+<style type="text/css">
+    .chart_holder {
+        margin-bottom: 10px;
+    }
+</style>
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Stats Attrition</h1>
+<div id='div_charts_container' style="width: 100%; margin:auto; text-align: left;">
+    <div id="div_chart_errors"class="error"></div>
+    % for chart_name in all_chart_names:
+    <button id="button_toggle_${chart_name}_orientation" style="margin-left: 10px; margin-top: 10px;">Change Orientation</button>
+    <div id="div_chart_${chart_name}" class="chart_holder">Loading Chart Data...</div>
+    % endfor
+</div>
+
+<div id="div_footer"></div>

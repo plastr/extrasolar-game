@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users SET valid=1 WHERE user_id=:user_id"}

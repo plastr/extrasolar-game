@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE user_map_tiles SET expiry_time=:expiry_time WHERE user_id=:user_id AND zoom=:zoom AND x=:x AND y=:y AND arrival_time=:arrival_time"}

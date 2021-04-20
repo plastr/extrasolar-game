@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE targets SET processed=0, render_at=:render_at WHERE target_id=:target_id"}

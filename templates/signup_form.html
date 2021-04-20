@@ -1,0 +1,36 @@
+<form id="form_signup" action="${signup_form_action_url}" method="POST" onsubmit="if (xri.validation.validateSignup()) {$('#signup_submit').prop('disabled',true); return true;} else {return false;}">
+<table border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td>
+        <span style="font-size:12px;">Name</span><br>
+        <input name="first_name" id="first_name" type="text" value="${first_name}" placeholder="First" style="padding: 4px; width: 100px; border-radius: 5px;" autocorrect="off"/> &nbsp;
+        <input name="last_name" id="last_name" type="text" value="${last_name}" placeholder="Last" style="padding: 4px; width: 100px; border-radius: 5px;" autocorrect="off"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span style="font-size:12px;">Email</span><br>
+      <input name="signup_email" id="signup_email" type="email" value="${signup_email}" style="padding: 4px; width: 224px; border-radius: 5px;" autocorrect="off"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <span style="font-size:12px;">Create Password</span><br>
+      <input name="signup_password" id="signup_password" type="password" value="${signup_password}" style="padding: 4px; width: 224px; border-radius: 5px;"/>
+    </td>
+  </tr>
+  % if invite_code is not UNDEFINED:
+  <!-- Invitation Code: ${invite_code} -->
+  % endif
+  <tr>
+    <td style="font-size: 12px;"><input name="signup_age" id="signup_age" type="checkbox"><label for="signup_age"> I am 13 years or older [<a href="#" onclick="xri.ui.open_age_window()">?</a>]</label></td>
+  </tr>
+  <tr>
+    <td style="font-size: 12px;"><input name="signup_terms" id="signup_terms" type="checkbox"><label for="signup_terms"> I agree to the <a href="#" onclick="xri.ui.open_terms_of_service()">Terms of Service</a></label></td>
+  </tr>
+  <tr>
+    <td style="text-align: center;"><input type="submit" id="signup_submit" class="gradient-button gradient-button-standard gradient-button-store" value="Sign up!" /></td>
+  </tr>
+</table>
+<input type="hidden" name="form_type" value="signup" />
+</form>

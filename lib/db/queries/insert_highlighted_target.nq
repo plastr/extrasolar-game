@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO highlighted_targets SET target_id=:target_id, highlighted_at=:highlighted_at, available_at=:available_at ON DUPLICATE KEY UPDATE highlighted_at=:highlighted_at, available_at=:available_at"}

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT COUNT(*) AS key_count FROM target_metadata WHERE `key`=:metadata_key AND user_id=:user_id"}

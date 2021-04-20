@@ -1,0 +1,17 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Query
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Custom Query</h1>
+<div class="div_admin_center">
+
+<h2>Custom Query</h2>
+
+% if error:
+  <p>Error: ${error}</p>
+% else:
+  <pre style="text-align:left">${sql_query}</pre>
+% endif
+
+<div id="div_footer"></div>

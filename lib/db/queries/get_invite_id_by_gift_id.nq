@@ -1,0 +1,2 @@
+{"base":
+ "SELECT invite_id FROM invitation_gifts WHERE gift_id=:gift_id"}

@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users SET viewed_alerts_at=:epoch_now WHERE user_id=:user_id"}

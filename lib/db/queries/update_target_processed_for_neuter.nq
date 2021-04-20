@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE targets SET processed=1, neutered=1 WHERE target_id=:target_id"}

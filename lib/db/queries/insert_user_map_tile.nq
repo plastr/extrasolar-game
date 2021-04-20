@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO user_map_tiles SET user_id=:user_id, zoom=:zoom, x=:x, y=:y, arrival_time=:arrival_time, expiry_time=:expiry_time, created=:created"}

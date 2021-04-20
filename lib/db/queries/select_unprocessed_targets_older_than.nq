@@ -1,0 +1,2 @@
+{"base":
+ "SELECT target_id, render_at FROM targets WHERE processed=0 AND picture=1 AND render_at <= :render_after ORDER BY render_at, seq"}

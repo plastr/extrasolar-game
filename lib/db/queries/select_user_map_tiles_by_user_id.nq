@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM user_map_tiles WHERE user_id=:user_id AND arrival_time <= :arrived_before AND (expiry_time IS NULL OR expiry_time > :expired_after)"}

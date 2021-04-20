@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE targets SET viewed_at=:viewed_at WHERE target_id=:target_id"}

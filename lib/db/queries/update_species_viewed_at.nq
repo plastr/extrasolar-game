@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE species SET viewed_at=:viewed_at WHERE user_id=:user_id AND species_id=:species_id"}

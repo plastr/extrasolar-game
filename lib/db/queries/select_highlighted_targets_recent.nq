@@ -1,0 +1,2 @@
+{"base":
+ "SELECT target_images.target_id, type, url FROM (SELECT target_id FROM highlighted_targets WHERE available_at <= :now ORDER BY highlighted_at DESC LIMIT :limit) hl JOIN target_images ON target_images.target_id = hl.target_id"}

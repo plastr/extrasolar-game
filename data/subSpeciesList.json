@@ -1,0 +1,22 @@
+{"subSpeciesList": {
+    "MANMADE": [
+    ],
+    "ARTIFACT": [
+        {"subspecies_id": 1, "name": "Location B"},
+        {"subspecies_id": 2, "name": "Location C"},
+        {"subspecies_id": 3, "name": "Location D"},
+        {"subspecies_id": 4, "name": "Location E"},
+        {"subspecies_id": 5, "name": "Location F"}
+    ],
+    "PLANT": [
+        {"subspecies_id": 1, "name": "Juvenile"},
+        {"subspecies_id": 2, "name": "Deceased"},
+        {"subspecies_id": 3, "name": "Alternate apperance"},
+        {"subspecies_id": 4, "name": "Location B"},
+        {"subspecies_id": 5, "name": "Bioluminescent"}
+    ],
+    "ANIMAL": [
+        {"subspecies_id": 1, "name": "Male"},
+        {"subspecies_id": 2, "name": "Female"}
+    ]
+}}

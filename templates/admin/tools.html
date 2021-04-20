@@ -1,0 +1,23 @@
+<%def name="target_tools(t, single_line=False)">
+    % if t.is_neutered():
+        <span>Neutered</span>
+    % elif not t.is_processed():
+        <span>Processing</span>
+    % elif t.is_classified():
+        <span>Classified</span>
+    % else:
+        <input id="highlight_${t.target_id}" class="highlight_checkbox" type="checkbox"\
+            % if t.is_highlighted():
+                checked="true"\
+            % endif
+        >
+        <label for="highlight_${t.target_id}">Highlight</label>
+    % endif
+
+    % if t.is_processed() and not t.is_neutered():
+        % if not single_line:
+        <br/><br/>
+        % endif
+        <button id="reprocess_${t.target_id}" class="reprocess_button">Reprocess</button>
+    % endif
+</%def>

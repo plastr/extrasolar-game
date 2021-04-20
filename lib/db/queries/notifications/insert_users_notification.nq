@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users_notification SET user_id=:user_id, wants_activity_alert=:wants_activity_alert, activity_alert_window_start=:activity_alert_window_start, activity_alert_frequency=:activity_alert_frequency, activity_alert_last_sent=:activity_alert_last_sent, lure_alert_last_checked=:lure_alert_last_checked, wants_news_alert=:wants_news_alert"}

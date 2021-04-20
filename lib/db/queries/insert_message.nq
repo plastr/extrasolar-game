@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO messages SET message_id=:message_id, user_id=:user_id, msg_type=:msg_type, sent_at=:sent_at, locked=:locked"}

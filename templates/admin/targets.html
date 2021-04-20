@@ -1,0 +1,12 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Targets
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Targets</h1>
+<div class="div_admin_center">
+
+<h2>Recently Rendered Targets [<acronym title="Where render_at is > ${oldest_recent_target_days} days ago.">> ${oldest_recent_target_days} days</acronym>] (limit: ${limit})</h2>
+<%include file="recent_targets.html"/>
+
+<div id="div_footer"></div>

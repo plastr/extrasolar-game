@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users_shop SET stripe_customer_id=:stripe_customer_id, stripe_customer_data=:stripe_customer_data WHERE user_id=:user_id"}

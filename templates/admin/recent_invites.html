@@ -1,0 +1,48 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin ${page_title}
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> ${page_title}</h1>
+<div class="div_admin_center">
+
+<h2>${page_title} (limit: ${limit})</h2>
+<table>
+<tr>
+    <th>Sent At</th>
+    <th>Sender</th>
+    <th>Recipient Email</th>
+    <th>Recipient Name</th>
+    <th>Campaign</th>
+    <th>Gift</th>
+    <th>Recipient</th>
+    <th>Accepted At</th>
+</tr>
+% for invite in recent_invites:
+<tr>
+    <td>${format_utc(invite.sent_at)}</td>
+    <td><a href="${urls.admin_user(invite.sender_id)}" title="${invite.sender_user_email}">${format_email(invite.sender_user_email)}</a></td>
+    <td>${invite.recipient_email}</td>
+    <td>${invite.recipient_first_name} ${invite.recipient_last_name}</td>
+    % if invite.has_campaign_name():
+    <td>${invite.campaign_name}</td>
+    % else:
+    <td></td>
+    % endif
+    % if invite.has_gift():
+    <td>${invite.gift_type}</td>
+    % else:
+    <td>None</td>
+    % endif
+    % if invite.was_accepted():
+    <td><a href="${urls.admin_user(invite.recipient_id)}" title="${invite.recipient_user_email}">${format_email(invite.recipient_user_email)}</a></td>
+    <td>${format_utc(invite.accepted_at)}</td>
+    % else:
+    <td><a href="${invite.url_invite_accept()}">Accept Link</a></td>
+    <td>None</td>
+    % endif
+</tr>
+% endfor
+</table>
+
+<div id="div_footer"></div>

@@ -1,0 +1,4 @@
+ {"base":
+ "SELECT gifts.*, creators.email AS creator_user_email, redeemers.email AS redeemer_user_email FROM gifts LEFT JOIN (users creators) ON (creators.user_id=gifts.creator_id) LEFT JOIN (users redeemers) ON (redeemers.user_id=gifts.redeemer_id)",
+ "dynamic_where":{"creator_id":"WHERE gifts.creator_id=:creator_id"},
+ "query_suffix":"ORDER BY created DESC LIMIT :limit"}

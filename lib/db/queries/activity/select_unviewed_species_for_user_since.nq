@@ -1,0 +1,2 @@
+{"base":
+ "SELECT species_id FROM species WHERE user_id=:user_id AND detected_at >= :since - :max_species_delay_seconds AND detected_at <= :until AND viewed_at IS NULL ORDER BY detected_at DESC"}

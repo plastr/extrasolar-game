@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM invitations WHERE sender_id=:sender_id"}

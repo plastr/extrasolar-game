@@ -1,0 +1,46 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin New Gift
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> New Gift</h1>
+<div class="div_admin_center">
+
+<h2>Generate Gifts</h2>
+
+<p>Create gift codes when you don’t know what email address to use. e.g., anonymous juries or bundle sales. If you want to send an invitation directly to a known email address, use the <a href="${urls.admin_invites_new()}">new invitation page</a> instead.</p>
+
+<p>Generate only as many gift codes as you need. You will be redirected to a list of all of the gifts you have created when the generation is finished.</p>
+
+<form id="form_new_gift" action="${request_url.path_qs}" method="POST">
+  <table border="0" cellspacing="0" cellpadding="5">
+    <tr>
+      <td><label for="generate_number">Number to generate</label></td>
+      <td><input name="generate_number" type="text" id="generate_number"/></td>
+    </tr>
+    <tr>
+      <td><label for="gift_annotation">Annotation (e.g. Humble Bundle or IGF 2014)</label></td>
+      <td><input name="gift_annotation" type="text" id="gift_annotation"/></td>
+    </tr>
+    <tr>
+      <td><label for="gift_type">Gift Type</label></td>
+      <td>
+          <select name="gift_type" id="gift_type">
+            % for t in all_gift_types:
+            <option value="${t}">${t}</option>
+            % endfor
+          </select>
+      </td>
+    </tr>
+    <tr>
+      <td><label for="gift_campaign_name">Optional Campaign Name (e.g. Media_NYTimes)</label></td>
+      <td><input name="gift_campaign_name" type="text" id="gift_campaign_name"/></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input type="submit" value="Generate Gifts" /></td>
+    </tr>
+  </table>
+</form>
+
+<div id="div_footer"></div>

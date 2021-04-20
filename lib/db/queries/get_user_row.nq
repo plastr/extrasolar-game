@@ -1,0 +1,2 @@
+{"base":
+ "SELECT email, first_name, last_name, epoch, authentication, valid, dev, last_accessed, viewed_alerts_at, invites_left, inviter_id FROM users WHERE user_id=:user_id"}

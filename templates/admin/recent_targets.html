@@ -1,0 +1,42 @@
+<%namespace name="tools" file="tools.html"/>
+<table>
+    <tr>
+        <th>Thumb</th>
+        <th>Creator</th>
+        <th>Rendered</th>
+        <th>Arriving</th>
+        <th>Tools</th>
+    </tr>
+    % for t in recent_targets:
+    % if not t.is_processed():
+    <tr class="target_unprocessed">
+        <td>
+            % if t.is_locked():
+            <a href="${t.url_admin}">Rendering</a>
+            % else:
+            <a href="${t.url_admin}">In Queue</a>
+            % endif
+        </td>
+    % else:
+    <tr>
+        <td style="padding-top:5px">
+            <a href="${t.url_admin}">
+                <img width="80px" height="60px" src="${t.url_image_thumbnail}"/>
+            </a>
+            <div class="image_links" style="margin:-5px 0px">
+                <a href="${urls.admin_species_id_img(t.url_image_species)}">ID</a> | <a href="${t.url_image_wallpaper}">Hi-res</a>
+                % if t.is_infrared():
+                    | <a href="${t.url_image_infrared}">IR</a>
+                % endif
+            </div>
+        </td>
+    % endif
+        <td><a href="${urls.admin_user(t.user_id)}" title="${t.email}">${format_email(t.email)}</a></td>
+        <td>${t.render_at_approx}</td>
+        <td>${t.arriving_approx}</td>
+        <td>
+        ${tools.target_tools(t)}
+        </td>
+    </tr>
+    % endfor
+</table>

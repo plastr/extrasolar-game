@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO invitation_gifts SET invite_id=:invite_id, gift_id=:gift_id"}

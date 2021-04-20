@@ -1,0 +1,120 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Extrasolar: No Available Rovers
+</%def>
+<%def name="head()">
+
+<link href="/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/ce4.style.css')}" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/shared/xri.style.css')}" rel="Stylesheet" type="text/css" />
+<link href="${static_url_version('/css/jquery.terminal.css')}" rel="stylesheet" />
+<link href="${static_url_version('/css/kiosk.style.css')}" rel="Stylesheet" type="text/css" />
+
+<script src="/js/lib/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+<script src="/js/lib/unauthorized.js" type="text/javascript"></script>
+
+<%include file="tracking_tags_fb_conversion.html"/>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#k81-terminal').draggable();
+
+    total_delay = 2500;
+    terminalEvent("&gt; hello? ${user.first_name.lower()}?", 0);
+    terminalEvent("<br>&gt; please don't close the window.", 2500);
+    terminalEvent("<br>&gt; it's a one-way messaging script, so don't bother trying to reply.", 3500);
+    terminalEvent("<br>&gt;", 300);
+    terminalEvent("<br>&gt; i go by kryptex81.", 4000);
+    terminalEvent("<br>&gt; but who i am isn't important.", 2500);
+% if kiosk_mode is not 'KIOSK':
+    terminalEvent("<br>&gt;", 1000);
+    terminalEvent("<br>&gt; i don't trust the extrasolar program.", 4000);
+    terminalEvent("<br>&gt; lots of history there.", 2200);
+    terminalEvent("<br>&gt; let's just say i have good reason to look a little deeper.", 2500);
+    terminalEvent("<br>&gt;", 250);
+    terminalEvent("<br>&gt; i'm monitoring your ip address, so i know you were rejected...", 3700);
+    terminalEvent("<br>&gt; i have access to their voicemails and messaging, but their intrusion detection system firewalled me out of the rover control application.", 7000);
+    terminalEvent("<br>&gt; plus, there's no way i could apply with my own identity.", 5200);
+    terminalEvent("<br>&gt; i need a clean account and ip address.", 3500);
+    terminalEvent("<br>&gt; access that looks legitimate.", 3000);
+    terminalEvent("<br>&gt;", 250);
+    terminalEvent("<br>&gt; here's the deal.", 2500);
+    terminalEvent("<br>&gt; i give you a backdoor account, get you a rover.", 3000);
+    terminalEvent("<br>&gt; you become my eyes and ears on the inside.", 3700);
+    terminalEvent("<br>&gt;", 250);
+    terminalEvent("<br>&gt; i set up a backdoor link to get you rolling.", 3500);
+    terminalEvent("<br>&gt; a dummy account with an aced entrance test and signed nda.", 4500);
+    terminalEvent("<br>&gt; <a href='${user.url_validate()}'>${user.url_validate()}</a>", 1200);
+    terminalEvent("<br>&gt;", 9500);
+    terminalEvent("<br>&gt; or don't.", 1000);
+    terminalEvent("<br>&gt; there are piles of rejected applicants to choose from.", 3000);
+% else:
+    terminalEvent("<br>&gt;", 1000);
+    terminalEvent("<br>&gt; i'm monitoring your ip address, so i know you were rejected...", 2700);
+    terminalEvent("<br>&gt; here's the deal.", 1500);
+    terminalEvent("<br>&gt; i can get you in through a backdoor account, get you a rover.", 2000);
+    terminalEvent("<br>&gt;", 500);
+    terminalEvent("<br>&gt; i'll send an email with everything you need.", 2500);
+    terminalEvent("<br>&gt;", 1500);
+    terminalEvent("<br>&gt; stay quiet and be careful.", 2300);
+
+    // Show the restart button after all text has been displayed.
+    show_restart_button = function() { $('#restart_button').show(); };
+    window.setTimeout(show_restart_button, total_delay);
+
+    restart_signup = function(){ location.href = '${url_restart}'; };
+% endif
+});
+</script>
+</%def>
+
+<div id="k81-terminal-overlay" class="ui-widget-overlay ui-front" style="display:none;"></div>
+<div id="k81-terminal" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front terminal-dialog-theme" style="height: auto; width: 480px; top: 240px; left: 328.5px; display: none;" tabindex="-1" role="dialog">
+    <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+        <span id="ui-id-1" class="ui-dialog-title">Terminal | ~kryptex/xri/scripts/web_msg.pl</span>
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="close" onclick="closeTerminal();">
+        <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span>
+        <span class="ui-button-text">close</span>
+        </button>
+    </div>
+    <div id="k81-terminal-scroll" class="terminal ui-dialog-content ui-widget-content" style="overflow-x: hidden; overflow-y: scroll; display: block; width: auto; min-height: 0px; max-height: none; height: 254px;">
+        <div class="terminal-output">
+            <div>
+                <div id="k81-terminal-content" style="width: 100%;"></div>
+            </div>
+        </div>
+        <div class="cmd" style="width: 100%;">
+            <span class="prompt">&gt; </span>
+            <span></span>
+            <span id="k81-terminal-cursor" class="cursor">&nbsp;</span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+    <tr>
+        <td>
+            <h2 align="center"><i>Extrasolar</i>: No Available Rovers</h2>
+
+% if user_already_exists is not UNDEFINED:
+            <p>We have already received your application and will be getting back to you soon.</p>
+% endif          
+            <p>Thank you for your interest in the <i>Extrasolar</i> rover driver pilot program. Unfortunately, due to the large volume of applications we have received, all entry-tier rovers that have been deployed on the planet’s surface have been assigned to drivers.  As a result, for the time being, we are limiting our selections to accredited scientists with active government clearances.</p>
+
+            <p>Over the coming weeks, we will be selecting additional sites for landing capsules.
+% if user.email:
+            We will notify you at <strong>${user.email}</strong> if additional rovers become available. (Be sure to check your Spam or Promotions folders.)
+% else:
+            We will attempt to contact you if additional rovers become available.
+% endif
+            </p>
+
+            <p>In the meantime, you are invited to learn more about the eXoplanetary Research Institute (XRI) and the revolutionary <i>Extrasolar</i> rover driver pilot program.</p>
+
+% if kiosk_mode is 'KIOSK':
+            <center><button id="restart_button" type="button" class="gradient-button gradient-button-store" value="Return to the signup page" onclick="restart_signup()" style="display:none">Return to the signup page</button></center>
+% endif
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT mission_definition, specifics_hash FROM missions WHERE user_id=:user_id AND started_at >= :since AND started_at <= :until AND viewed_at IS NULL ORDER BY started_at DESC"}

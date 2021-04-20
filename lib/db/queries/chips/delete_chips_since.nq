@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM chips WHERE time <= :since"}

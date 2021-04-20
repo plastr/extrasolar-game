@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE targets SET locked_at=NULL WHERE target_id=:target_id"}

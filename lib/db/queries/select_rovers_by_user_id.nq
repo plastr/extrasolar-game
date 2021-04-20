@@ -1,0 +1,2 @@
+{"base":
+ "SELECT r.*, l.lat as lander_lat, l.lng as lander_lng FROM rovers r, landers l WHERE r.user_id=:user_id AND l.lander_id=r.lander_id"}

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT users_metadata.* FROM users_metadata, users WHERE users_metadata.user_id = users.user_id AND users.last_accessed >= :oldest_user_accessed"}

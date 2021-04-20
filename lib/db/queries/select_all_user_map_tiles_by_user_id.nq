@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM user_map_tiles WHERE user_id=:user_id ORDER BY arrival_time"}

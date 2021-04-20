@@ -1,0 +1,80 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Activities
+</%def>
+
+<%def name="head()">
+<script type="text/javascript">
+$(document).ready(function() {
+    // 60 seconds.
+    var INTERVAL = 60000;
+    var url_recent_users_and_targets = "${urls.admin_recent_users_and_targets_html()}";
+    var load_page_date = function() {
+        $.ajax({
+            url: url_recent_users_and_targets,
+            type: "GET",
+            dataType: "json",
+            cache: false,
+            success: function(data) {
+                $('#recent_users').html(data.recent_users_html);
+                $('#recent_targets').html(data.recent_targets_html);
+                $('#recent_transactions').html(data.recent_transactions_html);
+                $('#all_users_count').text($('#all_users_count_data').data("count"));
+                $('#all_transactions_money_display').text($('#all_transactions_money_data').data("sum"));
+                highlight_and_reprocess_actions();
+            },
+            error: function(data) {
+                $('#recent_users').html("<div class='request_fail'>Failed to load recent targets.</div>");
+                $('#recent_targets').html("<div class='request_fail'>Failed to load recent targets.</div>");
+                $('#recent_transactions').html("<div class='request_fail'>Failed to load recent transactions.</div>");
+                console.error(data);
+            }
+        });
+    };
+    setInterval(load_page_date, INTERVAL);
+    load_page_date();
+});
+</script>
+</%def>
+
+<h1>Admin Activities</h1>
+<div class="div_admin_center wide">
+<h3>Version: <strong>${current_version}</strong> <a href="https://bitbucket.org/rjagnow/xs-front/changeset/${current_version.rev}">BB</a> &nbsp;&nbsp;&nbsp;&nbsp; Deployed: ${current_version.dt_date_pst} (PST) &nbsp;By: ${current_version.username}</h3>
+<form id="form_search_users" action="${request_url.path_qs}" method="POST">
+  <table border="0" cellspacing="0" cellpadding="5">
+    <tr>
+      <td><label for="user_search_term">email/names</label></td>
+      <td><input name="user_search_term" type="text" id="user_search_term"/></td>
+      <td><input type="submit" value="Lookup Users" /></td>
+      <td><a href="${urls.admin_gifts_recent()}">Recent Gifts</a></td>
+      <td><a href="${urls.admin_gifts_mine()}">My Gifts</a></td>
+      <td><a href="${urls.admin_gifts_new()}">New Gift</a></td>
+      <td><a href="${urls.admin_invites_recent()}">Recent Invites</a></td>
+      <td><a href="${urls.admin_invites_system()}">Turing Invites</a></td>
+      <td><a href="${urls.admin_invites_new()}">New Invite</a></td>
+      <td><a href="${urls.admin_deferreds()}">Deferreds</a></td>
+      <td><a href="${urls.admin_email_queue()}">Email Queue</a></td>
+      <td><a href="${urls.admin_stats()}">Stats</a></td>
+    </tr>
+  </table>
+  <h2>Recent Transactions -- All: <span id="all_transactions_money_display"></span> (<a href="${urls.admin_transactions()}">view more</a>)</h2>
+  <div id='recent_transactions'>
+      <div>Loading...</div>
+  </div>
+</form>
+
+<div class="div_column_left">
+<h2>Recently Active Users -- All: <span id="all_users_count"></span> (<a href="${urls.admin_users()}">view more</a>)</h2>
+<div id='recent_users'>
+    <div>Loading...</div>
+</div>
+</div>
+
+<div class="div_column_right">
+<h2>Recently Rendered Targets [<acronym title="Where render_at is > ${oldest_recent_target_days} days ago.">> ${oldest_recent_target_days} days</acronym>] (<a href="${urls.admin_targets()}">view more</a>)</h2>
+<div id='recent_targets'>
+    <div>Loading...</div>
+</div>
+</div>
+
+<div id="div_footer"></div>

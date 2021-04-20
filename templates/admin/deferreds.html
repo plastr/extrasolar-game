@@ -1,0 +1,35 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Deferreds
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Deferreds</h1>
+<div class="div_admin_center">
+
+<h2>Pending Deferreds (next to run first) -- All: ${len(pending_deferreds)}</h2>
+<table>
+<tr>
+    <th>Run In</th>
+    <th>Created</th>
+    <th>User</th>
+    <th>Deferred Type</th>
+    <th>Subtype</th>
+    <th>Has Payload</th>
+</tr>
+% for d in pending_deferreds:
+<tr>
+    <td>${format_deferred_run_at(d)}</td>
+    <td>${format_utc(d.created)}</td>
+    <td><a href="${urls.admin_user(d.user_id)}" title="${d.user_email}">${format_email(d.user_email)}</a></td>
+    <td>${d.deferred_type}</td>
+    <td>${d.subtype}</td>
+    % if d.payload is not None:
+    <td>True</td>
+    % else:
+    <td>False</td>
+    % endif
+</tr>
+% endfor
+</table>
+
+<div id="div_footer"></div>

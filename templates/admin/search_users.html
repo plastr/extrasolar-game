@@ -1,0 +1,31 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Users
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Found Users</h1>
+<div class="div_admin_center">
+
+<h2>Found ${len(found_users)} Users For '${search_term}' (limit: ${limit})</h2>
+<table>
+    <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Last Accessed</th>
+        <th>Map</th>
+    </tr>
+    % for u in found_users:
+    % if u.valid == 0:
+    <tr class="user_invalid">
+    % else:
+    <tr>
+    % endif
+        <td><a href="${urls.admin_user(u.user_id)}" title="${u.email}">${format_user_label(u)}</a></td>
+        <td>${u.first_name} ${u.last_name}</td>
+        <td>${u.last_accessed_approx}</td>
+        <td><a href="${urls.admin_user_map(u.user_id)}">Map</a></td>
+    </tr>
+    % endfor
+</table>
+
+<div id="div_footer"></div>

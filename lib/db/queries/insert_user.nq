@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users SET user_id=:user_id, email=:email, first_name=:first_name, last_name=:last_name, inviter_id=:inviter_id, valid=:valid, authentication=:auth, epoch=:epoch, last_accessed=:last_accessed, viewed_alerts_at=:viewed_alerts_at, created=:created"}

@@ -1,0 +1,2 @@
+{"base":
+ "SELECT user_id, rover_id, target_id FROM targets WHERE processed=0 AND picture=1 AND render_at <= :render_after AND (locked_at is NULL or locked_at < :lock_timeout) ORDER BY render_at, seq LIMIT 1 FOR UPDATE"}

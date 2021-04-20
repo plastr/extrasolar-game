@@ -1,0 +1,12 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Users
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Users</h1>
+<div class="div_admin_center">
+
+<h2>Recently Active Users (limit: ${limit}) -- All Users: ${all_users_count}</h2>
+<%include file="recent_users.html"/>
+
+<div id="div_footer"></div>

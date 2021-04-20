@@ -1,0 +1,31 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Email Queue
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Email Queue</h1>
+<div class="div_admin_center">
+
+<h2>Queued Emails (next to run first)</h2>
+<table>
+<tr>
+    <th>Created</th>
+    <th>In Queue</th>
+    <th>Email From</th>
+    <th>Email To</th>
+    <th>Subject</th>
+    <th>Body</th>
+</tr>
+% for e in queued_emails:
+<tr>
+    <td>${format_utc(e.created)}</td>
+    <td>${e.delayed_seconds} seconds</td>
+    <td>${e.email_from}</td>
+    <td>${e.email_to}</td>
+    <td>${e.email_subject}</td>
+    <td>${len(e.body_html)} bytes</td>
+</tr>
+% endfor
+</table>
+
+<div id="div_footer"></div>

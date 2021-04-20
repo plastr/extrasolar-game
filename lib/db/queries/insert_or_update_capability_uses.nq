@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO capabilities SET user_id=:user_id, capability_key=:capability_key, uses=:uses, created=:created ON DUPLICATE KEY UPDATE uses=:uses"}

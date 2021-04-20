@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM target_metadata WHERE `key` LIKE :match and created < DATE_SUB(NOW(), INTERVAL :days DAY)"}

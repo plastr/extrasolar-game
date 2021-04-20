@@ -1,0 +1,2 @@
+{"base":
+ "DELETE FROM deferred WHERE deferred_id=:deferred_id"}

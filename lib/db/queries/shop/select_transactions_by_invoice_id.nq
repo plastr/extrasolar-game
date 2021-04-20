@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM transactions WHERE invoice_id=:invoice_id ORDER BY created DESC"}

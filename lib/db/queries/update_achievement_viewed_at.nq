@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE achievements SET viewed_at=:viewed_at WHERE user_id=:user_id AND achievement_key=:achievement_key"}

@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users_facebook SET user_id=:user_id, uid=:uid"}

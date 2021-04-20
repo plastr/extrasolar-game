@@ -1,0 +1,2397 @@
+---
+SENDERS:
+    TURING: "Dr. Turing"
+    KRYPTEX: "kryptex81"
+    KRYPTEX_EMAIL: "K81 [Unauthenticated email]"
+    ENKI_EMAIL: "Enki [Unauthenticated email]"
+    JANE: "Jane Eastwood"
+    ROVER01: "JR-S Rover"
+    ROVER02: "SR-K Rover"
+    SCIENCE_TEAM: "Science Team"
+    ANONYMOUS: "[Unauthenticated sender]"
+    TESTING: "Test Sender"
+---
+id: MSG_TEST_SIMPLE
+sender: TESTING
+subject: "A simple test message."
+body: |-
+ <p>Hello World, this is a test message.</p>
+ <p>Your name is ${msg.user.first_name.capitalize()}</p>
+---
+id: MSG_TEST_LOCKED
+sender: TESTING
+subject: "A test locked message."
+style: LOCKED_DOCS
+needs_password: 1
+body: |-
+ <p>Hello World, this is a test message.</p>
+body_locked: |-
+ <p class="pspace">This message is secured.</p>
+ <p><strong>[ATTACHED FILE: PASSWORD REQUIRED]</strong></p>
+ <p><span class="message_pass_form" data-url="${msg.url_unlock()}"></span></p>
+---
+id: MSG_NO_FORWARDa
+sender: KRYPTEX
+subject: "don't forward that!"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>whose side are you on anyway?</p>
+ <p>i intercepted a message with sensitive info that you forwarded to the xri team!</p>
+ <p class="pspace">thankfully i noticed and deleted it before anyone could see it.</p>
+
+ <p class="pspace">don't go forwarding messages to just anyone!</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_NO_FORWARDb
+sender: KRYPTEX
+subject: "really, don't forward that!"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>are you kidding me?!</p>
+ <p class="pspace">i intercepted another forwarded message from you that could get us both in huge trouble.</p>
+
+ <p>i already told you not to go forwarding messages to just anyone!</p>
+ <p>to protect both of us, i set up a filter that will pipe any other inappropriately forwarded messages to /dev/null.</p>
+ <p class="pspace">now stop making this harder for me than it already is!</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_NO_FORWARD_TO_KRYPTEX
+sender: KRYPTEX
+subject: "thanks for the alert, but..."
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i just got the message that you forwarded to me.</p>
+ <p>thanks for drawing my attention to this, but i already have full access to your inbox and i'm monitoring it pretty closely.</p>
+ <%include file="kryptex_footer.html"/>
+
+---
+id: MSG_ROVERAUDIO_ORGANIC01
+sender: ROVER02
+subject: "Audio Detection: Organic, SE embankment"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Irregular waveforms suggest the sound is organic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_TUTORIAL01')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY01
+sender: ROVER02
+subject: "Audio Detection: Anomaly, central plateau"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY01')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY02
+sender: ROVER02
+subject: "Audio Detection: Anomaly, NE coast"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY02')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY03
+sender: ROVER02
+subject: "Audio Detection: Anomaly, northern coast"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY03')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY04
+sender: ROVER02
+subject: "Audio Detection: Anomaly, northwest ridge"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY04')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY05
+sender: ROVER02
+subject: "Audio Detection: Anomaly, western embankment"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY05')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY06
+sender: ROVER02
+subject: "Audio Detection: Anomaly, south of central plateau"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is inorganic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY06')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+
+---
+id: MSG_WELCOME
+sender: TURING
+subject: "Welcome to Extrasolar!"
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ <h2>Welcome to the Future of Space Exploration!</h2>
+ ${msg.embed_video('51331965')}
+ <p>After viewing the welcome video, you may continue with the rover simulation by clicking the ${msg.user.crosslink_map('Map tab')} at the top of the screen.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_SIMULATOR_DONE
+sender: TURING
+subject: "Simulation complete.  Issuing rover."
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ <h2>Rover Simulation Module Complete</h2>
+ ${msg.embed_video('51333688')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ROVER_INTRO01
+sender: ROVER01
+subject: "Boot-up sequence successful, JR-S Rover online"
+body: |-
+ <%include file="rover_header.html"/>
+ <table width=100% border=0 cellpadding=5px >
+ <tr>
+   <td align="center">${msg.embed_image('rover_schematic_JR-S.png', 800, 375)}</td>
+ </tr>
+ <tr>
+   <td align="center">The JR-S rover is the standard low-cost robotic platform developed by XRI for the exploration of extrasolar planets.<hr></td>
+ </tr>
+ <tr>
+   <td align="center"><span style="text-decoration:underline; font-weight:bold">Key function: panorama</span><br>
+   The JR-S can rotate its camera to produce a 360&deg; view of an area.</td>
+ </tr>
+ <tr>
+   <td align="center">${msg.embed_image('panorama_example.jpg', 800, 262, 'margin:5px 0 15px 0;')}</td>
+ </tr>
+ <tr>
+   <td align="center">${msg.embed_image('panorama_example_composite.png', 729, 164, 'margin:5px 0 15px 0;')}</td>
+ </tr>
+ <tr>
+   <td align="left">Transmitting panorama data to Earth requires a high bandwidth load and is limited for Volunteer level users.  To lift this restriction, consider becoming an ${msg.embed_store_link('XRI supporter')}.
+ </td>
+ </tr>
+ </table>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_KTHANKS
+sender: KRYPTEX
+subject: "be careful"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hey.</p>
+ <p class="pspace">i guess i should thank you for agreeing to help me.</p>
+ <p>just be careful.</p>
+ <p class="pspace">they're not telling you everything.</p>
+ <p>i'll stay in touch with you through xri's messaging and task systems.</p>
+ <p class="pspace">for now, just do whatever they ask to avoid raising suspicions.</p>
+ <p class="pspace">you can't afford to screw up.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ARTIFACT01a
+sender: TURING
+subject: "Request for Assistance"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hello, ${msg.user.first_name.capitalize()},</p>
+ <p>First, I'd like to thank you for your contributions so far to the Extrasolar Project! We rely on the determination of volunteers like you to keep this project moving.</p>
+ <p>At the risk of pulling you away from your core mission of exploring the island and identifying new alien species, we'd like to ask for your assistance in a special task. When your landing capsule touched down, the cameras used by the landing system caught a glimpse of a reflective object -- likely a piece of the discarded heat shield.  We've reviewed the telemetry data to help pinpoint the item's location.</p>
+ <p>We just added a new mission to your task list to encourage you to take some photos at that location. To help you, I added a ${msg.user.crosslink_region('marker to your map', 'RGN_ARTIFACT01_WAYPOINT', 'RGN_ARTIFACT01_ICON')}, about 150 meters southwest of your current position.  You may need to zoom out the map view to see it. If you find anything at that location please tag it in your gallery, just as you've been tagging species for Dr. Eastwood.</p>
+ <p class="pspace">Thank you for your assistance,</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ARTIFACT01b
+sender: TURING
+subject: "Re: Request for Assistance"
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ ${msg.embed_video('70432864')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ARTIFACT01c
+sender: KRYPTEX
+subject: "they're lying"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>you saw that message from the scientist?</p>
+ <p>this is what i mean.</p>
+ <p>they're lying to you.</p>
+ <p>i found this email, sent just before he made that video.</p>
+ <p class="pspace">check it out.</p>
+ <forward>
+ <strong>Subject: Re: Artifact</strong>
+ <strong>From: Gordon Cavendish</strong>
+ <strong>Sent: 3 hours ago</strong>
+ <strong>To: Robert Turing</strong>
+ <p class="pspace">No choice.</p>
+ <forward>
+ <strong>Subject: Re: Artifact</strong>
+ <strong>From: Robert Turing</strong>
+ <strong>Sent: 3 hours ago</strong>
+ <strong>To: Gordon Cavendish</strong>
+ <p>Are you sure we should be lying to them? I'm not really comfortable with that.</p>
+ <p class="pspace">- Dr. Robert Turing</p>
+ <forward>
+ <strong>Subject: Re: Artifact</strong>
+ <strong>From: Gordon Cavendish</strong>
+ <strong>Sent: 3 hours ago</strong>
+ <strong>To: Robert Turing</strong>
+ <p>Robert,</p>
+ <p>Cover it up. Say it was part of the landing capsule, something broke off on entry.</p>
+ <p>And keep them quiet.</p>
+ <p class="pspace">- GC</p>
+ <forward>
+ <strong>Subject: Artifact</strong>
+ <strong>From: Robert Turing</strong>
+ <strong>Sent: 4 hours ago</strong>
+ <strong>To: Gordon Cavendish</strong>
+ <p>Gordon,</p>
+ <p>Take a look at this photograph one of our rover drivers took. Chris has no idea what it is. It's not one of ours.</p>
+ <p>This is good, but -- what do I tell the driver?</p>
+ <p class="pspace">- Dr. Robert Turing</p>
+ </forward>
+ </forward>
+ </forward>
+ </forward>
+ <p class="pspace">told you there was something going on.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ARTIFACT01d
+sender: KRYPTEX
+subject: "markings on the object"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">wait.</p>
+ <p>i took a closer look at the pic you took of that object.</p>
+ <p class="pspace">there are some kind of markings on it.</p>
+ <p>can you get a better pic?</p>
+ <p>be sure to tag it, that way i get notified.</p>
+ <p class="pspace">i've hijacked the backend to add a mission to your task list.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ARTIFACT01e
+sender: KRYPTEX
+subject: "Re: markings on the object"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>those markings look like some kind of writing, don't they?</p>
+ <p class="pspace">it looks familiar...</p>
+ <p class="pspace">look: <a href="http://www.exoleaks.com/#gvtcode" target="_blank">http://www.exoleaks.com/#gvtcode</a></p>
+ <p>i don't know what's going on.</p>
+ <p class="pspace">but i mean to find out.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ARTIFACT01f
+sender: TURING
+subject: "Thanks Again"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>${msg.user.first_name.capitalize()},</p>
+ <p class="pspace">Thanks for your help with that last mission, but no need to keep focusing on that reflective object. Please move on and get back to your primary exploration missions.</p>
+ <p class="pspace">Thanks!</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ARTIFACT01g
+sender: KRYPTEX
+subject: "going further"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">look, ${msg.user.first_name.lower()}.</p>
+ <p>that writing--i bet if i had more samples of it, i could translate it.</p>
+ <p class="pspace">maybe it would tell me what's going on.</p>
+ <p>by now you've probably noticed that ${msg.user.crosslink_region('red line', 'RGN_SANDBAR')} on your map.</p>
+ <p>what you may not have noticed is that xri isn't letting you drive past it.</p>
+ <p>not sure why.</p>
+ <p class="pspace">i found an archived memo that says they're concerned about rover damage in deep sand, but what if there are more of those objects?</p>
+ <p>i need to know if i can trust you.</p>
+ <p>i just went into your account and disabled your rover's safeties.</p>
+ <p>you should be able to cross the red line now.</p>
+ <p>the memo mentioned some potentially safer regions.</p>
+ <p class="pspace">just in case, i highlighted ${msg.user.crosslink_region('those areas', 'RGN_SANDBOX_SAFE01')} on your map where your rover might have the easiest time getting across the sand.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ROVER_WILL_BE_STUCK
+sender: TURING
+subject: "Tethering failure"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>This is bad news.</p>
+ <p>Our rovers are pretty robust, but the JR-class rover that you're driving is not well-suited for deep sand.  We have a tethering subsystem in place to keep this class of rover within a designated area, but that subsystem failed somehow and you're headed toward trouble.</p>
+ <p>Ideally, I'd override your rover's command, but it's not that simple.  We can usually cancel commands that haven't started execution yet, but due to satellite orbit and transmission delays, once a rover has started moving to its next destination, we're out of options.</p>
+ <p>We set conservative bounds for our rovers, so hopefully we'll be able to bring it back safely.  Please direct it back toward the landing capsule as soon as possible and minimize the distance you traverse over loose sand or gravel.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ROVER_STUCKa
+sender: TURING
+subject: "Your Rover Is Stuck!"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>Something's happened. I'd say that this was our worst fear -- but honestly, it's worse than that. Your rover isn't just stuck -- it's not responding to any commands at all.  We've been digging through the diagnostic data, but it's not clear what happened.</p>
+ <p>My records seem to show that you're in good standing and you've contributed some influential photographs to our collection, so you've actually qualified for a security upgrade. As a result, I've activated a new rover for you that is still situated near the landing capsule. This rover is more advanced than your previous one, so please treat it carefully, but it should be able to traverse those dunes with no problem.</p>
+ <p>Since you'll now be able to safely drive in that area, please pay your old rover a visit. If you can take a clear photo of it and tag it for us, it will help us diagnose the extent of the problem and decide a next step.</p>
+ <p class="pspace">I put a ${msg.user.crosslink_mission('new mission', 'MIS_FIND_STUCK_ROVER')} in your task list and put a ${msg.user.crosslink_region('marker on your map', 'RGN_FIND_STUCK_ROVER_WAYPOINT')} of the expected rover location.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ROVER_STUCKb
+sender: KRYPTEX
+subject: "Re: stuck rover"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hey.</p>
+ <p>my fault.</p>
+ <p>when i realized something had gone wrong with your rover, i hacked your security clearance.</p>
+ <p>didn't want you getting kicked out.</p>
+ <p class="pspace">sorry about that.</p>
+ <p>gotta be careful.</p>
+ <p>still a lot of work to do.</p>
+ <p class="pspace">gotta stay on their good side.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_FOUND_ROVER01a
+sender: TURING
+subject: "Re: Stuck Rover"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>I just got my first look at the recent photo you took of our stranded rover, and... well...</p>
+ <p>Since you have a level 3 security clearance now, I guess I'll say that it definitely seems damaged somehow. And there are some interesting objects nearby. We'll have to study those further, but I'll take care of that, and your old rover.</p>
+ <p>Despite the damage to the rover, this could be exciting -- I suspect an animal life-form may have been involved in the damage, which could be our first evidence of such life on Epsilon Prime!</p>
+ <p>You can keep this SR-K -- and given that it has the audio upgrade, maybe we can figure out what happened to your JR-S. We've seen no animals, but maybe we can hear one instead!  Your rover's passive audio detectors are now active and should alert you to any sounds that exceed a preset decibel threshold.</p>
+ <p>I would like you to proceed up the sandy embankment north of your current position and head toward the island's central plateau.  I've marked the region of interest on your map.  There's no hurry.  If you encounter any signs of animal life along the way, I encourage you to take a closer look.</p>
+ <p>Oh -- and remember that any conversations that take place here fall under the sensitive information non-disclosure agreement you signed when you underwent our security evaluation. The PR people will want to be in charge of when they announce finding animal life, if we do!</p>
+ <p class="pspace">Dream to worlds beyond.</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_FOUND_ROVER01b
+sender: KRYPTEX
+subject: "more lies"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>did you _see_ the rover?</p>
+ <p>it's completely taken apart.</p>
+ <p>methodically, carefully.</p>
+ <p class="pspace">not like some animal did it.</p>
+ <p>${msg.user.first_name.lower()}, there could be _intelligent_ life out there.</p>
+ <p>turing didn't even mention that.</p>
+ <p>to you, at least.</p>
+ <p>it's like they were expecting it.</p>
+ <p>check this out:</p>
+ <forward>
+ <strong>Subject: Re: Signs</strong>
+ <strong>From: Gordon Cavendish</strong>
+ <strong>Sent: 1 hour ago</strong>
+ <strong>To: Robert Turing</strong>
+ <p class="pspace">We won't know until we see more. Call Jane, but don't tell her.</p>
+ <forward>
+ <strong>Subject: Signs</strong>
+ <strong>From: Robert Turing</strong>
+ <strong>Sent: 2 hours ago</strong>
+ <strong>To: Gordon Cavendish</strong>
+ <p class="pspace">Take a look at this photograph. The rover is completely disassembled, and there's something lying on the ground beside it. Some kind of pod structure. You think this is it?</p>
+ </forward>
+ </forward>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_INVITATIONSa
+sender: TURING
+subject: "Invitations"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>You've been an invaluable participant with Extrasolar for a while now.  Given your exceptional qualifications and your level of commitment, my guess is that you have other friends or professional colleagues who might also make great volunteers.</p>
+ <p>I just added a few invitations to your account.  You can see the number of available invitations in your ${msg.user.crosslink_profile('profile tab')} and you can send these invitations for free from the ${msg.user.crosslink_store('XRI store')}.</p>
+ <p>Please understand that all applicants will still need to pass the same rigorous tests that you took, so acceptance into the program is not guaranteed.  That being said, I'm sure you can recommend some exceptional candidates.</p>
+ <p>Dream to worlds beyond.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ROVER_INTRO02
+sender: ROVER02
+subject: "Boot-up sequence successful, SR-K Rover online"
+body: |-
+ <%include file="rover_header.html"/>
+ <table width=100% border=0 cellpadding=10px >
+ <tr>
+   <td colspan=2 align="center">${msg.embed_image('rover_schematic_SR-K.png', 800, 375)}</td>
+ </tr>
+ <tr>
+   <td colspan=2 align="center">The XRI SR-K rover is a versatile robotic platform, designed with advanced features<br>intended to facilitate the search for exoplanetary life.
+ <hr></td>
+ </tr>
+ <tr>
+   <td align="center"><span style="text-decoration:underline; font-weight:bold">Audio record / playback function</span><br>
+   Detects sound emitting sources
+   </td>
+ </tr>
+ <tr>
+   <td valign="top" align="center">Approximate location of sounds will appear as a circle on your map.<br>
+   ${msg.embed_image('soundRegion_example_1.jpg', 415, 224, 'margin:5px 0 15px 0;')}<br>
+   Move into circle to pinpoint exact location of sound.<br>
+   ${msg.embed_image('soundRegion_example_2.jpg', 415, 198, 'margin:5px 0 15px 0;')}<br>
+   Recorded sounds are playable from the sound's photo page.<br>
+   ${msg.embed_image('soundRegion_example_3.jpg', 415, 86, 'margin:5px 0 15px 0;')}
+   </td>
+ </tr>
+ <tr>
+   <td align="center"><span style="text-decoration:underline; font-weight:bold">FLIR Infrared camera</span><br>
+   Detects heat-emitting sources
+   </td>
+ </tr>
+ <tr>
+ <td valign="top" align="center">Select the <strong>Infrared</strong> checkbox when you <strong>set options</strong> for a new photo.<br>
+   ${msg.embed_image('infrared_example2.jpg', 415, 92, 'margin:5px 0 15px 0;')}<br>
+   Click the infrared icon on the returned photo to see IR spectrum.<br>
+   ${msg.embed_image('infrared_example3.jpg', 415, 151, 'margin:5px 0 15px 0;')}<br>
+   Heat-emitting life forms may be easier to spot and tag in infrared!<br>
+   ${msg.embed_image('infrared_example1.jpg', 415, 277, 'margin:5px 0 15px 0;')}
+   </td>
+ </tr>
+ </table>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_AUDIO_TUTORIAL01a
+sender: TURING
+subject: "New Rover Audio Capability"
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ <h2>You Have Qualified for a Rover Upgrade</h2>
+ ${msg.embed_video('51335217')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_AUDIO_TUTORIAL01b
+sender: TURING
+subject: "Attracting an Animal"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Listen to that! Wind rustling the plants, waves on the shore! Nothing quite like hearing another planet to make it seem so much more real. I still sometimes can't believe we're doing this.</p>
+ <p>More importantly, do you hear that sound near the end of the clip? Could be the sound of an animal, as I hoped.</p>
+ <p>I've been discussing it with Jane and we have a bit of a theory. Besides the ability to record audio, the SR-K rover also has the ability to play audio, through on-board speakers. We'd like to experiment with what happens when we play back the animal's sound onto the planet's surface. Perhaps it will attract the animal back, or attract a predator, and we can catch it on camera.</p>
+ <p class="pspace">Take another picture of the location where we've pinpointed the audio source; the rover will automatically play back the sound you recorded when you do, and we'll see what happens.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_AUDIO_TUTORIAL01c
+sender: TURING
+subject: "Re: Attracting an Animal"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>It worked! That's incredible -- definite animal life.</p>
+ <p>Congratulations, ${msg.user.first_name.capitalize()}, you have gotten the very first evidence of animal life beyond our own planet! Well done! We certainly suspected there would be something here, once we determined that life had developed on Epsilon Prime at all, but to actually see proof -- it's very exciting. You've done XRI -- and all of humanity! -- a great service. This is what dreams of exploration are made of.</p>
+ <p class="pspace">As mentioned, your audio capabilities can detect sounds as you explore. Perhaps there are more animals elsewhere on Artocos. Since you can navigate this rougher terrain, we're giving you full access to the island. Push northward and see what you can find!</p>
+ <p>Dream to worlds beyond!</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK01a
+sender: KRYPTEX
+subject: "more writing on the obelisk"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>brilliant.</p>
+ <p class="pspace">look at that.</p>
+ <p>it's something different from the last one, whatever it was.</p>
+ <p>some kind of obelisk.</p>
+ <p class="pspace">but there's writing on it.</p>
+ <p>and it's making sound.</p>
+ <p class="pspace">interesting.</p>
+ <p>so the first thing you found is definitely not the only unnatural object on the planet.</p>
+ <p>do you think this means there really _is_ intelligent life here?</p>
+ <p>and more importantly--did xri _know_?</p>
+ <p class="pspace">what are they hiding?</p>
+ <p>keep going.</p>
+ <p class="pspace">i'm going to need more samples of that writing.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_PHONE01a
+sender: KRYPTEX
+subject: "check out this phone call"
+style: AUDIO
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>oh, i have access to their phone system now, and heard an interesting conversation.</p>
+ <p class="pspace">i've attached a recording.</p>
+ <p class="pspace">they're not saying anything to you, but check this out.</p>
+ <%include file="kryptex_footer.html"/>
+
+ <p><strong>[ATTACHED FILE: PHONE MESSAGE]</strong></p>
+ ${msg.embed_audio('72940584')}
+---
+id: MSG_PHONE01b
+sender: KRYPTEX
+subject: "another interesting call"
+style: AUDIO
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i've been listening for interesting calls on the xri phone lines.</p>
+ <p>here's another one.</p>
+ <p class="pspace">gordon cavendish again, and some guy called arling.</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[ATTACHED FILE: PHONE MESSAGE]</strong></p>
+ ${msg.embed_audio('72943604')}
+---
+id: MSG_ENCRYPTION01
+sender: KRYPTEX
+subject: "encrypted files"
+style: LOCKED_DOCS
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p>after hearing those calls, i searched xri's servers for a ryan arling.</p>
+ <p class="pspace">i found some documents on a backup drive, but they're all encrypted.</p>
+ <p>i've attached them anyway.</p>
+ <p class="pspace">just for safe keeping.</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[ATTACHED FILE: PASSWORD REQUIRED]</strong></p>
+ <p><span class="message_pass_form" data-url="${msg.url_unlock()}"></span></p>
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>after hearing those calls, i searched xri's servers for a ryan arling.</p>
+ <p class="pspace">i found some documents on a backup drive, but they're all encrypted.</p>
+ <p>i've attached them anyway.</p>
+ <p>we'll keep them on your server.</p>
+ <p class="pspace">safe storage.</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[DECRYPTED FILE ATTACHMENT]</strong></p>
+ ${msg.append_attachment('DOC_GPSb_P58TP5.pdf', 'arling_19950408.pdf')}
+---
+id: MSG_MISSION02a
+sender: TURING
+subject: "Strange Signals"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>We've certainly been pleased with your work so far. Thanks for continuing to be a valuable part of the Extrasolar Project.</p>
+ <p>I have a special mission for you. We recently deployed a new GPS unit on the north part of the island, and it started picking up some strange electromagnetic signals. We've managed to triangulate the origin of the signals -- since it's beyond the zone that most of the rovers are restricted to, I'd like you to check out the source of the signals for us. Head over there and take a photograph of it, so we can see what's making them.</p>
+ <p class="pspace">I've marked the location on your map, as well as the GPS unit. Thanks! Dream to worlds beyond.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_GPSa
+sender: KRYPTEX
+subject: "gps unit"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">look, ${msg.user.first_name.lower()}.</p>
+ <p>turing said in his call with cavendish that he encrypted the backup server with the name of the gps unit.</p>
+ <p>the same one he marked on your map.</p>
+ <p>i think he's talking about its id code in the system.</p>
+ <p class="pspace">if you can get a picture of that unit and tag it it should give us the id code, which we could use to decrypt those files about arling and figure out what the hell's going on here.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_GPSx
+sender: KRYPTEX
+subject: "re: gps unit"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>fine.</p>
+ <p>i get it.</p>
+ <p class="pspace">you're going to do what xri asks before you help me out.</p>
+ <p class="pspace">just remember who got you into this.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_MISSION02c
+sender: TURING
+subject: "Coming Clean"
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ ${msg.embed_video('70432967')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_MISSION02d
+sender: KRYPTEX
+subject: "strange signals"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>that thing looks of similar design to the other objects you've found, but those symbols aren't anything like the other writing.</p>
+ <p>no sounds from this one either.</p>
+ <p>oh well.</p>
+ <p class="pspace">keep looking.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_GO_TO_RUINS
+sender: TURING
+subject: "Structures in the Northeast"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>Thanks for helping us out with the source of that signal. We're investigating the photographs you took.</p>
+ <p>I'd like you to head towards the northeastern part of the island. There appear to be structures of some kind in that direction, based on our satellite pictures, likely not natural. I'd like you to take a look -- and don't forget to tag all the pictures you get. They could be more evidence of the intelligent life.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_GPSc
+sender: KRYPTEX
+subject: "arling--and my father"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">arling works for the department of defense?</p>
+ <p>i told you there was something going on.</p>
+ <p class="pspace">but this is bigger than i thought.</p>
+ <p>we have to be careful.</p>
+ <p class="pspace">i'll keep looking -- you need to find more of that writing.</p>
+ <p>but look -- thanks for helping me out so far.</p>
+ <p class="pspace">i never gave you a particularly good reason to help me, but you did, and i appreciate that.</p>
+ <p>the writing on the paper napkin in <a href="http://www.exoleaks.com/#gvtcode" target="_blank">the picture</a> i showed you?</p>
+ <p class="pspace">it's mine.</p>
+ <p>when i was a kid, my father told me stories of a message that came from the sky, from another world.</p>
+ <p class="pspace">he said that no one could figure out what it said, but that we rejoiced to know we were not alone in the universe.</p>
+ <p>he showed me the writing, those symbols, the unknown message.</p>
+ <p class="pspace">i was fascinated by the patterns, and memorized them.</p>
+ <p>but i grew up without a mother, so i took it as a fairy tale he told to comfort me.</p>
+ <p class="pspace">until i saw the writing on that artifact.</p>
+ <p>it's real.</p>
+ <p>that's why you need to find more of it.</p>
+ <p class="pspace">i need to know what it says, ${msg.user.first_name.lower()}.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ENCRYPTION02
+sender: KRYPTEX
+subject: "more encrypted documents"
+style: LOCKED_DOCS
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p>there are more documents in this protected backup server.</p>
+ <p>but most of them are useless.</p>
+ <p class="pspace">it'll take a while to sift through for the good stuff on this arling.</p>
+ <p>i also found this, buried pretty deep.</p>
+ <p>different passcode than the others.</p>
+ <p>heavily encrypted.</p>
+ <p>way beyond the others.</p>
+ <p class="pspace">i can't break it without the passcode.</p>
+ <p class="pspace">what were these guys doing?</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[ATTACHED FILE: PASSWORD REQUIRED]</strong></p>
+ <p><span class="message_pass_form" data-url="${msg.url_unlock()}"></span></p>
+
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>there are more documents in this protected backup server.</p>
+ <p>but most of them are useless.</p>
+ <p class="pspace">it'll take a while to sift through for the good stuff on this arling.</p>
+ <p>i also found this, buried pretty deep.</p>
+ <p>different passcode than the others.</p>
+ <p>heavily encrypted.</p>
+ <p>way beyond the others.</p>
+ <p class="pspace">i can't break it without the passcode.</p>
+ <p class="pspace">what were these guys doing?</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[DECRYPTED FILE ATTACHMENT]</strong></p>
+ ${msg.append_attachment('DOC_EDNA10_356EK2.pdf', 'arling_19950330.pdf')}
+ <p><span class="ce4_message_fwd_form" data-url="${msg.url_forward()}"></span></p>
+---
+id: MSG_PHONE03a
+sender: KRYPTEX
+subject: "more calls from arling"
+style: AUDIO
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>whoa.</p>
+ <p class="pspace">check this out.</p>
+ <p>arling tried to call turing and spooked him something fierce.</p>
+ <p class="pspace">what is up with that guy?</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[ATTACHED FILE: PHONE MESSAGE]</strong></p>
+ ${msg.embed_audio('72943605')}
+ <p><strong>[ATTACHED FILE: PHONE MESSAGE]</strong></p>
+ ${msg.embed_audio('72943606')}
+---
+id: MSG_EDNA01
+sender: KRYPTEX
+style: ATTACHMENT
+subject: "more documents"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i'm digging through the old server archives to try to find anything i can about this guy arling.</p>
+ <p>most are unencrypted.</p>
+ <p>i'll send you documents as i find them.</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_EDNA01_SRIGOB.pdf', 'arling_19940620.pdf')}
+---
+id: MSG_EDNA02
+sender: KRYPTEX
+style: ATTACHMENT
+subject: "more documents (2)"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>sorry all these files are out of order.</p>
+ <p>it's hard to search through these old scanned docs.</p>
+ <p>like looking for a needle in a haystack.</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_EDNA02_208I7P.pdf', 'cavendish_19940720.pdf')}
+ ${msg.append_attachment('DOC_EDNA03a_CFGOBA.pdf', 'cavendish_19961015.pdf')}
+ ${msg.append_attachment('DOC_EDNA03b_ZNRPQA.pdf', 'cavendish_19961016.pdf')}
+---
+id: MSG_EDNA04
+sender: KRYPTEX
+style: ATTACHMENT
+subject: "more documents (3)"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>another one.</p>
+ <p>more recent.</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_EDNA04_WDEO3N.pdf', 'arling_20090110.pdf')}
+---
+id: MSG_OBELISK02a
+sender: TURING
+subject: "Another Obelisk"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Interesting -- another obelisk with writing and emitting an audio signal, although different from the last one. They seem to be some kind of monument -- are they just decorative or do they serve some higher function?</p>
+ <p>I wonder what the purpose of such a simple sound pattern is.</p>
+ <p>I wonder why they're here. And how they've remained functional for so long.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK02b
+sender: KRYPTEX
+subject: "re: another obelisk"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>that obelisk structure has more writing on it!</p>
+ <p>similar to the last one you found, but different.</p>
+ <p>hopefully there are more.</p>
+ <p>with enough of these, i can probably translate that message.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_RUINSa
+sender: TURING
+subject: "Ruins"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>Wow. I mean, just -- wow. I just can't even -- I mean, there's just no denying that those are alien structures of some kind.</p>
+ <p>See, the signal XRI received those years ago was incomplete and corrupted, but Gordon Cavendish managed to decode it into a series of symbols -- writing. With the help of a crack linguistics team, he made an approximate translation. The message simply indicated that there was life on Epsilon Prime, that these aliens considered themselves "caretakers" of the planet, and that as a result, others were warned to stay away.</p>
+ <p>These structures -- these must be from the Caretakers. It's mind-blowing, to see the creations of other intelligent life -- intelligent life! We're really not alone in the galaxy. But where are they? I'd like you to take at least 2 more photographs of these structures, and don't forget to tag them -- let's get as much evidence as we can.</p>
+ <p>Maybe someday soon we'll be able to reveal this to the rest of the world.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_RUINSb
+sender: TURING
+subject: "Re: Ruins"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>I'm just floored once again by these images of ruins. We're looking at actual evidence of alien civilization. Buildings. This was clearly an advanced society -- with at the very least the technology to send a message into space.</p>
+ <p>I'd like you to take at least one more photo of these ruins, which are more extensive than I expected.  Be sure to tag the photo to make sure I get notified. This is just incredible.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ENKI01a
+sender: KRYPTEX
+subject: "aliens--and xri knew"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>wow.</p>
+ <p>alien buildings.</p>
+ <p>or crashed spaceships.</p>
+ <p class="pspace">they look like flying saucers even.</p>
+ <p>i mean, i guess the message and the writing and everything clearly suggested aliens, but it didn't seem _real_ to me until now.</p>
+ <p>it was always just a fairy tale.</p>
+ <p>i mean, holy hell.</p>
+ <p>nothing can prepare you for this.</p>
+ <p class="pspace">aliens.</p>
+ <p>but what kills me is that xri _knew_.</p>
+ <p>they knew there was intelligent life, that's why they came.</p>
+ <p>why didn't they tell anyone?</p>
+ <p class="pspace">what's going on?</p>
+ <p>this conspiracy stuff is not my specialty.</p>
+ <p>you know that <a href="http://www.exoleaks.com/" target="_blank">exoleaks website</a> with the picture of the alien symbols?</p>
+ <p>i'm going to contact the guy who runs it.</p>
+ <p>he calls himself enki.</p>
+ <p class="pspace">maybe he can help figure out what the hell's really going on with the evidence we're finding.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_EDNA05
+sender: KRYPTEX
+style: ATTACHMENT
+subject: "more documents--edna"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>this woman edna seems to be really influential.</p>
+ <p>who is she?</p>
+ <p>if she's financially supporting xri, she's gotta be a billionaire..</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_EDNA05_TR6DA7.pdf', 'cavendish_19990530.pdf')}
+ ${msg.append_attachment('DOC_EDNA06_E4WCRF.pdf', 'cavendish_19940712.pdf')}
+ ${msg.append_attachment('DOC_EDNA07a_9IUWC3.pdf', 'arling_19950303.pdf')}
+ ${msg.append_attachment('DOC_EDNA07b_0PQEWM.pdf', 'cavendish_19950305.pdf')}
+---
+id: MSG_EDNA08
+sender: KRYPTEX
+style: ATTACHMENT
+subject: "more documents--and enki"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i still haven't heard back from the guy behind exoleaks.</p>
+ <p>you'd think he'd respond to the potential for more evidence.</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_EDNA08_TIN2MK.pdf', 'arling_20100209.pdf')}
+---
+id: MSG_ENKI01c
+sender: KRYPTEX
+subject: "enki. listen in."
+style: LIVE_CALL
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p>still nothing from enki.</p>
+ <p>i hacked into exoleaks and tracked down his contact information.</p>
+ <p class="pspace">i'm going to call him directly.</p>
+ <p>but--we can't tell him about the aliens.</p>
+ <p>it'll distract him, that's all he'll care about.</p>
+ <p>the d.o.d. is the important part.</p>
+ <p>the lies.</p>
+ <p class="pspace">we'll only tell him the rest if we have to.</p>
+ <p><span class="message_call_form" data-url="${msg.url_unlock()}" data-key="${msg.keycode}" data-participants="kryptex,enki"></span></p>
+ <%include file="kryptex_footer.html"/>
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>still nothing from enki.</p>
+ <p>i hacked into exoleaks and tracked down his contact information.</p>
+ <p class="pspace">i'm going to call him directly.</p>
+ <p>but--we can't tell him about the aliens.</p>
+ <p>it'll distract him, that's all he'll care about.</p>
+ <p>the d.o.d. is the important part.</p>
+ <p>the lies.</p>
+ <p class="pspace">we'll only tell him the rest if we have to.</p>
+ <p>[live call. audio will be recorded for future playback.]</p>
+ ${msg.embed_video('72943902')}
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_RUINSc
+sender: TURING
+subject: "The Interstellar Message"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>Since arriving here, we've been trying to pinpoint where the interstellar message we picked up is being broadcast from. With the rovers on the ground, we've finally managed to pinpoint one of the sources of the signal -- just to the west of these ruins.</p>
+ <p>Your rover's short-range radio communicator should be able to pick up the source of the broadcast in much the same way as your audio capabilities. See if you can track it down -- signal broadcast means real alien technology. We have to see what it looks like.</p>
+ <p>The inventions of another species.</p>
+ <p>I feel like a kid in a candy store.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_RUINSd
+sender: TURING
+subject: "Re: Ruins (2)"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>These structures don't appear to have been purposefully damaged in any way -- rather, their decay seems to be entirely due to time and erosion. Which suggests the aliens were not killed, at least not in war. And we haven't seen any biological remains suggesting disease, though of course they could have long since disintegrated.</p>
+ <p>What happened? Did they just leave? Why?</p>
+ <p>And why leave a message telling others to stay away?</p>
+ <p>Were they hiding something?</p>
+ <p>Is that what we're hoping to find?</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_RUINSe
+sender: TURING
+subject: "Re: The Interstellar Message"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>That's amazing. That -- monument, the carvings on it must be the full pictoral representation of the broadcast signal. No corruption, no iffy decoding. The whole thing.</p>
+ <p>Cavendish will be thrilled to be able to corroborate his translation, to complete it.</p>
+ <p>It's beautiful.</p>
+ <p>I'm anxious to find out what else this island may be hiding.  I'd like to encourage you to head to other parts of the island that you haven't explored yet.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_RUINSf
+sender: KRYPTEX
+subject: "Re: the interstellar message"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hi ${msg.user.first_name.lower()},</p>
+ <p>i took a look at that picture.</p>
+ <p>i recognize parts of it. </p>
+ <p>it's the same symbols in that photograph of the napkin.</p>
+ <p class="pspace">proof that it's real.</p>
+ <p>and not just that, but there's more than what i knew.</p>
+ <p class="pspace">we have the whole message now.</p>
+ <p>all the more reason to try to translate it from the writing samples on the planet.</p>
+ <p>maybe there's more to it than arling's letting on.</p>
+ <p class="pspace">this could be the key.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK03a
+sender: KRYPTEX
+subject: "hidden message"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hi ${msg.user.first_name.lower()}.</p>
+ <p>that's the third obelisk like that you've found.</p>
+ <p>i wonder how many there are?</p>
+ <p class="pspace">enough to translate the message, hopefully.</p>
+
+ <p>searching through the encrypted documents, i found this one.</p>
+ <p class="pspace">mundane enough.</p>
+
+ <p>but i noticed some weird signatures on the file data.</p>
+ <p>so i looked closer.</p>
+ <p>the formatting tags of the doc had some anomalies.</p>
+ <p class="pspace">strung together, a simple rotation cypher revealed another message.</p>
+
+ <p class="pspace">this wasn't meant for cavendish's eyes, ${msg.user.first_name.lower()}.</p>
+
+ <p>1 The writing is on the wall</p>
+ <p>2 We must face the music</p>
+ <p>3 You can't stop</p>
+ <p>4 Edna</p>
+ <p>5 We are all in danger</p>
+ <p>6 We know we're approaching</p>
+ <p class="pspace">7 6.24976</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_OBELISK03a_GO8T49.pdf', 'SETICon_II_Notes.pdf')}
+---
+id: MSG_OBELISK03b
+sender: KRYPTEX
+subject: "he knew..."
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>my father worked for xri.</p>
+ <p>he was a software engineer and linguist.</p>
+ <p>he couldn't tell me what they were working on.</p>
+ <p>except those fairy tales he told me.</p>
+ <p class="pspace">but he was always excited.</p>
+
+ <p>until the end.</p>
+ <p>things changed.</p>
+ <p class="pspace">i think he knew something was going on.</p>
+
+ <p class="pspace">...i don't know why i'm telling you this.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK04a
+sender: TURING
+subject: "A Pattern"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi, ${msg.user.first_name.capitalize()}!</p>
+ <p>I find myself very interested in these obelisks you keep finding. Each one is covered in writing, and emits a very basic audio signal -- what I can't figure out is their purpose. They seem to be monuments of some sort -- could they possibly have had a utilitarian function for the Caretakers? Perhaps they had some religious significance. We've barely scratched the surface of this civilization and their technology. Maybe their function is simply beyond our understanding.</p>
+ <p>With further evidence, perhaps we will be able to unravel these mysteries and begin to understand them. I've noticed a pattern in the locations of these monuments -- they seem to be arranged in a hexagon, centered on the large monument that you found earlier. Their positions so far suggest that there are two more -- I'll mark them on your map.</p>
+ <p>One more thing -- we've been having some trouble with our servers. It looks like there's been some kind of tampering. If you experience any technical problems, it's probably just us trying to fix the security. Thanks for your patience.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK04b
+sender: KRYPTEX
+subject: "another hidden message"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>look.</p>
+ <p>another coded message.</p>
+ <p class="pspace">more nonsense.</p>
+
+ <p>but the end--"the greatest of mysteries."</p>
+ <p>that's a carl sagan quote.</p>
+ <p>we are approaching the greatest of mysteries.</p>
+ <p class="pspace">dad loved that quote.</p>
+
+ <p>1 It will reveal the truth</p>
+ <p>2 of another world</p>
+ <p>3 the signal</p>
+ <p>4 is a lie</p>
+ <p>5 They've killed before</p>
+ <p>6 the greatest of mysteries.</p>
+ <p class="pspace">7 -109.42382</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.append_attachment('DOC_OBELISK04b_7L4MYX.pdf', 'Drake_lunch.pdf')}
+---
+id: MSG_OBELISK04c
+sender: KRYPTEX
+subject: "both parts together"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>${msg.user.first_name.lower()}.</p>
+
+ <p>i just realized that the first half of the sagan quote is in the first hidden message.</p>
+ <p>that must have been why i thought of dad...</p>
+ <p class="pspace">but look what happens when you put them together:</p>
+
+ <p>1 The writing is on the wall. It will reveal the truth.</p>
+ <p>2 We must face the music of another world.</p>
+ <p>3 You can't stop the signal.</p>
+ <p>4 Edna is a lie.</p>
+ <p>5 We are all in danger. They've killed before.</p>
+ <p>6 We know we are approaching the greatest of mysteries.</p>
+ <p class="pspace">7 6.24976, -109.42382</p>
+
+ <p>the numbers at the end.</p>
+ <p>those are gps coordinates.</p>
+ <p>on earth, they're in the pacific ocean, 1500 km off the west coast of mexico.</p>
+ <p class="pspace">but on epsilon prime, they're on your island.</p>
+
+ <p>my dad died a few months ago.</p>
+ <p>near the end, he was...</p>
+ <p>he started to lose it.</p>
+ <p>he became obsessed with something.</p>
+ <p>would go days without sleep, shutting himself away when he wasn't working.</p>
+ <p>he disappeared sometimes.</p>
+ <p class="pspace">he became paranoid.</p>
+
+ <p>it had to have been something to do with this.</p>
+ <p>something to do with xri.</p>
+ <p class="pspace">it's their fault i lost him.</p>
+
+ <p class="pspace">he was all i had.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK04c_v2
+sender: KRYPTEX
+subject: "both parts together"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>${msg.user.first_name.lower()}.</p>
+
+ <p>i just realized that the first half of the sagan quote is in the first hidden message.</p>
+ <p>that must have been why i thought of dad...</p>
+ <p class="pspace">but look what happens when you put them together:</p>
+
+ <p>1 The writing is on the wall. It will reveal the truth.</p>
+ <p>2 We must face the music of another world.</p>
+ <p>3 You can't stop the signal.</p>
+ <p>4 Edna is a lie.</p>
+ <p>5 We are all in danger. They've killed before.</p>
+ <p>6 We know we are approaching the greatest of mysteries.</p>
+ <p class="pspace">7 6.24976, -109.42382</p>
+
+ <p>the numbers at the end.</p>
+ <p>those are gps coordinates.</p>
+ <p>on earth, they're in the pacific ocean, 1500 km off the west coast of mexico.</p>
+ <p>but on epsilon prime, those are the exact coordinates of a gps unit that you found -- the one that you used to unlock the files from dad.</p>
+ <p>he was leaving behind bread crumbs for me to find.</p>
+ <p class="pspace">i'm still not sure why.</p>
+
+ <p>my dad died a few months ago.</p>
+ <p>near the end, he was...</p>
+ <p>he started to lose it.</p>
+ <p>he became obsessed with something.</p>
+ <p>would go days without sleep, shutting himself away when he wasn't working.</p>
+ <p>he disappeared sometimes.</p>
+ <p class="pspace">he became paranoid.</p>
+
+ <p>it had to have been something to do with this.</p>
+ <p>something to do with xri.</p>
+ <p class="pspace">it's their fault i lost him.</p>
+
+ <p class="pspace">he was all i had.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK04c_v3
+sender: KRYPTEX
+subject: "both parts together"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>${msg.user.first_name.lower()}.</p>
+
+ <p>i just realized that the first half of the sagan quote is in the first hidden message.</p>
+ <p>that must have been why i thought of dad...</p>
+ <p class="pspace">but look what happens when you put them together:</p>
+
+ <p>1 The writing is on the wall. It will reveal the truth.</p>
+ <p>2 We must face the music of another world.</p>
+ <p>3 You can't stop the signal.</p>
+ <p>4 Edna is a lie.</p>
+ <p>5 We are all in danger. They've killed before.</p>
+ <p>6 We know we are approaching the greatest of mysteries.</p>
+ <p class="pspace">7 6.24976, -109.42382</p>
+
+ <p>the numbers at the end.</p>
+ <p>those are gps coordinates.</p>
+ <p>on earth, they're in the pacific ocean, 1500 km off the west coast of mexico.</p>
+ <p>but on epsilon prime, those are the exact coordinates of a gps unit that you found.</p>
+ <p>i don't get it.</p>
+ <p class="pspace">what's so special about a gps unit??</p>
+ 
+ <p>my dad died a few months ago.</p>
+ <p>near the end, he was...</p>
+ <p>he started to lose it.</p>
+ <p>he became obsessed with something.</p>
+ <p>would go days without sleep, shutting himself away when he wasn't working.</p>
+ <p>he disappeared sometimes.</p>
+ <p class="pspace">he became paranoid.</p>
+
+ <p>it had to have been something to do with this.</p>
+ <p>something to do with xri.</p>
+ <p class="pspace">it's their fault i lost him.</p>
+
+ <p class="pspace">he was all i had.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_CODED_LOCa
+sender: KRYPTEX
+subject: "a gps unit?"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>a gps unit?</p>
+
+ <p class="pspace">what's so special about a gps unit??</p>
+
+ <p>damnit!</p>
+ <p class="pspace">i thought for sure this would be something.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_LANDMARKS01
+sender: TURING
+subject: "Landmarks"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>To assist our rover drivers with navigation and encourage a consistent nomenclature, we've updated all maps to include pinpoints with locations of interest.  You can click the pinpoints to see the names that we're using internally here at XRI.  We may add new pins from time to time as other noteworthy geologic landmarks are discovered.</p>
+ <p>You can read more about some of the unusual rock formations we've discovered at the latest ${msg.embed_blog_link('turing_geology', 'XRI blog post')}.</p>
+ <p> - Dr. Robert Turing</p>
+ <p> Dream to worlds beyond!</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_CODED_LOCb
+sender: KRYPTEX
+subject: "re: both parts together"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">wait.</p>
+
+ <p>they've used id codes of gps units as passwords before.</p>
+ <p class="pspace">maybe it's the password for that heavily encrypted doc i found?</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_CODED_LOCc_v1
+sender: KRYPTEX
+subject: "decrypted"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>brilliant!</p>
+ <p>of course.</p>
+ <p>they've used gps unit's id codes as passwords before.</p>
+ <p class="pspace">and these documents...</p>
+
+ <p>this is it.</p>
+ <p>this is proof that there's a direct financial tie between xri and the d.o.d.</p>
+ <p class="pspace">edna's not a rich benefactor, she's a middleman.</p>
+
+ <p>a middleman for...</p>
+ <p>d.o.d. funding against a threat??</p>
+ <p>is that what this is?</p>
+ <p class="pspace">they're secretly funneling government money to xri to deal with a perceived threat from _aliens_?</p>
+
+ <p>people won't stand for that.</p>
+ <p class="pspace">not to mention what they've done has got to be illegal...</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_CODED_LOCc_v2
+sender: KRYPTEX
+subject: "decrypted"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>it worked!</p>
+ <p class="pspace">and these documents...</p>
+
+ <p>this is it.</p>
+ <p>this is proof that there's a direct financial tie between xri and the d.o.d.</p>
+ <p class="pspace">edna's not a rich benefactor, she's a middleman.</p>
+
+ <p>a middleman for...</p>
+ <p>d.o.d. funding against a threat??</p>
+ <p>is that what this is?</p>
+ <p class="pspace">they're secretly funneling government money to xri to deal with a perceived threat from _aliens_?</p>
+
+ <p>people won't stand for that.</p>
+ <p class="pspace">not to mention what they've done has got to be illegal...</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_CODED_LOCc_v3
+sender: KRYPTEX
+subject: "decrypted"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>unbelievable.</p>
+ <p>how in the world did you figure that out?!</p>
+ <p>i mean they have used a gps unit's id code as a password before, but it was crazy luck that you stumbled on that unit way out in the desert!</p>
+ <p class="pspace">and these documents...</p>
+
+ <p>this is it.</p>
+ <p>this is proof that there's a direct financial tie between xri and the d.o.d.</p>
+ <p class="pspace">edna's not a rich benefactor, she's a middleman.</p>
+
+ <p>a middleman for...</p>
+ <p>d.o.d. funding against a threat??</p>
+ <p>is that what this is?</p>
+ <p class="pspace">they're secretly funneling government money to xri to deal with a perceived threat from _aliens_?</p>
+
+ <p>people won't stand for that.</p>
+ <p class="pspace">not to mention what they've done has got to be illegal...</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_RICHARD01a
+sender: KRYPTEX
+subject: "Re: decrypted"
+style: VIDEO
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>there's something else hidden in this file.</p>
+ <p class="pspace">a video...</p>
+ ${msg.embed_video('70580037')}
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_RICHARD01c
+sender: KRYPTEX
+subject: "..."
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>...hi.</p>
+
+ <p>i've been staring at my screen for an hour.</p>
+ <p>typing and deleting.</p>
+ <p class="pspace">i don't know what to say.</p>
+
+ <p>that was him.</p>
+ <p>oh my god.</p>
+ <p class="pspace">dad.</p>
+
+ <p>the tears just won't stop.</p>
+ <p class="pspace">i don't know what to do.</p>
+
+ <p class="pspace">i don't know what to do.</p>
+
+ <p>jesus.</p>
+ <p>they killed him.</p>
+ <p class="pspace">they KILLED HIM.</p>
+
+ <p>i just</p>
+ <p class="pspace">i don't</p>
+
+ <p class="pspace">dad...</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_SECURITY
+sender: TURING
+subject: "Security Install"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi, ${msg.user.first_name.capitalize()},</p>
+ <p>This is just a notice that the system is going to be shut down for a few hours today, to install a new security protocol.  Hopefully your access to the system won't be affected, but there may be some transient network outages on our end -- sorry for the inconvenience.</p>
+ <p>We think there's been a security breach somewhere.</p>
+ <p>Just between you and me, ${msg.user.first_name.capitalize()}, I think something's not right here.</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_ENKI02a
+sender: KRYPTEX_EMAIL
+subject: "blocked"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>damnit.</p>
+ <p>they've already blocked my access to the data.</p>
+ <p class="pspace">it looks like i'm going to get locked out again.</p>
+
+ <p>but we have to get that financial information to enki.</p>
+ <p>now.</p>
+ <p class="pspace">he can deal with it.</p>
+
+ <p class="pspace">dad died for this.</p>
+
+ <p>i can't access the data, so you'll have to send it to him.</p>
+ <p>you can find it in your messages with the subject ${msg.user.crosslink_message('\"more encrypted documents\"', 'MSG_ENCRYPTION02')}.</p>
+ <p>use the terminal attached to that message to forward the file to enki asap.</p>
+ <p class="pspace">he can get the confession we need from arling.</p>
+
+ <p>i'll try to find a way back into the system.</p>
+ <p class="pspace">keep an eye on your email.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_ENKI02b
+sender: ENKI_EMAIL
+subject: "[no subject]"
+style: LIVE_CALL
+needs_password: 1
+body_locked: |-
+ <%include file="enki_header.html"/>
+ <p>Are you with Kryptex81, then? You must be.</p>
+ <p>Do you know what these are? This is damning. This is proof.</p>
+ <p>Everything I've been saying.</p>
+ <p>The government knew. Complicit in fraud. Military action. UN transgressions.</p>
+ <p>This Arling character is the key.</p>
+ <p>I'll get a confession out of him.</p>
+ <p>The world will see this.</p>
+ <p>This is Watergate.</p>
+ <p class="pspace">Dude. Whatever happens next? All because of you.</p>
+
+ <p>Enki</p>
+ <p class="pspace">exoleaks.com</p>
+
+ <p><span class="message_call_form" data-url="${msg.url_unlock()}" data-key="${msg.keycode}" data-participants="enki"></span></p>
+ <%include file="enki_footer.html"/>
+body: |-
+ <%include file="enki_header.html"/>
+ <p>Are you with Kryptex81, then? You must be.</p>
+ <p>Do you know what these are? This is damning. This is proof.</p>
+ <p>Everything I've been saying.</p>
+ <p>The government knew. Complicit in fraud. Military action. UN transgressions.</p>
+ <p>This Arling character is the key.</p>
+ <p>I'll get a confession out of him.</p>
+ <p>The world will see this.</p>
+ <p>This is Watergate.</p>
+ <p class="pspace">Dude. Whatever happens next? All because of you.</p>
+
+ <p>Enki</p>
+ <p class="pspace">exoleaks.com</p>
+
+ <p>[Live Call. Audio will be recorded for future playback.]</p>
+ ${msg.embed_audio('72943904')}
+ <%include file="enki_footer.html"/>
+---
+id: MSG_ENKI02d
+sender: KRYPTEX_EMAIL
+subject: "exoleaks and turing's rover"
+style: PASSWORD
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p>${msg.user.first_name.lower()},</p>
+ <p>have you seen this? <a href="http://www.exoleaks.com/dhs" target="_blank">www.exoleaks.com/dhs</a></p>
+ <p>exoleaks is down.</p>
+ <p class="pspace">i haven't heard from enki, and i've been pinging him all day.</p>
+
+ <p>oh my god.</p>
+ <p>i think arling had him killed.</p>
+ <p>just like dad.</p>
+ <p class="pspace">he was too close.</p>
+
+ <p>there's gotta be something else going on here.</p>
+ <p>we just need proof.</p>
+ <p>real proof.</p>
+ <p class="pspace">to protect us, like dad said.</p>
+
+ <p>${msg.user.first_name.lower()}, they killed enki.</p>
+ <p class="pspace">because we got him involved.</p>
+
+ <p>because i called him.</p>
+ <p>it's our fault.</p>
+ <p class="pspace">oh god.</p>
+
+ <p>this can't stand.</p>
+ <p class="pspace">what are they hiding??</p>
+
+ <p>i need to get back into the system.</p>
+ <p>i've found a way in, through turing's account.</p>
+ <p>but i need another password.</p>
+ <p>the id code for turing's own rover.</p>
+ <p>you've got to figure out where it is somehow.</p>
+ <p>i found this on xri's site: ${msg.embed_blog_link('turing_geology', 'www.exoresearch.com/blog/turing_geology')}</p>
+ <p>that's the best i can do.</p>
+ <p>does that match up with anything on your map?</p>
+ <p class="pspace">we don't have much time.</p>
+
+ <p>if you find turing's rover, enter its name into the attached terminal to revalidate my account.</p>
+ <p><span class="ce4_authenticate_form" data-url="${msg.url_unlock()}"></span></p>
+ <%include file="kryptex_footer.html"/>
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>${msg.user.first_name.lower()},</p>
+ <p>have you seen this? <a href="http://www.exoleaks.com/dhs" target="_blank">www.exoleaks.com/dhs</a></p>
+ <p>exoleaks is down.</p>
+ <p class="pspace">i haven't heard from enki, and i've been pinging him all day.</p>
+
+ <p>oh my god.</p>
+ <p>i think arling had him killed.</p>
+ <p>just like dad.</p>
+ <p class="pspace">he was too close.</p>
+
+ <p>there's gotta be something else going on here.</p>
+ <p>we just need proof.</p>
+ <p>real proof.</p>
+ <p class="pspace">to protect us, like dad said.</p>
+
+ <p>${msg.user.first_name.lower()}, they killed enki.</p>
+ <p class="pspace">because we got him involved.</p>
+
+ <p>because i called him.</p>
+ <p>it's our fault.</p>
+ <p class="pspace">oh god.</p>
+
+ <p>this can't stand.</p>
+ <p class="pspace">what are they hiding??</p>
+
+ <p>i need to get back into the system.</p>
+ <p>i've found a way in, through turing's account.</p>
+ <p>but i need another password.</p>
+ <p>the id code for turing's own rover.</p>
+ <p>you've got to figure out where it is somehow.</p>
+ <p>i found this on xri's site: ${msg.embed_blog_link('turing_geology', 'www.exoresearch.com/blog/turing_geology')}</p>
+ <p>that's the best i can do.</p>
+ <p>does that match up with anything on your map?</p>
+ <p class="pspace">we don't have much time.</p>
+
+ <p class="pspace">if you find turing's rover, enter its name into the attached terminal to revalidate my account.</p>
+ <p class="pspace"><strong>[authentication successful]</strong></p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_BACKa_v1
+sender: KRYPTEX
+subject: "have to be careful"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i'm back in.</p>
+ <p>thanks.</p>
+ <p>being shut out of this...it was killing me.</p>
+ <p>there's too much at stake.</p>
+ <p class="pspace">ha--i bet that's the last time they use the id of something on epsilon prime as a password.</p>
+
+ <p>it occurred to me--you got that picture of the full message arling mentioned from the planet.</p>
+ <p>the threat, the weapons.</p>
+ <p class="pspace">if i can translate the whole thing myself--not just those symbols dad had--maybe there's more to it than arling is letting on.</p>
+
+ <p>but we have to be careful.</p>
+ <p>if anyone starts to realize there's something going on--they're in danger.</p>
+ <p>it happened to dad, and enki.</p>
+ <p class="pspace">i bet even cassandra maridian, the lead scientist before turing, was starting to put the pieces together.</p>
+
+ <p class="pspace">i can't let anyone else get killed over this.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_BACKa_v2
+sender: KRYPTEX
+subject: "have to be careful"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i'm back in.</p>
+ <p>thanks.</p>
+ <p>being shut out of this...it was killing me.</p>
+ <p>there's too much at stake.</p>
+ <p class="pspace">ha--i bet that's the last time they use the id for something on epsilon prime as a password.</p>
+
+ <p>it occurred to me--you got that picture of the full message arling mentioned from the planet.</p>
+ <p>the threat, the weapons.</p>
+ <p class="pspace">if i can translate the whole thing myself--not just those symbols dad had--maybe there's more to it than arling is letting on.</p>
+
+ <p class="pspace">maybe i can translate it now, with all those obelisks...</p>
+
+ <p>but we have to be careful.</p>
+ <p>if anyone starts to realize there's something going on--they're in danger.</p>
+ <p>it happened to dad, and enki.</p>
+ <p class="pspace">i bet even cassandra maridian, the lead scientist before turing, was starting to put the pieces together.</p>
+
+ <p class="pspace">i can't let anyone else get killed over this.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_BACKb
+sender: TURING
+subject: "Call me. I have an idea."
+style: LIVE_CALL
+needs_password: 1
+body_locked: |-
+ <%include file="turing_header.html"/>
+ <p><span class="message_call_button" data-url="${msg.url_unlock()}" data-key="${msg.keycode}" data-participants="Dr. Robert Turing, ext. 1138"></span></p>
+ <%include file="turing_footer.html"/>
+body: |-
+ <%include file="turing_header.html"/>
+ <p><strong>[Live Call. Audio and video will be recorded for future playback.]</strong></p>
+ ${msg.embed_video('70451846')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_BACKc
+sender: TURING
+subject: "I have to know"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+
+ <p>I honestly can't say I know what to think about this. That you've known, that you've been helping Alexis -- or "Kryptex81". I guess that would explain the pictures, then. And there I was thinking the ID codes of GPS units would be safe passwords because they'd be hidden on another planet! It would have worked as a defense against Alexis alone, but you managed to be just enough of an insider to sneak her back in. Our security team would be blown away by what you two have done... not that I'm about to share any of this with them.</p>
+
+ <p>But seeing these documents -- I mean, I guess I have no reason not to keep trusting you. You've helped me still, even as you've done this. And... I have to know what's going on. Especially if it could endanger the mission.</p>
+
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK05z
+sender: TURING
+subject: "Fifth Obelisk"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Well, I was right about the position of the obelisks, it seems. I wonder what it means?</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK05a
+sender: KRYPTEX
+subject: "translations"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hi ${msg.user.first_name.lower()} -- and turing.</p>
+
+ <p>i've been working on translating that message.</p>
+ <p>the photo you have of the signal.</p>
+ <p>dad taught me a lot.</p>
+ <p>but there were parts that i couldn't do, couldn't crack.</p>
+ <p class="pspace">not without some missing symbols as examples.</p>
+
+ <p>but i think you've found enough obelisks.</p>
+ <p>enough samples of the writing.</p>
+ <p>i think i can do it now.</p>
+ <p class="pspace">translate the original message.</p>
+
+ <p class="pspace">i think i'm close.</p>
+
+ <p class="pspace">give me a few hours.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK05b
+sender: KRYPTEX
+subject: "Re: translations"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>well, that's just...</p>
+ <p class="pspace">unbelieveable.</p>
+
+ <p>i can translate the whole thing, approximately --</p>
+ <p>it's everything turing said.</p>
+ <p class="pspace">that the caretakers have been on this planet, that they were warning all others to stay away.</p>
+
+ <p>...and that's it.</p>
+ <p class="pspace">the whole thing.</p>
+
+ <p>there's no...threat.</p>
+ <p>there are no weapons.</p>
+ <p class="pspace">there's no impending doom.</p>
+
+ <p>arling was lying.</p>
+ <p>but then -- why _would_ the d.o.d. give him funding?</p>
+ <p class="pspace">how could he make this legal?</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK05c
+sender: TURING
+subject: "Re: translations"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Kryptex,</p>
+ <p>I'm impressed you've been able to translate it. Only Cavendish was ever able to do that, with the help of some linguists.</p>
+ <p>But what if Arling lied to the DoD, too? <em>They</em> wouldn't know what the alien message said.</p>
+ <p>Which would explain how Cavendish was involved. He had to have been in on it -- they'd have to trust his translation, and if he corroborated Arling's story...</p>
+ <p>He'd get the funding he needed to explore the galaxy. It was a win for XRI. But why Arling? What did he have to gain?</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK05d
+sender: KRYPTEX
+subject: "Re: translations"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <forward>
+ <p>But why Arling? What did he have to gain?</p>
+ </forward>
+
+ <p>money.</p>
+ <p>power.</p>
+ <p>influence.</p>
+ <p class="pspace">control over a section of the pentagon for alien weapons research, i'm sure.</p>
+
+ <p>but now we have the proof.</p>
+ <p>_we_ can translate the message.</p>
+ <p>we can show them that arling lied.</p>
+ <p>fraud against the government.</p>
+ <p>treason.</p>
+ <p>_murder_.</p>
+ <p>bring him down.</p>
+ <p class="pspace">bring his whole operation down.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK05e
+sender: TURING
+subject: "Re: translations"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>But...</p>
+ <p>Edna's just a middleman between XRI and the DoD, right? If Arling gets shut down -- XRI would stop getting funding from her. Extrasolar will be terminated.</p>
+ <p>It may be for the wrong reasons, but what XRI is doing is still extremely valuable. The things we're discovering -- life in the universe! Can we just give that up?</p>
+ <p>I mean --  I'm not in favor of government fraud and theft, but -- all the money's coming from military programs and being diverted to, well, <em>science</em>. Research. And frankly, ultimately, the survival of the species via space exploration.</p>
+ <p>It's the kind of spending the government would <em>never</em> actually do. Not when there are wars to be fought. But it's what we need.</p>
+ <p>Is <em>that</em> such a bad thing?</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK05f
+sender: KRYPTEX
+subject: "Re: translations"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>so the ends justify the means?</p>
+ <p class="pspace">murder and fraud are okay if it results in science?</p>
+
+ <p class="pspace">anyway, arling said he's lost control of edna--that she's still moving money from the d.o.d. into xri.</p>
+
+ <p class="pspace">and don't forget, _we're_ still in a lot of danger, here.</p>
+
+ <p>my FATHER was killed over this, turing.</p>
+ <p class="pspace">noam jemison was my father.</p>
+
+ <p class="pspace">arling has to pay.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK06z
+sender: TURING
+subject: "Sixth Obelisk"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>That's all of them, it looks like. I wonder what the significance of the pattern is? It certainly suggests an intelligent agent, but other than these structures, there's no evidence of them. What happened to the Caretakers? Why did they do this?</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK06a
+sender: TURING
+subject: "Re: translations"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Kryptex -- Noam was your father? Then I'm sorry. He was a good guy.</p>
+ <p>Edna may be giving us that money now, even without Arling's support, but if he gets completely shut down and exposed, that cashflow <em>will</em> stop. They'll look into it -- they'll have to.</p>
+ <p>But... What if we can get the best of both worlds? -- so to speak.</p>
+ <p>If Arling knows we have the power to bring him down, to ruin him completely -- and we can make sure that if anything happens to us, the world will know -- then we're protected. And since Arling's lost control of Edna anyway -- if the lie isn't <em>exposed</em>, she can keep getting the money and sending it to us -- XRI's getting all the funding it needs, and Arling has nothing. If we make him that much more powerless--</p>
+ <p>Well, from what little I know of Arling, that'll be as good as any punishment the military can give. He won't dare use his DoD influence lest we bring him down completely. And XRI gets to stay operational.</p>
+ <p>Edna -- whoever she is -- will keep giving us the money we need, no one any the wiser.</p>
+ <p>We blackmail him, Kryptex. Make the call, tell him we've got him, that if he does anything we don't like -- he's done.</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_OBELISK06b
+sender: KRYPTEX
+subject: "blackmail"
+style: LIVE_CALL
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p>i'd rather destroy him.</p>
+ <p class="pspace">but...</p>
+
+ <p class="pspace">forcing the military to fund your science research is appealing.</p>
+
+ <p>besides, if we show our whole hand--even if arling is removed, we may not be safe.</p>
+ <p>and dad did say i should use the evidence to protect myself...</p>
+ <p class="pspace">not to...make his mistake.</p>
+
+ <p class="pspace">all right.</p>
+
+ <p>${msg.user.first_name.lower()}, i want you and turing to listen in live.</p>
+ <p>you're my witnesses.</p>
+ <p class="pspace">my guarantee that arling won't dare come after me.</p>
+
+ <p><span class="message_call_form" data-url="${msg.url_unlock()}" data-key="${msg.keycode}" data-participants="kryptex,turing"></span></p>
+ <%include file="kryptex_footer.html"/>
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>i'd rather destroy him.</p>
+ <p class="pspace">but...</p>
+
+ <p class="pspace">forcing the military to fund your science research is appealing.</p>
+
+ <p>besides, if we show our whole hand--even if arling is removed, we may not be safe.</p>
+ <p>and dad did say i should use the evidence to protect myself...</p>
+ <p class="pspace">not to...make his mistake.</p>
+
+ <p class="pspace">all right.</p>
+
+ <p>${msg.user.first_name.lower()}, i want you and turing to listen in live.</p>
+ <p>you're my witnesses.</p>
+ <p class="pspace">my guarantee that arling won't dare come after me.</p>
+
+ <p>[live call. audio will be recorded for future playback.]</p>
+ ${msg.embed_video('72943905')}
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_OBELISK06d
+sender: KRYPTEX
+subject: "Re: blackmail"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">${msg.user.first_name.lower()}.</p>
+
+ <p>that was...bracing.</p>
+ <p class="pspace">but it's over.</p>
+
+ <p class="pspace">now i guess we just see what happens.</p>
+
+ <p class="pspace">...thank you.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_MISSION04a
+sender: TURING
+subject: "The Caretaker Sounds"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>I don't know what Arling will do now. Maybe XRI is safe, but -- maybe we don't have much time left.</p>
+ <p>I need your help to test my theory that the monument in the center of the island is some kind of puzzle or activation console.  I've taken the audio clips that you collected from the six obelisks, edited them together into a playback sequence in the order indicated on the central monument, and uploaded the file to your rover.  All you need to do is take a photo close to the central monument and your rover will automatically play the audio sequence.  There's ${msg.user.crosslink_mission('a mission', 'MIS_MONUMENT_PLAYBACK')} in your task list with all the details.</p>
+ <p>This might be our last chance to learn about the Caretakers. The last chance to touch intelligent life in the galaxy.</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_LASTTHINGa
+sender: KRYPTEX
+subject: "last document"
+style: LOCKED_DOCS
+needs_password: 1
+body_locked: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hey.</p>
+
+ <p>i'm collecting all the documents we might need if arling strikes back.</p>
+ <p class="pspace">making backups.</p>
+
+ <p>i found one i hadn't seen before.</p>
+ <p class="pspace">it had the same signatures as those ones with the message from dad.</p>
+
+ <p>there's a password-protected file embedded in the document.</p>
+ <p>the encryption in the document's file data says the password is _painted_ onto the side of one of the rovers.</p>
+ <p class="pspace">an engineer's little vandalism from years ago, before the launch.</p>
+
+ <p class="pspace">i guess dad took turing's idea of rover passwords to the next level.</p>
+
+ <p>once you've finished that thing for turing--i need you to go back to this rover.</p>
+ <p>it's to the north.</p>
+ <p class="pspace">find the rover.</p>
+
+ <p>this could be another message from dad.</p>
+ <p class="pspace">this could be the last i ever hear from him.</p>
+
+ <p class="pspace">i need to see this.</p>
+
+ <p class="pspace">please.</p>
+ <%include file="kryptex_footer.html"/>
+ <p><strong>[ATTACHED FILE: PASSWORD REQUIRED]</strong></p>
+ <p><span class="message_pass_form" data-url="${msg.url_unlock()}"></span></p>
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">hey.</p>
+
+ <p>i'm collecting all the documents we might need if arling strikes back.</p>
+ <p class="pspace">making backups.</p>
+
+ <p>i found one i hadn't seen before.</p>
+ <p class="pspace">it had the same signatures as those ones with the message from dad.</p>
+
+ <p>there's a password-protected file embedded in the document.</p>
+ <p>the encryption in the document's file data says the password is _painted_ onto the side of one of the rovers.</p>
+ <p class="pspace">an engineer's little vandalism from years ago, before the launch.</p>
+
+ <p class="pspace">i guess dad took turing's idea of rover passwords to the next level.</p>
+
+ <p>once you've finished that thing for turing--i need you to go back to this rover.</p>
+ <p>it's to the north.</p>
+ <p class="pspace">find the rover.</p>
+
+ <p>this could be another message from dad.</p>
+ <p class="pspace">this could be the last i ever hear from him.</p>
+
+ <p class="pspace">i need to see this.</p>
+
+ <p class="pspace">please.</p>
+ <%include file="kryptex_footer.html"/>
+ ${msg.embed_video('70580035')}
+---
+id: MSG_MISSION04b
+sender: TURING
+subject: "Re: The Caretaker Sounds"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hmm, something's happened. We've lost your signal. We're trying to reestablish...</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_MISSION04c
+sender: TURING
+subject: "Re: The Caretaker Sounds"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>And we're back. Your rover is picking up some new radio signals from the monument -- our satellite's picking it up too, which means it's being broadcast into space. Some kind of new message, maybe!</p>
+ <p>We'll work on deciphering it immediately, based on Alexis's work, but it may take some time.</p>
+ <p>But it seems to have caused some other kind of disturbance on the planet. It messed with our communications there for a moment, and we've totally lost contact with one of our rovers, on the far north side of the island.</p>
+ <p>Maybe you could go see if anything happened to it?</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_LASTTHINGb
+sender: KRYPTEX
+subject: "Re: the caretaker sounds"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>what?</p>
+ <p class="pspace">that's the one i need.</p>
+
+ <p>${msg.user.first_name.lower()}, please--go find it.</p>
+ <p class="pspace">find out what happened.</p>
+
+ <p>it can't--</p>
+ <p class="pspace">just hurry.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_LASTTHINGc
+sender: KRYPTEX
+subject: "hurry"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>please, please hurry.</p>
+ <p>i need to know what's painted on that rover.</p>
+ <p>i need this message.</p>
+ <p>what if it's for me?</p>
+ <p>what if it's dad again?</p>
+ <p>what if--</p>
+ <p class="pspace">i need to open it.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_LASTTHINGd
+sender: TURING
+subject: "Something Wrong"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Something's wrong.  Immediately after your rover arrived at the north shore, it started exhibiting the same connectivity issues as the other rover that went missing.  From your map, it looks like it's tumbled off the cliff and gone for a swim -- an activity for which this model is poorly suited.</p>
+ <p>We're getting seismic data back from the landing capsules -- it looks like there was an earthquake when you activated that central monument. We're trying to figure out what happened.</p>
+ <p>In our last communication with your rover, it indicated its location several hundred meters offshore. If your rover loses contact with all other units, it's designed to initiate a high-power beacon to try to reestablish a connection.  It will attempt to send a photo every hour.  It's scheduled its first attempt, which means that we are still getting at least intermittent connectivity.</p>
+ <p>I'm directing another rover to the location, but I can't risk getting too close...</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_LASTTHINGe
+sender: KRYPTEX
+subject: "no"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p class="pspace">no!</p>
+
+ <p class="pspace">what happened?</p>
+
+ <p class="pspace">WHAT HAPPENED??</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_LASTTHINGf
+sender: TURING
+subject: "Re: Something Wrong"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>${msg.user.first_name.capitalize()},</p>
+ <p>As I'm sure you've noticed, we managed to get an automated distress photo, but we have since lost connectivity.</p>
+ <p>I hope you took time to listen to the audio clip that your rover recorded when it initiated distress mode.  It seems to have captured the sound of a rock slide as it tumbled into the ocean, but then... what are these sounds?  Almost like marine mammals back on Earth.</p>
+ <p>The rover will continue to attempt reconnection in a high-power distress mode for 24 hours.  By then, its battery will be severely depleted and the chance of a successful recovery is basically zero. The system has already started the countdown timer, but I don't want you to get your hopes up.</p>
+ <p> - Dr Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_LASTTHINGg
+sender: TURING
+subject: "Re: Something Wrong"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>We reestablished connection briefly! Your rover's been <em>moved</em> -- fresh satellite imagery suggests that the earthquake caused that whole cliff face to fall into the ocean, the rovers along with it. They were lost to the water before -- well, have a look at your latest photo.</p>
+ <p>If the Caretakers are gone, ${msg.user.first_name.capitalize()}, there's something <em>else</em> on Epsilon Prime for sure. And it may have saved your rover... We'll try to get a better signal to it.</p>
+ <p> - Dr Robert Turing</p>
+ <!-- Rover ID: ${msg.user.messages.by_type('MSG_LASTTHINGa').keycode} -->
+ <%include file="turing_footer.html"/>
+---
+id: MSG_LASTTHINGh
+sender: KRYPTEX
+subject: "that's it"
+body: |-
+ <%include file="kryptex_header.html"/>
+ <p>that's it.</p>
+ <p>that's the rover.</p>
+ <p>i can see the graffiti.</p>
+ <p class="pspace">that's the password.</p>
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_RICHARD02b
+sender: KRYPTEX
+subject: "[no subject]"
+style: VIDEO
+body: |-
+ <%include file="kryptex_header.html"/>
+ ${msg.embed_video('70580036')}
+ <%include file="kryptex_footer.html"/>
+---
+id: MSG_END
+sender: TURING
+subject: "Thank You"
+style: VIDEO
+body: |-
+ <%include file="turing_header.html"/>
+ ${msg.embed_video('70432968')}
+ <%include file="turing_footer.html"/>
+---
+id: MSG_S1_CREDITS
+sender: TURING
+subject: "What now?"
+body: |-
+ <%include file="turing_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>I shouldn't have any trouble convincing Cavendish to try to send down a landing capsule or GPS unit to the new island where your rover was stranded. That will allow us to reestablish a reliable connection and hopefully get some useful information about what happened.  After all, exploring more of this planet is why we sent so many rovers in the first place, and this new island seems as compelling as any.</p>
+ <p>But that's going to take time -- maybe months.  I'm sure that Jane will appreciate it if you continue to catalog species on Artocos Island, but I'll be out of contact for a bit while I line up the resources we need to answer some of the bigger mysteries of Epsilon Prime. As long as you have alerts enabled in your profile settings, you'll get notified by email when I have news.</p>
+ <p>You've been such an asset to this team that I definitely want to share the next piece of this adventure with you. It seems only fair to give <a class="credit-link" href="http://www.exoresearch.com/credits" target="_blank">credit where credit is due</a> -- and despite some questionable actions, it seems that you, me and Alexis are all on the same side.</p>
+ <p>Thanks for your patience.  As you know, science takes time... and manpower. I should point out that I just added a few more invitations to your profile. You, of all people, should know by now exactly what we're looking for in a rover driver.</p>
+ <p>Dream to worlds beyond!</p>
+ <p> - Dr. Robert Turing</p>
+ <%include file="turing_footer.html"/>
+---
+id: MSG_JANE_AQUATIC_ANIMAL
+sender: JANE
+subject: "What's going on?"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>I'm not even sure where to start on this one. I mean, we deliberately sent a lot of rovers in case problems like this happened, but it's still a huge cost when someone drives one into the ocean. To be clear, our team wrote the tethering algorithms, so I'm not necessarily saying this is your fault, but it appears that someone screwed up.</p>
+ <p>That being said, science must go on and we're lucky that we designed our rovers with inhospitable conditions in mind.  Not only did we get one last shot, but it included the full-spectrum data and the results are pretty interesting.</p>
+ <p>We haven't calibrated our sensors for underwater photography, but based on the data that we have, it seems likely that you managed to tag at least one motobiont.  Beyond that, I'm hesitant to speculate. We have a hard enough time exploring the oceans of our own planet.  Trying to catalog the species in the ocean on another planet is a truly terrifying prospect.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_JANE_S1_ISLAND2
+sender: JANE
+subject: "Unbelievable"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>This photo is unbelievable!  I'm not sure where this was taken and I can't seen to get a straight answer from Turing or Cavendish.  I can't figure out if they're being evasive or if they're just as mystified as I am.</p>
+ <p>It looks like a completely different ecosystem.  You have like six species in a single photo! It's so lush!  Look how dense they are!  Everything we've seen so far has had a "desert island" vibe, but I thought maybe that's just how things are in low oxygen environments or with an entirely different evolutionary history or a thousand other reasons -- but no!  Things can be all crammed together!  Most of the photobionts have characteristics we're familiar with -- cnideria, bulbos, an elongated version of the polystem -- but some things are new and strange and different!  I'm not even sure where one organism begins and another ends!</p>
+ <p>I'm reluctant to give too much analysis, much less try to name any of these species, as this is the only image I have to work from so far.  Identifying half a dozen species from a single photograph seems like hubris -- but rest assured, if we can get more data about these species, you'll get naming credit.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_AUDIO_TEASE
+sender: ANONYMOUS
+subject: "Call"
+style: AUDIO
+body: |-
+ <p>[ATTACHED AUDIO FILE]</p>
+ ${msg.embed_audio('72943903')}
+
+---
+id: MSG_JANE_INTRO
+sender: JANE
+subject: "Hello rover drivers"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello,</p>
+ <p>I'm Jane Eastwood, lead exobiologist for the Extrasolar project. It is a great opportunity to be the first to catalogue and study life on another planet.  </p>
+ <p>As we posted on the XRI website, early readings and images confirmed our suspicions that Epsilon Prime supports life. Seeing the first pictures we got back from rovers was an incredible experience. Now we'll learn what we can about these organisms: Do they follow the same principles as life on Earth? How do they survive? How have they evolved--and do the same tenets of evolution hold?</p>
+ <p>Our science team controls a specialized science rover with tools for many biological tests. Part of your job while you explore for Dr. Turing is to scout for us--based on the organisms you tag, we'll know where to find new specimens and good test subjects.</p>
+ <p>To begin, simply identify some unique species in the area around the lander. This will give us a good introduction to the species of the island. Tag as many organisms as you can--the more samples we have, the more accurate our work will be.</p>
+ <p>Thanks, and I look forward to seeing what we discover.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISa
+sender: JANE
+subject: "Good work"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Thank you for the amount of organism data you've sent in so far. The biology team has already started speculating on how life has evolved on Epsilon Prime.</p>
+ <p>We've been referring to these organisms as "photobionts" for lack of better information, but we don't actually know if they're photosynthetic. (I mean, that is their name. We wrote it down. If they aren't photosynthetic, they will still have the same name, but for the rest of time, there will be a note *Named when VanSust thought they were photosynthetic.) None of them are green, which is the colour of chlorophyll <em>a</em>--the only major photosynthesizing pigment we have on Earth. But as you know, there are many Earth plants where other coloured pigments mask the green colour.</p>
+ <p>We've been collecting tissue from some of the photobionts you've tagged, and will be using a spectrometer on them. This will tell us the chemical makeup of the organisms by heating the samples to incandescence using a heating element on our rover, and then measuring the spectra (or the varying wavelengths) that the sample produces when it incandesces. Given that the oxygen levels on Epsilon Prime are so low, the samples should incandesce nicely without combusting. </p>
+ <p>We will then put samples in the fluorometer--photosynthetic organisms convert photons to chemical energy, but a small percentage of photons escape transformed into longer wavelengths. We'll look for wavelengths of light that are adsorbed by the tissue and emit slightly redder wavelengths.</p>
+ <p>Meanwhile--this is fascinating stuff--you'll be establishing type specimens--via photos, no less--which will form the basis for all future definitions of this species. See my ${msg.embed_blog_link('exobiology', 'blog post')} for more details.</p>
+ <p>Please continue to tag as many examples of each species as possible. It helps us measure, define, and categorize. I've gone ahead and updated your task list with another task tracking the number of unique species you've identified.</p>
+ <p>Thanks for your continued support,</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISb
+sender: JANE
+subject: "Oops"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>After what appeared to be technical issues with the science rover, it now appears that I caused a fire. So...whoops. Applying heat to the tissue sample shouldn't have allowed for combustion, and yet it seems that the tissue sample basically exploded in a small fireball--a surprise because the atmosphere isn't sufficiently oxygen rich to support combustion of most compounds. The only thing that could combust in such a oxygen poor atmosphere is hydrogen (or oxygen and something flammable)--so oddly enough, we now have compelling evidence that these organisms are accumulating and storing volatile gas. This is cold comfort, given the damage to our sampling equipment.</p>
+ <p>Unfortunately, my mistake resulted in some damage to the science rover. Our spectrometer and fluorometer don't appear to be functioning properly; we're still assessing additional damage.</p>
+ <p>So this is going to be fun, now.</p>
+ <p>What this means, of course, is that we're going to have to get creative in our methods for performing the tests we need to perform. For instance, we'll have to use some older techniques that biologists used before modern technology. Luckily for you, many of these techniques are based on purely visual measurements--so you and your photographs can be of great help! If you're interested, I've written a bit about methodology for the ${msg.embed_blog_link('bio_methods', 'XRI website')}.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISc
+sender: JANE
+subject: "Testing for Photosynthesis"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Since using the spectrometer caused a fire that damaged our fluorometer, we're going to have to get a little creative to determine if these photobionts are actually photosynthetic.</p>
+ <p>My method is actually quite simple: deny sunlight to a selection of organisms and see if they die. We've scavenged some parachute material from the landing capsule to cover the organisms.</p>
+ <p>However, a member of my team pointed out that killing these organisms is an ethical grey area, especially if there are only a few specimens of a species in existence on the island. Therefore, I have a new task for you, since you've now been assigned our first SRK rover and can explore beyond the dunes that previously prevented us from leaving our initial landing zone: find more examples of the species that we're calling spindlepus, serpentweed, and aircomber, to make sure they're prominent elsewhere on the island, before we kill all the ones by the lander.</p>
+ <p>Thanks!</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISd
+sender: JANE
+subject: "Photosynthesis: Serpentweed"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Now that you've determined that the serpentweed is common outside of the peninsula where the lander is, we will begin experiments on it. We'll use the scavenged parachute material to cover the photobiont. This will hopefully reduce almost all incident light.</p>
+ <p>This approach does have significant flaws; the parachute material may hamper air circulation and gas exchange. Ideally we'd find a way to ensure air circulation, but since we're coming up with new experiments for something on a different planet, we have to accept some flaws.</p>
+ <p>I'll let you know when we have results.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISe
+sender: JANE
+subject: "Re: Photosynthesis: Serpentweed"
+style: ATTACHMENT
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>As you can see in the image below, after three days of being denied sunlight, the serpentweed appears etiolated--or pale and elongated--because it cannibalized pigments to fuel growth towards potential light sources. Like celery. Or bean sprouts. Or endive. I think we can call the experiment a success--this is good evidence that in fact the serpentweed relies on light for energy, and thus performs some kind of photosynthesis!</p>
+ ${msg.embed_image('etiolated_serpentgrass.jpg', 800, 564)}
+ <p>Thanks for your help.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISf
+sender: JANE
+subject: "Photosynthesis: Spindlepus"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Now that you've determined that the spindlepus is common outside of the peninsula where the lander is, we will begin experiments on it. We'll use the scavenged parachute material to cover the photobiont. This will hopefully reduce almost all incident light.</p>
+ <p>This approach does have significant flaws; the parachute material may hamper air circulation and gas exchange. Ideally we'd find a way to ensure air circulation, but since we're coming up with new experiments for something on a different planet, we have to accept some flaws.</p>
+ <p>I'll let you know when we have results.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISg
+sender: JANE
+subject: "Re: Photosynthesis: Spindlepus"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>We've denied sunlight to a spindlepus for seven days now, and we've yet to see any major change in its physiology. It seems to be surviving without problems. It may just be very effective at living on its accumulated energy stores, or it may not be photosynthetic--it may instead be getting energy from the atmosphere, its root system, or other sources.</p>
+ <p>All this information gives us a better picture of life on Artocos. Thanks again.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_PHOTOSYNTHESISh
+sender: JANE
+subject: "Photosynthesis: Aircomber"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Given that you haven't been able to find any further instances of the aircomber species, we have to assume the possibility that it may be endemic only to the region near the lander. We will not be conducting any experiments on this species.</p>
+ <p>Thanks for your help.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_GASSES
+sender: JANE
+subject: "Organs and Gases"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>I've been talking a lot about convergent evolution; how the photobionts on Artocos superficially resemble desert plants on Earth because both habitats have limited water, and thus organisms are compact to minimize the area that's available for water loss. (Also they have thick skins to prevent evaporation, lots of tiny hairs to reflect excess sunlight, and spines, because making new tissue is water- and resource-intensive.)</p>
+ <p>What I've been glossing over is the giant feathery organs (cnideria), sacs of volatile gas (bulbos), and apparently nonsensical multiple stems (polystems). These things don't prevent water loss--in fact, they probably increase it. Why do photobionts have such expensive structures? (Expensive in terms of energy produced and nutrients gathered.)</p>
+ <p>I now have a probable explanation! Remember way back before we landed--when I mentioned the unusually high hydrocarbon levels in the atmosphere? It seems like heavier gaseous hydrocarbons--like propane--saturate the soil and some low-lying areas. These heavy hydrocarbons displace other gases--which are probably necessary for photosynthesis and respiration. (I'd know for sure if I hadn't sent that equipment up in a fireball--a fireball made worse by the flammable gas near the equipment.)</p>
+ <p>This explains the specialized organs we're seeing! The cnideria probably filter essential gases out of the atmosphere and funnel them to photosynthetic tissue. The bulbos store gases--and since our little fire is the result of oxygen and hydrogen on a bulbo, those are probably the gases stored. We have evidence that the photobionts require oxygen--much like organisms on Earth--and have complex means to gather and store it. Even more interesting--if these photobionts can gather gases with specialized organs, they must have a means of circulating it to photosynthetic tissue throughout the organism. This explains the polystems--root-like structures are used to get minerals out of the soil, but many stems make it easier to supply them with the gases they need to survive. It also means we should look for something like a circulatory system.</p>
+ <p>Plants have only two organ types--photosynthetic and reproductive--but photobionts evidently have several specialized organs for processing Epsilon Prime's unique atmosphere. (Of course, we haven't found reproductive organs yet, so maybe plants are one up there.)</p>
+ <p>That does leave the mystery of where all these hydrocarbons came from.</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_FIND_10
+sender: JANE
+subject: "Expanding the Catalogue"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>The work you've put in so far on tagging species has really helped to expand the catalogue of life on Artocos. Every photo means a different angle, a different detail noticed that goes towards a better understanding of life on this planet and life in the universe at large.</p>
+ <p>Thanks once again.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_FIND_15
+sender: JANE
+subject: "Fifteen Species"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>The breadth of your catalogue is becoming a huge help to us on the science team. You've catalogued more than any other rover driver--so thank you, and congratulations!</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_CELLULARa
+sender: JANE
+subject: "Cellular Life"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Scientists have long assumed all life is cellular. All of the life we've found on earth is made of cells, (unless you buy that viri are alive) and we can't think of any other efficient way for life to evolve (there has to be something that's simple enough to arise randomly, and it has to be able to concentrate nutrients so it needs a membrane to separate the inside from the outside, and lipids form bilayers so easily) so we expect that life of Epsilon Prime is also cellular. But science is only science if it's tested--which means we need tissue samples from these photobionts.</p>
+ <p>That species you just tagged, the gordy tree, should be perfect--it's big, and the rover needs a large piece of photobiont to produce multiple slides--cutting paper-thin slips of tissue with a robot is not easy. The gordy tree also has branches I can lop off--I can look at stem tissue without destroying the entire organism. Please find additional instances of the gordy tree for our tests.</p>
+ <p>We've named these organisms "photobionts." They share many qualities with Earth's plants, but not an evolutionary lineage--that is, they aren't descended from ancient terrestrial algal scum found only on Earth. These organisms might be sessile, possibly photosynthetic primary producers, but they are not "plants." But sessile photosynthetic organism is a mouthful, so we're sticking with photobiont.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_CELLULARb
+sender: JANE
+subject: "Re: Cellular Life"
+style: ATTACHMENT
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>After taking tissue samples from the gordy trees you found for us, we made very thin slices of it and placed them under our science rover's microscope. Take a look!</p>
+ ${msg.embed_image('cell_slide.jpg', 800, 450)}
+ <p>The gordytrees are cellular; our null hypothesis is confirmed. It seems that the cells are arranged into filaments, and those filaments form a tissue lattice--I suppose the flesh of the gordy tree might have a texture similar to that of a very firm mushroom. Note that the purple pigment (which is probably a photosynthetic compound, but I guess we'll have to hope for a subsequent expedition to figure that out since I destroyed our equipment) is diffused throughout the cell--which makes it different from Earth's plants, where photosynthetic pigments appear as little dots because they're confined to plastids. This makes sense; the event that created plastids was so strange and so rare that we wouldn't expect to find it on other planets. Of course, this means that the parts and organelles aren't color-coded for identification like they are on Earth--it will take time to unlock the secrets of these alien cells.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_CELLULARc
+sender: JANE
+subject: "Growth and Death"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Apart from being cellular, the other fundamental tenets of life are growth, death, and reproduction. Testing this seems almost too basic--but it's a new planet, so we can't assume anything.</p>
+ <p>For consistency, we'll continue to look at the gordy tree since we're already exploring its cellular nature. Please find examples of two very different sizes of gordy tree, which might suggest a juvenile and an adult--they may even have different traits. Finding an example of a dead or dying organism might also show evidence of a lifecycle.  Look for organisms with different coloration that might indicate decaying pigments. Some parts may wither and fall off as the organism is no longer working to keep itself together. Also, chemical defenses against predation may no longer be effective--look for organisms that grazers are focusing on. I'll be looking for evidence of reproductive tissue in our microscope samples--and hope that methods of reproduction become apparent as we spend more time on the island.</p> 
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_CELLULARd
+sender: JANE
+subject: "Next Steps"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Thanks for your help so far, ${msg.user.first_name.capitalize()}.</p>
+ <p>Now that we have determined that these species seem to follow the same <em>basic</em> rules of life as on earth--they are cellular organisms, which gather and consume energy, grow over time, and eventually die--we now want to explore other assumptions we have about life. Namely, we want to investigate the ecology of the planet. We also want to look for interesting organisms and determine their specific workings and functions.</p>
+ <p>Some of these things won't be easy to determine given our constraints--our science rover can only do so much, especially since a few of the instruments are damaged. We're unable to do a lot of the things we'd do on Earth, like DNA sequencing (and there's no evidence to suggest that genes are transmitted by DNA here), isotope analysis, and getting promising young minds to devote their youth to figuring something out.</p>
+ <p>But really, that makes this exciting! We're on the frontiers, and we'll make do with what we have and some creative solutions.</p>
+ <p>This also means, though, that a lot of the hypotheses or conjectures we make won't be able to be proven one way or the other. Science is rarely cut and dried, and there will be a lot of unproven hypotheses on Epsilon Prime.</p>
+ <p>So, keep your eye out for interesting specimens! And keep tagging what this planet has to offer.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_VARIATIONa
+sender: JANE
+subject: "Variations on a Theme"
+style: ATTACHMENT
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>I've been following along with the exciting developments you and Dr. Turing have encountered, given your rover's audio equipment. Animal life--or, no, mobile organisms. I forget myself--they don't share an evolutionary history with animals. They're mobile, and they probably aren't photosynthetic. Let's call them motobionts.</p>
+ <p>Could you please wrap one with parachute material so we can find out if it's photosynthetic?</p>
+ <p>Ah, levity.</p>
+ <p>Now that we've seen this bristletongue creature up close we think we may have seen the same creature in earlier photos but they were too far away for us to identify:</p>
+ ${msg.embed_image('zoomed_bristletongues_1.jpg', 800, 474)}
+ <p>See that shape up the cliffs? It looks similar to the bristletongue you just discovered--but the shape seems slightly different. It could be a variant of the same species, or a new species altogether.</p>
+ <p>When you get a moment, I'd like you to get a better picture of it. I've added a marker on your map where they were spotted in the older photo.</p>
+ <p>Thanks!</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_VARIATIONb
+sender: JANE
+subject: "Re: Variations on a Theme"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>As you can see, the creature you just tagged has a much longer neck and legs than the first bristletongue you discovered. They're clearly similar organisms, but we don't yet have enough data to determine whether they're not members of the same species.</p>
+ <p>There are two likely reasons for this variation; first, the species itself might have several growth forms, based on age, sex, or heritage. Variation is an essential component of natural selection--things need to have multiple versions of a trait for one trait to have a higher survival potential than the others. Second, they could be separate but related species--species that share a recent common ancestor but diverged at some point in the past. This type of speciation--known as adaptive radiation--leads to descendants of a single species occupying several ecological niches and is common on island chains.</p>
+ <p>This is pretty good evidence for some things we know about evolution on Earth. Artocos is an island, and fairly removed from other land masses, and so its biota would have evolved somewhat independently. Like Darwin discovered in the Galapagos with finches, one species can branch into several to occupy different ecological niches: in this case, feeding on something in the ground, or feeding on something in the trees.</p>
+ <p>If you're interested, I've written a post about this very phenomenon on the ${msg.embed_blog_link('variation', 'XRI blog')}.</p>
+ <p>Keep up the good work!</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_VARIATIONc
+sender: JANE
+subject: "Common Features"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>I've noticed that the photobiont you just tagged shares some similar traits with others you've found. The apprentice tree, phoenix tail, and bristlebush likely all share a recent common ancestor.</p>
+ <p>All three species share prominent orange cnideria (the feather-like structures). Given what we know of the composition of Epsilon Prime's atmosphere, and the readings we've taken from the surface, we also know that there are heavier carbon-based gases like methane and ethanol, which (without heavy winds) settle low to the ground and in the soil. These gases are typically toxic; it may well be that the orange cnideria that we see on these photobionts--and others!--are used to filter from the air the oxygen the photobionts need.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_FLOWERSa
+sender: JANE
+subject: "Flower Structure"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>That photobiont you just found has an interesting structure on its top. It almost looks like a flower, which would be our first definitive reproductive organ on Artocos.</p>
+ <p>Does it perform the same function as flowers on Earth? Is it used for procreation? Or is it used for something else entirely, given these organisms' unique anatomy?</p>
+ <p>I've seen a photograph from Dr. Turing's rover of the same species that seems to suggest that the structure opens and closes. See if you can find examples of both opened and closed structures. It may be based on temperature or light changes--try looking at different times of day.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_FLOWERSb
+sender: JANE
+subject: "Re: Flower Structure"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>We've found that the "flower"-like structures of the starspore open and close without any discernable pattern.</p>
+ <p>Many of the species we've seen have organs to deal with the unique gas situation of Epsilon Prime, with the thick atmosphere and toxic carbon gases around the surface. Given that the starspore does not have either feather-like cnideria or bulbos, which we're theorizing other photobionts use for collecting and regulating gases, perhaps the "flowers" are actually valves for the capture and release of certain chemicals.</p>
+ <p>It's impossible to know for sure without further experimentation.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_BIOLUMINESCENCEa
+sender: JANE
+subject: "Bioluminescence"
+style: ATTACHMENT
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>As you can clearly see in the photograph you just took, the species you just tagged seems to bioluminesce at night. On Earth, bioluminescence is usually caused by the chemical reaction of luciferin and the enzyme luciferase with oxygen, but here the organism doing the bioluminescing may be bacteria or algae on or within the larger organism we see.</p>
+ <p>Based on this satellite photograph we took of that central plateau at night, there seem to be three different colours of bioluminescence in that area.</p>
+ ${msg.embed_image('biolum_satellite.jpg', 800, 567)}
+ <p>Please tag at least two examples of each at night so we can study them further! Thanks,</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_BIOLUMINESCENCEb
+sender: JANE
+subject: "Re: Bioluminescence"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>We seem to have three different species of bioluminescers in this area! The ${msg.user.crosslink_catalog('groundbloom', 'SPC_PLANT015')} luminesces magenta, the ${msg.user.crosslink_catalog('bluebloom', 'SPC_PLANT031')} aqua, and the ${msg.user.crosslink_catalog('candlewort', 'SPC_PLANT022')} orange.</p>
+ <p>The different colours will be as a result of different pigments present in the photobiont, but the question is, why? What purpose does it serve, and why are they different?</p>
+ <p>It's possible that it's just the other pigments in each photobiont that tint the luminescence, but it may be more complicated. Maybe the three organisms--and others that bioluminesce--once had a common pollinator or spore-spreader that is active at night, which would have resulted in photobionts evolving to luminesce in the first place. The different colours suggest that they would have since differentiated for different pollinators or seed spreaders.</p>
+ <p>Perhaps one pollinator only sees in higher spectrums, and the groundbloom and bluebloom have adapted to them, while the candlewort is targeting a different organism entirely.</p>
+ <p>Of course, this is all pure conjecture. Unfortunately, it's hard to be sure about any of this.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_FLIGHTa
+sender: JANE
+subject: "Flight"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>You've just tagged some kind of flying organism! It's hard to tell for sure, but their structure appears almost kite-like. This might suggest that their primary method of flight is by riding updrafts and winds.</p>
+ <p>There are probably significant updrafts wherever there are prominent cliffs. I've marked a few additional likely spots on your map where you may be able to get a better look at these creatures. Try looking at different times of day, too.</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_FLIGHTb
+sender: JANE
+subject: "Re: Flight"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hello ${msg.user.first_name.capitalize()},</p>
+ <p>Thanks for getting those pictures of the sail flyers.</p>
+ <p>Note how the wing shapes are reminiscent of butterflies back on Earth. This is a good example of convergent evolution. Even though these creatures have no common ancestry with Earth creatures, some of their structures are likely to be similar because their evolution is still driven by similar forces--in this case, the physics of flight.</p>
+ <p>I've written a bit about it on the ${msg.embed_blog_link('convergent_evolution', 'XRI blog')}, if you're interested. Thanks again!</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_ROVERAUDIO_MYSTERY07
+sender: ROVER02
+subject: "Audio Detection: Anomaly, Cavendish Peninsula"
+body: |-
+ <%include file="rover_header.html"/>
+ <p>Your rover has detected a nearby source of non-ambient audio. Regular waveforms suggest the sound is organic in origin. ${msg.user.crosslink_mission('A new mission', 'MIS_AUDIO_MYSTERY07')} has been added to your tasks to find and photograph the source of the audio.</p>
+ <%include file="rover_footer.html"/>
+---
+id: MSG_SCI_AUDIO_MYSTERY07b
+sender: JANE
+subject: "An abundance of audio"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>I saw the results of your latest audio pinpointing. Holy dissertation!</p>
+ <p>I don't know whether the results your rover sent back indicate a species in rapid motion, a large grouping of noisemakers, or just a software malfunction. See if you can find out what's going on here.</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_SCI_AUDIO_MYSTERY07c
+sender: JANE
+subject: "Re: An abundance of audio"
+body: |-
+ <%include file="jane_header.html"/>
+ <p>Hi ${msg.user.first_name.capitalize()},</p>
+ <p>Of course--it must be this photobiont making the noises you detected. That was the folly of coming into science with ingrained assumptions, which I've been trying to avoid. "Plants" on Earth don't tend to make noises like that.</p>
+ <p>But we've already seen that these photobionts have specialized organs that manage gas exchange--whereas Earth's plants have only photosynthetic and reproductive organs. It's possible that there are more types of organ that we don't know about--or that this might be a modification of the gas exchange organs we're already aware of. It looks like there may be a valve or sphincter within this "vampire gourd" that could be structurally similar to the human larynx--resulting in that noise as gas enters and leaves the photobiont.</p>
+ <p>It goes to show that while convergent evolution might produce organisms that look very similar and occupy similar habitats, they very well might be fundamentally different organisms. It's a bit like deer versus kangaroos--their heads are nearly identical, they're both grazing herd animals--but you couldn't find two more different mammals if you tried. (OK, the platypus and either deer or kangaroos. Fine. Two more different placental mammals.)</p>
+ <p>Jane Eastwood, Exobiology Lead</p>
+ <%include file="jane_footer.html"/>
+---
+id: MSG_DELIVER_VCH_S1_PASS
+sender: SCIENCE_TEAM
+subject: "Account upgraded to Associate"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Thank you for your generous contribution to Extrasolar!  Your assistance -- both financial and through your research efforts -- make this project possible.</p>
+ <p>With this account upgrade, you are now eligible for unlimited panoramas and infrared photographs.  You can also now schedule up to three photos in the future with only a one-hour delay per photo.  Don't worry about scheduling too far ahead.  With the exception of your immediate next scheduled location, you can cancel future destinations from either your map or your home screen.</p>
+ <p>If you later decided to upgrade to the Pioneer level, a portion of this contribution will be applied as a discount to the next tier.</p>
+ <p>Thanks again,</p>
+ <p>The Extrasolar Team</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_DELIVER_VCH_ALL_PASS
+sender: SCIENCE_TEAM
+subject: "Account upgraded to Pioneer"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Thank you for your generous contribution to Extrasolar!  Your assistance -- both financial and through your research efforts -- make this project possible.</p>
+ <p>With this account upgrade, you are now eligible for unlimited panoramas and infrared photographs.  You can also now schedule up to four photos in the future with only a one-hour delay per photo.  Don't worry about scheduling too far ahead.  With the exception of your immediate next scheduled location, you can cancel future destinations from either your map or your home screen.</p>
+ <p>Finally, as we gain access to new areas of Epsilon Prime, your status as a Pioneer means that you'll be among the first to be issued a rover at these destinations.</p>
+ <p>Thanks again,</p>
+ <p>The Extrasolar Team</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_TRAVEL_300M
+sender: SCIENCE_TEAM
+subject: "[Badge] Rover Milestone"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, driver!</p>
+ <p>We thought we'd note that, as of today, your rover has traveled as far as light does in one microsecond!  We've awarded you a badge to commemorate the occasion.</p>
+ <p>You can view or share this badge from your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_TRAVEL_SPIRIT
+sender: SCIENCE_TEAM
+subject: "[Badge] Rover Milestone"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, driver!</p>
+ <p>As of today, your rover has traveled as far as NASA's Spirit rover did in its 6 years of operation on Mars (more than 20 times, we should note, than it's original projected lifespan).  We've awarded you a badge to commemorate the occasion.</p>
+ <p>You can view or share this badge from your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_TRAVEL_VOYAGER1
+sender: SCIENCE_TEAM
+subject: "[Badge] Rover Milestone"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, driver!</p>
+ <p>As of today, your rover has traveled as far as the Voyager 1 space probe does every second.  We've awarded you a badge to commemorate the occasion.</p>
+ <p>You can view or share this badge from your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_SPECIES_TAG_3
+sender: SCIENCE_TEAM
+subject: "[Badge] Scientific Diligence"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, driver!</p>
+ <p>You have tagged 3 different species in the same photo.  The information we get from this type of analysis helps us fill in the details of the ecosystem on Epsilon Prime.  Species that commonly coexist may simply prefer similar environmental conditions, or they may have symbiotic relationships. Thanks for your thoughtful tagging efforts!</p>
+ <p>You can view or share this badge from your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <p>Sincerely,<br>
+ The Extrasolar Team</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_SPECIES_ANIMAL_5
+sender: SCIENCE_TEAM
+subject: "[Badge] Motobionts Abound"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, driver!</p>
+ <p>You have tagged 5 distinct motile creatures. Though we'll never know exactly how many motibiont species may live on Epsilon Prime (after all, we discover nearly 15,000 new species on Earth every year!), every new contribution to our catalog teaches us more about this alien ecosystem. Thanks for lending your powers of observation to our science team!</p>
+ <p>You can view or share this badge from your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <p>Sincerely,<br>
+ The Extrasolar Team</p>
+ <%include file="badge_footer.html"/>
+---
+id: MSG_ACH_PHOTO_HIGHLIGHT
+sender: SCIENCE_TEAM
+subject: "[Badge] Exceptional Photograph!"
+body: |-
+ <%include file="badge_header.html"/>
+ <p>Congratulations, ${msg.user.first_name.capitalize()}!</p>
+ <p>We hand-selected your photo as one of our favorites! It will now be marked in your gallery with a star and, for a limited time, it may also appear on <a href="http://www.exoresearch.com" target="_blank">XRI's homepage</a>. In recognition of your photographic talents, we've awarded you a badge, which you can view on your ${msg.user.crosslink_profile('profile tab')}.</p>
+ <p>Thanks for your contributions!</p>
+ <p>Sincerely,<br>
+ The Extrasolar Team</p>
+ <%include file="badge_footer.html"/>

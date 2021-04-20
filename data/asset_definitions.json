@@ -1,0 +1,226 @@
+{
+  "sender": {
+    "TURING":       "/static/img/user_icons/turing-",
+    "KRYPTEX":      "/static/img/user_icons/kryptex-",
+    "JANE":         "/static/img/user_icons/jane-",
+    "ROVER01":      "/static/img/user_icons/rover-",
+    "ROVER02":      "/static/img/user_icons/rover-",
+    "SCIENCE_TEAM": "/static/img/user_icons/team-",
+    "DEFAULT":      "/static/img/user_icons/default-"
+  },
+
+  "message": {
+    "LOCKED":        {"url": "/static/img/messages/locked.png",             "width":20, "height":16},
+    "UNLOCKED":      {"url": "/static/img/messages/unlocked.png",           "width":16, "height":14},
+    "CALL_LOCKED":   {"url": "/static/img/messages/call_locked_icon.png",   "width":20, "height":18},
+    "CALL_UNLOCKED": {"url": "/static/img/messages/call_unlocked_icon.png", "width":20, "height":18},
+    "VIDEO":         {"url": "/static/img/messages/video_icon.png",         "width":20, "height":16},
+    "AUDIO":         {"url": "/static/img/messages/attachment_icon.png",    "width":18, "height":18},
+    "ATTACHMENT":    {"url": "/static/img/messages/attachment_icon.png",    "width":18, "height":18}
+  },
+
+  "region": {
+    "DEFAULT": "/img/map_icons/button_quest5.png",
+    "REGION_ICON_ANIMAL": "/img/region_icons/regionicon_animal.png",
+    "REGION_ICON_ARTIFACT": "/img/region_icons/regionicon_ques-yellow.png",
+    "REGION_ICON_AUDIO_BLUE": "/img/region_icons/regionicon_audio-blue.png",
+    "REGION_ICON_AUDIO_GOLD": "/img/region_icons/regionicon_audio-gold.png",
+    "REGION_ICON_AUDIO_PURPLE": "/img/region_icons/regionicon_audio-purple.png",
+    "REGION_ICON_AUDIO_RED": "/img/region_icons/regionicon_audio-red.png",
+    "REGION_ICON_AUDIO_YELLOW": "/img/region_icons/regionicon_audio-yellow.png",
+    "REGION_ICON_EXC_BLUE": "/img/region_icons/regionicon_exc-blue.png",
+    "REGION_ICON_EXC_GOLD": "/img/region_icons/regionicon_exc-gold.png",
+    "REGION_ICON_EXC_PURPLE": "/img/region_icons/regionicon_exc-purple.png",
+    "REGION_ICON_EXC_RED": "/img/region_icons/regionicon_exc-red.png",
+    "REGION_ICON_EXC_YELLOW": "/img/region_icons/regionicon_exc-yellow.png",
+    "REGION_ICON_GPS": "/img/region_icons/regionicon_GPS.png",
+    "REGION_ICON_LANDMARK": "/img/region_icons/regionicon_exc-blue.png",
+    "REGION_ICON_MYSTERY": "/img/region_icons/regionicon_ques-yellow.png",
+    "REGION_ICON_QUES_BLUE": "/img/region_icons/regionicon_ques-blue.png",
+    "REGION_ICON_QUES_GOLD": "/img/region_icons/regionicon_ques-gold.png",
+    "REGION_ICON_QUES_PURPLE": "/img/region_icons/regionicon_ques-purple.png",
+    "REGION_ICON_QUES_RED": "/img/region_icons/regionicon_ques-red.png",
+    "REGION_ICON_QUES_YELLOW": "/img/region_icons/regionicon_ques-yellow.png",
+    "REGION_ICON_ROVER": "/img/region_icons/regionicon_rover.png",
+    "REGION_ICON_RUINS": "/img/region_icons/regionicon_exc-red.png",
+    "REGION_ICON_RUINS_SIGNAL": "/img/region_icons/regionicon_exc-yellow.png",
+    "REGION_ICON_TRANSMISSION": "/img/region_icons/regionicon_exc-yellow.png",
+    "REGION_ICON_ZONE_BLUE": "/img/region_icons/regionicon_zone-blue.png",
+    "REGION_ICON_ZONE_GOLD": "/img/region_icons/regionicon_zone-gold.png",
+    "REGION_ICON_ZONE_GREEN": "/img/region_icons/regionicon_zone-green.png",
+    "REGION_ICON_ZONE_PURPLE": "/img/region_icons/regionicon_zone-purple.png",
+    "REGION_ICON_ZONE_RED": "/img/region_icons/regionicon_zone-red.png",
+    "REGION_ICON_ZONE_YELLOW": "/img/region_icons/regionicon_zone-yellow.png"
+  },
+
+  "task": {
+    "DEFAULT": {
+      "active": "/static/img/task_icons/tasklist_tagUnknown.png",
+      "done": "/static/img/task_icons/tasklist_tagUnknown-done.png"
+    },
+    "TASK_ICON_COMPLETED": {
+      "active": "/static/img/task_icons/tasklist_completed.png",
+      "done": "/static/img/task_icons/tasklist_completed.png"
+    },
+    "TASK_ICON_ANIMAL": {
+      "active": "/static/img/task_icons/tasklist_animal.png",
+      "done": "/static/img/task_icons/tasklist_animal-done.png"
+    },
+    "TASK_ICON_AUDIO": {
+      "active": "/static/img/task_icons/tasklist_audio.png",
+      "done": "/static/img/task_icons/tasklist_audio-done.png"
+    },
+    "TASK_ICON_AUDIO_EXC_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_audio-exc-purple.png",
+      "done": "/static/img/task_icons/tasklist_audio-done.png"
+    },
+    "TASK_ICON_AUDIO_QUES_BLUE": {
+      "active": "/static/img/task_icons/tasklist_audio-ques-blue.png",
+      "done": "/static/img/task_icons/tasklist_audio-done.png"
+    },
+    "TASK_ICON_AUDIO_QUES_GOLD": {
+      "active": "/static/img/task_icons/tasklist_audio-ques-gold.png",
+      "done": "/static/img/task_icons/tasklist_audio-done.png"
+    },
+    "TASK_ICON_AUDIO_QUES_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_audio-ques-purple.png",
+      "done": "/static/img/task_icons/tasklist_audio-done.png"
+    },
+    "TASK_ICON_AUDIO_BLUE": {
+      "active": "/static/img/task_icons/tasklist_audio-blue.png",
+      "done": "/static/img/task_icons/tasklist_audio-blue.png"
+    },
+    "TASK_ICON_AUDIO_GOLD": {
+      "active": "/static/img/task_icons/tasklist_audio-gold.png",
+      "done": "/static/img/task_icons/tasklist_audio-gold.png"
+    },
+    "TASK_ICON_AUDIO_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_audio-purple.png",
+      "done": "/static/img/task_icons/tasklist_audio-purple.png"
+    },
+    "TASK_ICON_DESTINATION": {
+      "active": "/static/img/task_icons/tasklist_destination.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_DESTINATION_EXC_GOLD": {
+      "active": "/static/img/task_icons/tasklist_destination-exc-gold.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_DESTINATION_EXC_RED": {
+      "active": "/static/img/task_icons/tasklist_destination-exc-red.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_DESTINATION_EXC_YELLOW": {
+      "active": "/static/img/task_icons/tasklist_destination-exc-yellow.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_DESTINATION_QUES_BLUE": {
+      "active": "/static/img/task_icons/tasklist_destination-ques-blue.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_DESTINATION_QUES_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_destination-ques-purple.png",
+      "done": "/static/img/task_icons/tasklist_destination-done.png"
+    },
+    "TASK_ICON_EXC_BLUE": {
+      "active": "/static/img/task_icons/tasklist_exc-blue.png",
+      "done": "/static/img/task_icons/tasklist_exc-blue.png"
+    },
+    "TASK_ICON_EXC_GOLD": {
+      "active": "/static/img/task_icons/tasklist_exc-gold.png",
+      "done": "/static/img/task_icons/tasklist_exc-gold.png"
+    },
+    "TASK_ICON_EXC_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_exc-purple.png",
+      "done": "/static/img/task_icons/tasklist_exc-purple.png"
+    },
+    "TASK_ICON_EXC_RED": {
+      "active": "/static/img/task_icons/tasklist_exc-red.png",
+      "done": "/static/img/task_icons/tasklist_exc-red.png"
+    },
+    "TASK_ICON_EXC_YELLOW": {
+      "active": "/static/img/task_icons/tasklist_exc-yellow.png",
+      "done": "/static/img/task_icons/tasklist_exc-yellow.png"
+    },
+    "TASK_ICON_GPS": {
+      "active": "/static/img/task_icons/tasklist_GPS.png",
+      "done": "/static/img/task_icons/tasklist_GPS-done.png"
+    },
+    "TASK_ICON_LANDER": {
+      "active": "/static/img/task_icons/tasklist_lander.png",
+      "done": "/static/img/task_icons/tasklist_lander-done.png"
+    },
+    "TASK_ICON_QUES_BLUE": {
+      "active": "/static/img/task_icons/tasklist_ques-blue.png",
+      "done": "/static/img/task_icons/tasklist_ques-blue.png"
+    },
+    "TASK_ICON_QUES_RED": {
+      "active": "/static/img/task_icons/tasklist_ques-red.png",
+      "done": "/static/img/task_icons/tasklist_ques-red.png"
+    },
+    "TASK_ICON_ROVER": {
+      "active": "/static/img/task_icons/tasklist_rover.png",
+      "done": "/static/img/task_icons/tasklist_rover-done.png"
+    },
+    "TASK_ICON_TAG_MISC": {
+      "active": "/static/img/task_icons/tasklist_tagMisc.png",
+      "done": "/static/img/task_icons/tasklist_tagMisc-done.png"
+    },
+    "TASK_ICON_TAG_PLANT": {
+      "active": "/static/img/task_icons/tasklist_tagPlant.png",
+      "done": "/static/img/task_icons/tasklist_tagPlant-done.png"
+    },
+    "TASK_ICON_TAG_QUES": {
+      "active": "/static/img/task_icons/tasklist_tagUnknown.png",
+      "done": "/static/img/task_icons/tasklist_tagUnknown-done.png"
+    },
+    "TASK_ICON_TRANSMISSION": {
+      "active": "/static/img/task_icons/tasklist_transmission.png",
+      "done": "/static/img/task_icons/tasklist_transmission-done.png"
+    },
+    "TASK_ICON_ZONE_GREEN": {
+      "active": "/static/img/task_icons/tasklist_zone-green.png",
+      "done": "/static/img/task_icons/tasklist_zone-green.png"
+    },
+    "TASK_ICON_ZONE_PURPLE": {
+      "active": "/static/img/task_icons/tasklist_zone-purple.png",
+      "done": "/static/img/task_icons/tasklist_zone-purple.png"
+    },
+    "TASK_ICON_ZONE_RED": {
+      "active": "/static/img/task_icons/tasklist_zone-red.png",
+      "done": "/static/img/task_icons/tasklist_zone-red.png"
+    }
+  },
+ 
+  "species": {
+    "PENDING": "/static/img/species_icons/SPC_ICON_PENDING_150x150.png",
+    "UNKNOWN": "/static/img/species_icons/SPC_ICON_UNKNOWN_150x150.png"
+  },
+
+  "achievement": {
+    "ACH_ICON_NOT_ACHIEVED":         "/static/img/achievements/not_achieved.png",
+    "ACH_ICON_NOT_ACHIEVED_SECRET":  "/static/img/achievements/not_achieved_secret.png",
+    "ACH_ICON_GAME_CREATE_USER":     "/static/img/achievements/ach_game_create_user_482jh.png",
+    "ACH_ICON_TRAVEL_300M":          "/static/img/achievements/ach_travel_300m_qi73n.png",
+    "ACH_ICON_TRAVEL_SPIRIT":        "/static/img/achievements/ach_travel_spirit_07n88.png",
+    "ACH_ICON_TRAVEL_VOYAGER1":      "/static/img/achievements/ach_travel_voyager1_e44e2.png",
+    "ACH_ICON_DATE_0215":            "/static/img/achievements/ach_birthday_galileo.png",
+    "ACH_ICON_DATE_0623":            "/static/img/achievements/ach_birthday_turing.png",
+    "ACH_ICON_DATE_1017":            "/static/img/achievements/ach_birthday_jemison.png",
+    "ACH_ICON_DATE_1109":            "/static/img/achievements/ach_birthday_sagan.png",
+    "ACH_ICON_DATE_1225":            "/static/img/achievements/ach_birthday_newton.png",
+    "ACH_ICON_PHOTO_PANO":           "/static/img/achievements/ach_photo_pano.png",
+    "ACH_ICON_PHOTO_IR":             "/static/img/achievements/ach_photo_IR.png",
+    "ACH_ICON_SPECIES_TAG_3":        "/static/img/achievements/ach_species_tag_3.png",
+    "ACH_ICON_SPECIES_ANIMAL_5":     "/static/img/achievements/ach_species_animal_5.png",
+    "ACH_ICON_PHOTO_HIGHLIGHT":      "/static/img/achievements/ach_photo_highlight.png",
+    "ACH_ICON_SOCIAL_INVITE":        "/static/img/achievements/ach_social_invite.png"
+  },
+
+  "ui": {
+    "UI_LOADING":            "/static/img/css/waiting_64x20.gif",
+    "UI_SPECIES_BACKGROUND": "/static/img/css/species_background_light.jpg",
+    "UI_HEADER_TILE":        "/static/img/css/header-tile.gif",
+    "UI_NEW_MARKER":         "/static/img/css/new_marker.png"
+  }
+}

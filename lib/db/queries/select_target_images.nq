@@ -1,0 +1,2 @@
+{"base":
+ "SELECT * FROM target_images WHERE target_id=:target_id"}

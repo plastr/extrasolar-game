@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+
+<title>
+% if error is not UNDEFINED:
+    Error occurred.
+% else:
+    Profile Page for ${user.first_name}
+% endif
+</title>
+
+<!--meta tags-->
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+
+% if user is not UNDEFINED:
+    <meta property="og:title" content="${user.first_name}'s Extrasolar Profile" />
+    <meta property="og:image" content="/img/profile/logo.png" />
+    <meta property="og:description" content="My rover's progress in exploring the surface of Epsilon Prime. Made possible by the Extrasolar project at XRI, the eXoplanetary Research Institute." />
+% endif
+
+<link rel="icon" type="../image/png" href="../images/XRI_favicon16.png" />
+
+<!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ <![endif]-->
+
+ <link rel="stylesheet" type="text/css" media="all" href="/css/pub.style.css" />
+ <link rel="stylesheet" type="text/css" media="all" href="/css/shared/xri.style.css" />
+
+ <script src="/js/lib/jquery-1.10.2.min.js" type="text/javascript"></script>
+ <script src="/js/shared/xri.ui.js" type="text/javascript"></script>
+ <script type="text/javascript">
+      $(document).ready(function() {
+        var changeTooltipPosition = function(event) {
+          var tooltipX = event.pageX - 8;
+          var tooltipY = event.pageY + 8;
+
+          $('div.description').css({top: tooltipY, left: tooltipX});
+        };
+
+        var showTooltip = function(event) {
+          $(this).find('div').show();
+          changeTooltipPosition(event);
+        };
+
+        var hideTooltip = function() {
+          $(this).find('div').fadeOut(200);
+        };
+
+        $(".player-achievements li").bind({
+           mouseenter : showTooltip,
+           mouseleave: hideTooltip
+        });
+      });
+ </script>
+</head>
+
+<body>
+<%include file="tracking_tags.html"/>
+
+<!--wrapper-->
+<div id="wrapper-profile">
+
+<!--header-->
+<header id="branding">
+
+    <!--logo-->
+    <div id="logo">
+        <a href="http://www.exoresearch.com" title="XRI"><img src="../img/profile/logo.png" alt="home" title="Home"/></a>
+    </div><!--end logo-->
+    <!--XRI name-->
+    <!-- Note: This h1 tag has a CSS style of display none. It is included in the HTML page for SEO. -->
+    <h1>The eXoplanetary Research Institute (XRI)</h1><!--end XRI name-->
+
+</header><!--end header-->
+
+<!--main-nav-->
+<nav id="main-nav">
+    <ul>
+        <li><a href="http://www.exoresearch.com/about" title="">About XRI</a></li>
+        <li><a href="http://www.exoresearch.com/extrasolar" title="">The Extrasolar Project</a></li>
+        <li><a href="http://www.exoresearch.com/careers" title="">Career Opportunities</a></li>
+        <li><a href="http://www.exoresearch.com/contact" title="">Contact Us</a></li>
+    </ul>
+
+</nav><!--end main-nav-->
+
+<!--additional articles-->
+<div id="profile">
+
+    <div align="center">
+        <h1>
+            % if error is not UNDEFINED:
+            <div class="error">${error}</div>
+            % else:
+            The Extrasolar Project
+            <span>Exploring the universe one photo at a time.</span>
+            % endif
+        </h1>
+    </div>
+
+    % if user is not UNDEFINED:
+    <div class="player-stats">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="title">
+          <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>${user.first_name}</td>
+                    <td class="rank"></td>
+                  </tr>
+                </table>
+                <hr />
+            </td>
+          </tr>
+        </table>
+
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="stats">
+          <tr>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>Account activated:</td>
+                    <td>${user.activated_at_date.strftime("%B %d, %Y")}</td>
+                  </tr>
+                  <tr>
+                    <td>Time logged:</td>
+                    <td>${user.profile_approx_time_since_activated()}</td>
+                  </tr>
+                  <tr>
+                    <td>Distance traveled:</td>
+                    <td>${user.profile_total_distance_traveled_rounded()} meters</td>
+                  </tr>
+                  <tr>
+                    <td>Total tasks completed:</td>
+                    <td>${len(user.missions.done(root_only=True))}</td>
+                  </tr>
+                </table>
+            </td>
+            <td>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>Total photos taken:</td>
+                    <td>${len(user.all_picture_targets())}</td>
+                  </tr>
+                  <tr>
+                    <td>Total tags submitted:</td>
+                    <td>${len(user.all_image_rects())}</td>
+                  </tr>
+                  <tr>
+                    <td>Total successful tags:</td>
+                    <td>${len(user.all_image_rects_with_species())}</td>
+                  </tr>
+                  <tr>
+                    <td>Total confirmed plant species:</td>
+                    <td>${len(user.species.plants())}</td>
+                  </tr>
+                </table>
+            </td>
+          </tr>
+        </table>
+    </div>
+
+    <div class="player-achievements">
+      <h2>Awards</h2>
+      <ul>
+          % for a in user.achievements.achieved():
+          % if not a.is_classified():
+          <li>
+              <img src="${a.url_icon}"/>
+              <!-- <img src="${a.icon}" title="${a.title}" alt="${a.title}"/>-->
+              <div class="description">${a.description}</div>
+          </li>
+          % endif
+          % endfor
+      </ul>
+
+      <br/>
+      <br/>
+    </div>
+
+    <div class="player-photos">
+        <center><h2>Submitted Photos</h2><center>
+        <div class="gallery">
+            <ul class="clearfix">
+                % for t in user.all_arrived_picture_targets():
+                % if not t.is_classified():
+                <li><a href="${t.url_public_photo}"><img src="${t.url_image_thumbnail}"/></a></li>
+                % else:
+                <li><img src="../img/profile/classified_image.jpg"/></li>
+                % endif
+                % endfor
+            </ul>
+        </div>
+    </div>
+    % endif
+
+    <footer>
+      <a href="http://www.exoresearch.com">
+        <img src="../img/profile/volunteer-footer-alpha.jpg"/>
+      </a>
+    </footer>
+    <!--more-articles-->
+    <!--<div id="more-articles">
+        <a href="#" title="More Articles">More Articles &nbsp;&nbsp;&nbsp &gt;&gt;</a>
+    </div>--><!--end more-articles-->
+
+</div><!--end additional articles-->
+
+
+<!--footer-->
+<footer id="footer-wrapper">
+    <p><script type="text/javascript">document.write(xri.ui.copyright());</script></p>
+</footer><!--end footer-->
+
+
+</div><!--end wrapper-->
+
+</body>
+</html>

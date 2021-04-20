@@ -1,0 +1,63 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Admin Invoice
+</%def>
+
+<h1><a href="${urls.admin_root()}">« Admin</a> Invoice</h1>
+<div class="div_admin_center">
+
+<h2>Invoice (${invoice.invoice_id})</h2>
+<table>
+    <tr>
+        <th>Purchaser</th>
+        <th>Created (PST)</th>
+        <th>Total</th>
+    </tr>
+    <tr>
+        <td><a href="${u.url_admin()}" title="${u.email}">${format_email(u.email)}</a></td>
+        <td>${format_utc(invoice.created)}</td>
+        <td>${invoice.total_amount_display}</td>
+    </tr>
+</table>
+
+<h2>Transactions</h2>
+<table>
+    <tr>
+        <th>transaction_id</th>
+        <th>Created (PST)</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Gateway Type</th>
+        <th>Gateway Data</th>
+    </tr>
+    % for t in invoice.transactions:
+    <tr>
+        <td>${t.transaction_id}</td>
+        <td>${format_utc(t.created)}</td>
+        <td>${t.transaction_type}</td>
+        <td>${t.amount_display}</td>
+        <td>${t.gateway_type}</td>
+        <td>${t.gateway_data_as_html() | n}</td>
+    </tr>
+    % endfor
+</table>
+
+<h2>Products</h2>
+<table>
+    <tr>
+        <th>product_key</th>
+        <th>Name</th>
+        <th>Purchased</th>
+        <th>Price</th>
+    </tr>
+    % for p in invoice.products:
+    <tr>
+        <td>${p.product_key}</td>
+        <td>${p.name}</td>
+        <td>${p.approx_time_since('purchased_at')}</td>
+        <td>${p.price_display}</td>
+    </tr>
+    % endfor
+</table>
+
+<div id="div_footer"></div>

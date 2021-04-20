@@ -1,0 +1,4 @@
+{"base":
+ "SELECT invitations.*, gift_type, senders.email AS sender_user_email, recipients.email AS recipient_user_email FROM invitations LEFT JOIN (invitation_gifts, gifts) ON (invitation_gifts.invite_id=invitations.invite_id AND invitation_gifts.gift_id=gifts.gift_id) LEFT JOIN (users senders) ON (senders.user_id=invitations.sender_id) LEFT JOIN (users recipients) ON (recipients.user_id=invitations.recipient_id)",
+ "dynamic_where":{"sender_id":"WHERE invitations.sender_id=:sender_id"},
+ "query_suffix":"ORDER BY sent_at DESC LIMIT :limit"}

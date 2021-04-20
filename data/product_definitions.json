@@ -1,0 +1,42 @@
+{
+    "SKU_S1_PASS": {
+        "name": "XRI Associate for Artocos Island Missions",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for missions on Artocos Island",
+        "initial_price": 950,
+        "currency": "USD",
+        "icon": "/img/products/sku_s1_pass.png",
+        "sort": 1,
+        "repurchaseable": 0,
+        "cannot_purchase_after": ["SKU_ALL_PASS"]
+    },
+    "SKU_ALL_PASS": {
+        "name": "XRI Pioneer",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for all missions, including early access to missions at future locations",
+        "initial_price": 2500,
+        "currency": "USD",
+        "icon": "/img/products/sku_all_pass.png",
+        "sort": 2,
+        "repurchaseable": 0,
+        "cannot_purchase_after": []
+    },
+    "SKU_S1_PASS_GIFT": {
+        "name": "Gift: XRI Associate for Artocos Island Missions",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for missions on Artocos Island",
+        "initial_price": 950,
+        "currency": "USD",
+        "icon": "/img/products/sku_s1_pass.png",
+        "sort": 3,
+        "repurchaseable": 1,
+        "cannot_purchase_after": []
+    },
+    "SKU_ALL_PASS_GIFT": {
+        "name": "Gift: XRI Pioneer",
+        "description": "Unlimited access to rover features like infrared imaging, panoramas, and accelerated photo scheduling for all missions, including early access to missions at future locations",
+        "initial_price": 2500,
+        "currency": "USD",
+        "icon": "/img/products/sku_all_pass.png",
+        "sort": 4,
+        "repurchaseable": 1,
+        "cannot_purchase_after": []
+    }
+}

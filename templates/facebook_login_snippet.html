@@ -1,0 +1,129 @@
+<script>
+  // This is called with the results from from FB.getLoginStatus().
+  function statusChangeCallback(response) {
+    // The response object is returned with a status field that lets the
+    // app know the current login status of the person.
+    // Full docs on the response object can be found in the documentation
+    // for FB.getLoginStatus().
+    if (response.status === 'connected') {
+      // Logged into your app and Facebook.
+      checkPermissions(response);
+    } else if (response.status === 'not_authorized') {
+      // The person is logged into Facebook, but not your app.
+    } else {
+      // The person is not logged into Facebook, so we're not sure if
+      // they are logged into this app or not.
+    }
+  }
+
+  // This function is called when someone finishes with the Login
+  // Button.  See the onlogin handler attached to it in the sample
+  // code below.
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '${fb_application_id}',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.0' // use version 2.0
+  });
+
+  // Now that we've initialized the JavaScript SDK, we call 
+  // FB.getLoginStatus().  This function gets the state of the
+  // person visiting this page and can return one of three states to
+  // the callback you provide.  They can be:
+  //
+  // 1. Logged into your app ('connected')
+  // 2. Logged into Facebook, but not your app ('not_authorized')
+  // 3. Not logged into Facebook and can't tell if they are logged into
+  //    your app or not.
+  //
+  // These three cases are handled in the callback function.
+
+  FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=133712836678424&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  // If the player is already logged into Facebook and has authorized the app, make sure
+  // they've approved email permissions and attempt a signup (new uid) or login.
+  var fb_email_requests = 0;
+% if facebook_error is UNDEFINED or facebook_error is '':
+  var fb_login_fail = false;
+% else:
+  var fb_login_fail = true;
+% endif
+  function checkPermissions(login_status) {
+    // If the player didn't authorize access to email, rerequest it.
+    FB.api('/me/permissions', function(response) {
+      var granted = false;
+      for (var i=0; i<response['data'].length; i++) {
+        if (response['data'][i]['permission'] == 'email' && response['data'][i]['status'] === 'granted') {
+          granted = true;
+        }
+      }
+      if (granted) {
+        // We're logged in and have the permissions we need. Unless a prior login attempt failed,
+        // attempt to either login (existing uid) or signup.
+        if (fb_login_fail) {
+          fb_login_fail = false;  // Reset so the user can re-attempt login by clicking the FB button.
+        }
+        else {
+          facebook_login_or_signup(login_status.authResponse.accessToken);
+        }
+      }
+      // Rerequest email access... but only once.
+      else if (!granted && fb_email_requests == 0) {
+        fb_email_requests += 1;
+        FB.login(statusChangeCallback, {scope: 'email', auth_type: 'rerequest'});
+      }
+      else {
+        $('#facebook_login').html("Facebook email access was not granted. Please create an account through the main signup form instead.");
+      }
+    });
+  }
+
+  function onFacebookLoginButton() {
+    if (window.FB === undefined) {
+        $('#facebook_login').html("Unable to connect to Facebook. Please try again later.");
+    }
+    else {
+        FB.login(statusChangeCallback, {scope: 'email'});
+    }
+  }
+
+  function facebook_login_or_signup(token) {
+    $('#facebook_login').html("Logged in with Facebook. Redirecting...");
+    $('#facebook_token').val(token);
+    $('#form_facebook').submit();
+  }
+</script>
+
+
+<div id="facebook_login" style="text-align:center">
+  <a href="#" onclick="onFacebookLoginButton(); return false;"><img width="64" height="22" src="static/img/ui/facebook_login_button_128x44.png" onmouseover="this.src='static/img/ui/facebook_login_button_128x44_hover.png'" onmouseout="this.src='static/img/ui/facebook_login_button_128x44.png'"></a>
+  <div id="facebook_status">
+  % if facebook_error is not UNDEFINED:
+    ${facebook_error}
+  % endif
+  </div>
+</div>
+<form id="form_facebook" action="${facebook_login_url}" method="POST">
+  <input type="hidden" id="facebook_token" name="facebook_token" value=""/>
+  <input type="hidden" name="form_type" value="facebook" />
+</form>

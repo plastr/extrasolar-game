@@ -1,0 +1,48 @@
+<%inherit file="base.html"/>
+<%def name="title()">
+    Welcome to Extrasolar!
+</%def>
+
+<%def name="head()">
+<script src="/js/shared/xri.validation.js" type="text/javascript"></script>
+</%def>
+
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="700">
+  <tr>
+    <td>
+      <p>
+        Welcome back to <em>Extrasolar</em>, the rover driver program run by the <a href="http://www.exoresearch.com" target="_blank">eXoplanetary Research Institute (XRI)</a>.
+      </p>
+      <p>
+        Please login using the information you provided when you signed up.
+      </p>
+
+      <div id="error_login" class="form-error" align="center"> 
+        % if login_error is not UNDEFINED:
+        ${login_error}
+        % endif 
+      </div>
+
+      <table border="0" cellspacing="0" cellpadding="0" align="center" width="70%">
+        <tr>
+          <td width="60%" style="vertical-align: bottom;">
+            <%include file="login_form.html"/>
+          </td>
+          % if fb_signups_enabled is not UNDEFINED and fb_signups_enabled == True:
+            <td width="10%" style="text-align: center; padding-top:120px">
+              - or -<br><br><br>
+            </td>
+            <td width="30%" style="text-align:center; padding-top: 120px">
+              <%include file="facebook_login_snippet.html"/>
+            </td>
+          % endif
+        </tr>
+      </table>
+
+</table>
+
+<div class="patch-logo">
+  <!-- <img src="http://www.extrasolar.com/images/mission-patch.png" alt="mission-patch" class="patch"> -->
+  <!-- <img src="img/new/XRI_logo_300x300.png" alt="" class="xri-logo"> -->
+</div><!-- / -->
+

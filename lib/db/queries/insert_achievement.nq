@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO achievements SET user_id=:user_id, achievement_key=:achievement_key, achieved_at=:achieved_at"}

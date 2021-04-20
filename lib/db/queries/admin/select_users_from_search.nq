@@ -1,0 +1,2 @@
+{"base":
+ "SELECT user_id, email, first_name, last_name, valid, last_accessed, authentication as auth FROM users WHERE first_name LIKE %:search_term% OR last_name LIKE %:search_term% OR email LIKE %:search_term% ORDER BY last_accessed DESC LIMIT :limit"}

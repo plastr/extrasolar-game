@@ -1,0 +1,2 @@
+{"base":
+ "INSERT INTO users_metadata SET user_id=:user_id, `key`=:key, `value`=:value, created=:created ON DUPLICATE KEY UPDATE `value`=:value, created=:created"}

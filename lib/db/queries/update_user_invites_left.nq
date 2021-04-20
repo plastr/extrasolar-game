@@ -1,0 +1,2 @@
+{"base":
+ "UPDATE users SET invites_left=:invites_left WHERE user_id=:user_id"}
