@@ -1,5 +1,7 @@
 ## Extrasolar
 
+![header](https://user-images.githubusercontent.com/37421/115581634-0b5a2180-a27d-11eb-9bd3-440b1ba4f5f1.jpg)
+
 **The code in this repository was used by [Extrasolar](http://www.extrasolar.com), a game where you explored a mysterious planet from the comfort of a web browser.**
 
 From the [postmortem website](http://www.extrasolar.com):
