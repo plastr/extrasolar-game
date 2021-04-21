@@ -25,33 +25,33 @@ The code herein had contributions from (in alphabetical order):
 
 ### Directory Contents
 
-- backend      -- Various core backend services, including the payment system (shop)
-- callbacks    -- Game specific logic, called by generic game engine code, dispatched by 'events'
-- cron         -- Code meant to be run periodically in production
-- data         -- Code and .json/.yaml files for game data. Includes data validation.
-- debug        -- Code meant to only be run in development, mainly Route/Story tool
-- lib          -- Shared library code
-- lib/db       -- Database abstraction, includes migrations
-- models       -- Server side data model classes
-- public/js    -- Client side Javascript code in ce4 namespace
-- resources    -- The web application nodes (url handlers)
-- templates    -- Mako templates used by the resources, messages, and emails
-- tests        -- Unit, integration and Javascript tests. Doctests also used throughout.
-- tools        -- Tools meant to be run in development only
+    backend/      — Various core backend services, including the payment system (shop)
+    callbacks/    — Game specific logic, called by generic game engine code, dispatched by 'events'
+    cron/         — Code meant to be run periodically in production
+    data/         — Code and .json/.yaml files for game data. Includes data validation.
+    debug/        — Code meant to only be run in development, mainly Route/Story tool
+    lib/          — Shared library code
+    lib/db/       — Database abstraction, includes migrations
+    models/       — Server side data model classes
+    public/js/    — Client side Javascript code in ce4 namespace
+    resources/    — The web application nodes (url handlers)
+    templates/    — Mako templates used by the resources, messages, and emails
+    tests/        — Unit, integration and Javascript tests. Doctests also used throughout.
+    tools/        — Tools meant to be run in development only
 
 ### Notable Python Dependencies
 
-- Beaker          -- Used for web session management
-- Mako            -- Used for server side templating
-- Paste           -- Used for WSGI web container management
-- py-bcrypt       -- Used to encrypt user password
-- py-moneyed      -- Used for formatting and converting money and currencies.
-- restish         -- Used for REST resource handling
-- Spawning        -- Development web server
-- stripe          -- Used for processing transactions
-- validictory     -- Used to validate data files and gamestate JSON
-- WebTest         -- Unit testing harness for WSGI applications
-- yoyo-migrations -- Used for database migrations.
+    Beaker          — Used for web session management
+    Mako            — Used for server side templating
+    Paste           — Used for WSGI web container management
+    py-bcrypt       — Used to encrypt user password
+    py-moneyed      — Used for formatting and converting money and currencies.
+    restish         — Used for REST resource handling
+    Spawning        — Development web server
+    stripe          — Used for processing transactions
+    validictory     — Used to validate data files and gamestate JSON
+    WebTest         — Unit testing harness for WSGI applications
+    yoyo-migrations — Used for database migrations.
 
 
 ### License and Copyright
