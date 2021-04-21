@@ -1,10 +1,10 @@
 ## Extrasolar
 
-![header](https://user-images.githubusercontent.com/37421/115581634-0b5a2180-a27d-11eb-9bd3-440b1ba4f5f1.jpg)
+[![header](https://user-images.githubusercontent.com/37421/115581634-0b5a2180-a27d-11eb-9bd3-440b1ba4f5f1.jpg)](https://www.extrasolar.com)
 
-**The code in this repository was used by [Extrasolar](http://www.extrasolar.com), a game where you explored a mysterious planet from the comfort of a web browser.**
+**The code in this repository was used by [Extrasolar](https://www.extrasolar.com), a game where you explored a mysterious planet from the comfort of a web browser.**
 
-From the [postmortem website](http://www.extrasolar.com):
+From the [postmortem website](https://www.extrasolar.com):
 "From February 17, 2014 until December 1, 2018, this site hosted an unusual game called Extrasolar that was unlike anything before it. Inspired by Alternate Reality Games (ARGs), it used videos, cloud-rendered imagery, email, terminal systems, phone calls, PDF files, and a collection of website to tell a story that was half about exploring an alien planet and half about playing a pivotal role in a drama that's unfolding back on Earth.
 
 Despite a cult following, the game was never self-sustaining. ... One of the challenges with this type of unusal game is that once it's gone, it's hard for other developers to study it. It's also a shame when a great story disappears from the world."
