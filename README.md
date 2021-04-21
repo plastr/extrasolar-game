@@ -56,7 +56,7 @@ The code herein had contributions from (in alphabetical order):
 
 ### License and Copyright
 
-Extrasolar® is a registered trademark of Lazy 8 Studios.
+Extrasolar® [was](https://tsdr.uspto.gov/#caseNumber=85725423&caseType=SERIAL_NO&searchType=statusSearch) a registered trademark of Lazy 8 Studios.
 
 The story, characters, text, images, and related assets are:
 
